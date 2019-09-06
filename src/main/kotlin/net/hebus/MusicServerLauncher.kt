@@ -1,5 +1,7 @@
 package net.hebus
 
+import net.hebus.player.GStreamerPlayer
+import net.hebus.server.http.HttpServer
 import org.freedesktop.gstreamer.Gst
 import org.freedesktop.gstreamer.ElementFactory
 import org.freedesktop.gstreamer.State
@@ -10,14 +12,11 @@ import java.io.File
 fun main(args: Array<String>) {
     println("Starting Music Server")
 
-    Gst.init()
+    val httpServer = HttpServer()
+    httpServer.start()
 
-    val playbin = PlayBin("AudioPlayer")
-    playbin.setVideoSink(ElementFactory.make("fakesink", "videosink"))
-    playbin.setInputFile(File("/home/flo/SBTRKT_EM.mp3"))
-
-    playbin.setState(State.PLAYING);
-    Gst.main();
-    playbin.setState(State.NULL);
+    /*val player = GStreamerPlayer()
+    player.load("/home/flo/SBTRKT_EM.mp3")
+    player.play()*/
 }
 
