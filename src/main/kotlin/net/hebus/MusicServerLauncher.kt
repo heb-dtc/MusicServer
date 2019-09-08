@@ -1,6 +1,7 @@
 package net.hebus
 
 import net.hebus.player.GStreamerPlayer
+import net.hebus.player.PlayerController
 import net.hebus.server.http.HttpServer
 import org.freedesktop.gstreamer.Gst
 import org.freedesktop.gstreamer.ElementFactory
@@ -12,10 +13,15 @@ import java.io.File
 fun main(args: Array<String>) {
     println("Starting Music Server")
 
-    val httpServer = HttpServer()
+    val player = GStreamerPlayer()
+    player.load("/Users/flow/dev/battle_music.mp3")
+
+    val playerController = PlayerController(player)
+
+    val httpServer = HttpServer(playerController)
     httpServer.start()
 
-    /*val player = GStreamerPlayer()
+    /*
     player.load("/home/flo/SBTRKT_EM.mp3")
     player.play()*/
 }

@@ -7,6 +7,7 @@ import org.freedesktop.gstreamer.elements.PlayBin
 import java.io.File
 
 class GStreamerPlayer : Player {
+
     private var audioPlayBin: PlayBin
 
     init {
@@ -15,20 +16,24 @@ class GStreamerPlayer : Player {
         audioPlayBin.setVideoSink(ElementFactory.make("fakesink", "videosink"))
     }
 
+    override fun getStatus(): PlayerStatus {
+        return PlayerStatus(audioPlayBin.state == State.PLAYING, "")
+    }
+
     override fun stop() {
-        audioPlayBin.setState(State.NULL);
+        audioPlayBin.state = State.NULL
     }
 
     override fun load(filePath: String) {
-        audioPlayBin.setInputFile(File("/home/flo/SBTRKT_EM.mp3"))
+        audioPlayBin.setInputFile(File(filePath))
     }
 
     override fun play() {
-        audioPlayBin.state = State.PLAYING;
-        Gst.main();
+        audioPlayBin.state = State.PLAYING
+        Gst.main()
     }
 
     override fun pause() {
-        audioPlayBin.state = State.PAUSED;
+        audioPlayBin.state = State.PAUSED
     }
 }

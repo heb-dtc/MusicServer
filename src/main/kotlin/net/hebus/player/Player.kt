@@ -5,4 +5,5 @@ interface Player {
     fun play()
     fun pause()
     fun stop()
+    fun getStatus(): PlayerStatus
 }
