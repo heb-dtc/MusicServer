@@ -4,6 +4,7 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
+import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.TextContent
 import io.ktor.response.respond
@@ -19,9 +20,10 @@ import net.hebus.player.PlayerController
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import net.hebus.player.PlayerStatus
+import net.hebus.service.MusicService
 
 
-class HttpServer(private val playerController: PlayerController,
+class HttpServer(private val musicService: MusicService,
                  private val json:Json = Json(JsonConfiguration.Stable)) {
 
     private val server = embeddedServer(Netty, port = 7700) {
@@ -40,20 +42,20 @@ class HttpServer(private val playerController: PlayerController,
                 call.respondText("Music Server Running", ContentType.Text.Plain)
             }
             get("/player") {
-                val status = playerController.getPlayerStatus()
+                val status = musicService.getPlayerStatus()
                 call.respond(TextContent(json.stringify(PlayerStatus.serializer(), status),
                     ContentType.Application.Json))
             }
             put("/player/play") {
-                playerController.play()
+                musicService.play()
                 call.respond(HttpStatusCode.Accepted)
             }
             put("/player/pause") {
-                playerController.pause()
+                musicService.pause()
                 call.respond(HttpStatusCode.Accepted)
             }
             put("/player/stop") {
-                playerController.stop()
+                musicService.stop()
                 call.respond(HttpStatusCode.Accepted)
             }
         }
