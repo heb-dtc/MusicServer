@@ -4,7 +4,6 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
-import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.TextContent
 import io.ktor.response.respond
@@ -16,21 +15,19 @@ import io.ktor.serialization.DefaultJsonConfiguration
 import io.ktor.serialization.serialization
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import net.hebus.player.PlayerController
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import net.hebus.player.PlayerStatus
 import net.hebus.service.MusicService
 
 
-class HttpServer(private val musicService: MusicService,
-                 private val json:Json = Json(JsonConfiguration.Stable)) {
+class HttpServer(private val musicService: MusicService, private val json: Json = Json(JsonConfiguration.Stable)) {
 
     private val server = embeddedServer(Netty, port = 7700) {
         install(ContentNegotiation) {
             serialization(
                 contentType = ContentType.Application.Json,
-                json = Json (
+                json = Json(
                     DefaultJsonConfiguration.copy(
                         prettyPrint = true
                     )
@@ -43,20 +40,28 @@ class HttpServer(private val musicService: MusicService,
             }
             get("/player") {
                 val status = musicService.getPlayerStatus()
-                call.respond(TextContent(json.stringify(PlayerStatus.serializer(), status),
-                    ContentType.Application.Json))
+                call.respond(
+                    TextContent(
+                        json.stringify(PlayerStatus.serializer(), status),
+                        ContentType.Application.Json
+                    )
+                )
             }
-            put("/player/play") {
+            get("/player/play") {
                 musicService.play()
                 call.respond(HttpStatusCode.Accepted)
             }
-            put("/player/pause") {
+            get("/player/pause") {
                 musicService.pause()
                 call.respond(HttpStatusCode.Accepted)
             }
-            put("/player/stop") {
+            get("/player/stop") {
                 musicService.stop()
                 call.respond(HttpStatusCode.Accepted)
+            }
+            get("/player/start") {
+                musicService.load("/home/flo/SBTRKT_EM.mp3")
+                call.respond(HttpStatusCode.OK)
             }
         }
     }

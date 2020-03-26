@@ -1,18 +1,14 @@
 package net.hebus
 
+import mu.KotlinLogging
 import net.hebus.player.GStreamerPlayer
-import net.hebus.player.PlayerController
 import net.hebus.server.http.HttpServer
 import net.hebus.service.MusicService
-import org.freedesktop.gstreamer.Gst
-import org.freedesktop.gstreamer.ElementFactory
-import org.freedesktop.gstreamer.State
-import org.freedesktop.gstreamer.elements.PlayBin
-import java.io.File
 
+private val logger = KotlinLogging.logger {}
 
 fun main(args: Array<String>) {
-    println("Starting Music Server")
+    logger.debug {  "Starting Music Server" }
 
     val musicService = MusicService(GStreamerPlayer())
 
