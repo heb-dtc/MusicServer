@@ -4,6 +4,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
 import net.hebus.player.Player
+import java.net.URI
 
 private val logger = KotlinLogging.logger {}
 
@@ -31,5 +32,10 @@ class MusicService(private val player: Player) {
     fun load(filePath: String) {
         logger.debug { "loading file $filePath"}
         this.player.load(filePath)
+    }
+
+    fun load(uri: URI) {
+        logger.debug { "loading uri $uri"}
+        this.player.load(uri)
     }
 }

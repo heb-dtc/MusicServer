@@ -5,6 +5,7 @@ import org.freedesktop.gstreamer.Gst
 import org.freedesktop.gstreamer.State
 import org.freedesktop.gstreamer.elements.PlayBin
 import java.io.File
+import java.net.URI
 
 class GStreamerPlayer : Player {
 
@@ -26,6 +27,10 @@ class GStreamerPlayer : Player {
 
     override fun load(filePath: String) {
         audioPlayBin.setInputFile(File(filePath))
+    }
+
+    override fun load(uri: URI) {
+        audioPlayBin.setURI(uri)
     }
 
     override fun play() {
