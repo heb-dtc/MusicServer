@@ -5,6 +5,7 @@ import dorkbox.systemTray.MenuItem
 import mu.KotlinLogging
 import dorkbox.systemTray.SystemTray
 import java.io.IOException
+import java.lang.Thread.currentThread
 import java.net.URI
 
 
@@ -14,7 +15,8 @@ class TrayIconService(private val systemTray: SystemTray, private val musicServi
 
     fun loadTrayIcon() {
         try {
-            systemTray.setImage("/home/flo/dev/icon.png")
+            val url = Thread::currentThread.javaClass.classLoader.getResource("icon.png")
+            systemTray.setImage(url)
         } catch (e: IOException) {
             logger.error { "can´t add tray icon -> ${e.message}" }
         }
