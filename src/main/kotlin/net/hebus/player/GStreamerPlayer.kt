@@ -6,6 +6,7 @@ import org.freedesktop.gstreamer.State
 import org.freedesktop.gstreamer.elements.PlayBin
 import java.io.File
 import java.net.URI
+import java.util.concurrent.TimeUnit
 
 class GStreamerPlayer : Player {
 
@@ -19,6 +20,20 @@ class GStreamerPlayer : Player {
 
     override fun getStatus(): PlayerStatus {
         return PlayerStatus(audioPlayBin.state == State.PLAYING, "")
+    }
+
+    fun getPosition(): Long {
+        if (audioPlayBin.isPlaying) {
+            return audioPlayBin.queryPosition(TimeUnit.MILLISECONDS)
+        }
+        return 0
+    }
+
+    fun getDuration(): Long {
+        if (audioPlayBin.isPlaying) {
+            return audioPlayBin.queryPosition(TimeUnit.MILLISECONDS)
+        }
+        return 0
     }
 
     override fun stop() {
