@@ -11,7 +11,7 @@ import java.net.URI
 
 private val logger = KotlinLogging.logger {}
 
-class TrayIconService(private val systemTray: SystemTray, private val musicService: MusicService) {
+class TrayIconService(private val systemTray: SystemTray, private val musicService: MusicService) : MusicServiceListener {
 
     fun loadTrayIcon() {
         try {
@@ -21,7 +21,7 @@ class TrayIconService(private val systemTray: SystemTray, private val musicServi
             logger.error { "can´t add tray icon -> ${e.message}" }
         }
 
-        systemTray.status = "Running";
+        systemTray.status = "not playing";
 
         val playerControlMenu = Menu("player")
         playerControlMenu.add(MenuItem("play"){
@@ -53,5 +53,23 @@ class TrayIconService(private val systemTray: SystemTray, private val musicServi
 
         systemTray.menu.add(playerControlMenu)
         systemTray.menu.add(radioMenu)
+
+        systemTray.menu.setCallback {
+            logger.debug { "menu callback" }
+            val isPlaying: Boolean = musicService.getPlayerStatus().isPlaying
+            systemTray.status =  if (isPlaying) {
+                "playing"
+            } else {
+                "not playing"
+            }
+        }
+    }
+
+    override fun playerStateUpdate(state: PlayerState) {
+        when (state) {
+           PlayerState.PLAYING -> systemTray.status = "playing"
+           PlayerState.STOPPED -> systemTray.status = "stopped"
+           PlayerState.PAUSED -> systemTray.status = "paused"
+        }
     }
 }
