@@ -5,7 +5,6 @@ import dorkbox.systemTray.MenuItem
 import mu.KotlinLogging
 import dorkbox.systemTray.SystemTray
 import java.io.IOException
-import java.lang.Thread.currentThread
 import java.net.URI
 
 
@@ -63,6 +62,8 @@ class TrayIconService(private val systemTray: SystemTray, private val musicServi
                 "not playing"
             }
         }
+
+        musicService.registerListener(this)
     }
 
     override fun playerStateUpdate(state: PlayerState) {

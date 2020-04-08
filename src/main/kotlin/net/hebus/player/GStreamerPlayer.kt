@@ -21,9 +21,9 @@ class GStreamerPlayer : Player {
     override fun getStatus(): PlayerStatus {
         if (audioPlayBin.state == State.PLAYING) {
             val track = audioPlayBin.get("uri")
-            return PlayerStatus(audioPlayBin.state == State.PLAYING, track.toString())
+            return PlayerStatus(audioPlayBin.state == State.PLAYING, track?.toString())
         }
-        return PlayerStatus(false, "")
+        return PlayerStatus(false, "no track set")
     }
 
     fun getPosition(): Long {
