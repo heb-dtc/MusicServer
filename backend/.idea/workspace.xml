@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0cc3c100-b801-4968-9dc8-f5a5a520be6f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/NetworkClient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../local.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../musicserver.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/Application.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/FakePlayer.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/GStreamerPlayer.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/Player.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/PlayerStatus.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/provider/PodcastProvider.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/provider/RadioProvider.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/server/http/AudioStream.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/server/http/HttpServer.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/server/http/Media.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/service/MusicService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/service/TrayIconService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/resources/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/resources/logback.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="musicserver" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="musicserver" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="musicserver" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="musicserver" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1QT14crGuoXpCRG94UIsThlTT7Y" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Kotlin.ApplicationKt (1)">
+    <configuration name="musicserver [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationKt (1)" type="JetRunConfigurationType" nameIsGenerated="true">
+      <module name="musicserver.main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="net.hebus.ApplicationKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="musicserver" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="net.hebus.ApplicationKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="musicserver.main" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="14" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="net.hebus.ApplicationKt" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.musicserver [jar]" />
+      <item itemvalue="Kotlin.ApplicationKt (1)" />
+      <item itemvalue="Kotlin.ApplicationKt" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.ApplicationKt" />
+        <item itemvalue="Gradle.musicserver [jar]" />
+        <item itemvalue="Kotlin.ApplicationKt" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0cc3c100-b801-4968-9dc8-f5a5a520be6f" name="Default Changelist" comment="" />
+      <created>1567779581330</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1567779581330</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="143" width="1084" height="708" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604758089373">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="414" y="143" width="1084" height="708" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604758089373" />
+    <state x="749" y="204" width="408" height="556" key="#com.intellij.ide.util.MemberChooser" timestamp="1604766227181">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="749" y="204" width="408" height="556" key="#com.intellij.ide.util.MemberChooser/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604766227181" />
+    <state x="736" y="239" width="428" height="478" key="FileChooserDialogImpl" timestamp="1604755028065">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="736" y="239" width="428" height="478" key="FileChooserDialogImpl/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604755028065" />
+    <state width="1874" height="453" key="GridCell.Tab.0.bottom" timestamp="1604770915797">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="453" key="GridCell.Tab.0.bottom/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915797" />
+    <state width="1874" height="214" key="GridCell.Tab.0.bottom/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001933" />
+    <state width="1874" height="453" key="GridCell.Tab.0.center" timestamp="1604770915796">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="453" key="GridCell.Tab.0.center/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
+    <state width="1874" height="214" key="GridCell.Tab.0.center/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001931" />
+    <state width="1874" height="453" key="GridCell.Tab.0.left" timestamp="1604770915796">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="453" key="GridCell.Tab.0.left/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
+    <state width="1874" height="214" key="GridCell.Tab.0.left/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001929" />
+    <state width="1874" height="453" key="GridCell.Tab.0.right" timestamp="1604770915796">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="453" key="GridCell.Tab.0.right/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
+    <state width="1874" height="214" key="GridCell.Tab.0.right/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001932" />
+    <state x="462" y="142" key="SettingsEditor" timestamp="1604766980159">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="462" y="142" key="SettingsEditor/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604766980159" />
+    <state x="670" y="285" width="579" height="488" key="find.popup" timestamp="1604754226042">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="670" y="285" width="579" height="488" key="find.popup/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604754226042" />
+    <state x="550" y="190" width="821" height="583" key="new project wizard" timestamp="1604755139693">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="550" y="190" width="821" height="583" key="new project wizard/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604755139693" />
+    <state x="623" y="233" width="672" height="678" key="search.everywhere.popup" timestamp="1604753445285">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="233" width="672" height="678" key="search.everywhere.popup/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604753445285" />
+  </component>
+</project>
