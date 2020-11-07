@@ -1,43 +1,34 @@
 package net.hebus.server.http
 
-import com.fasterxml.jackson.databind.SerializationFeature
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.features.ContentNegotiation
-import io.ktor.html.respondHtml
-import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.content.TextContent
-import io.ktor.jackson.jackson
-import io.ktor.request.receive
-import io.ktor.response.respond
-import io.ktor.response.respondText
-import io.ktor.routing.get
-import io.ktor.routing.post
-import io.ktor.routing.put
-import io.ktor.routing.routing
-import io.ktor.serialization.DefaultJsonConfiguration
-import io.ktor.serialization.serialization
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
+import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.html.*
+import io.ktor.http.*
+
+import io.ktor.request.*
+import io.ktor.response.*
+import io.ktor.routing.*
+import io.ktor.serialization.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import kotlinx.html.*
+import kotlinx.serialization.json.Json
 import mu.KotlinLogging
-import net.hebus.player.PlayerStatus
+import net.hebus.provider.RadioProvider
 import net.hebus.service.MusicService
-import java.lang.Compiler.enable
 import java.net.URI
 
 private val logger = KotlinLogging.logger {}
 
-class HttpServer(private val musicService: MusicService, private val json: Json = Json(JsonConfiguration.Stable)) {
+class HttpServer(
+    private val musicService: MusicService, private val radioProvider: RadioProvider) {
 
     private val server = embeddedServer(Netty, port = 8080) {
         install(ContentNegotiation) {
-            jackson {
-                enable(SerializationFeature.INDENT_OUTPUT)
-            }
+            json(
+                contentType = ContentType.Application.Json,
+                json = Json {}
+            )
         }
         routing {
             get("/") {
@@ -51,19 +42,18 @@ class HttpServer(private val musicService: MusicService, private val json: Json 
                         }
                         p {
                             val track = musicService.getPlayerStatus().track
-                          + "current track: $track"
+                            +"current track: $track"
                         }
                     }
                 }
             }
+            get("/api/radios") {
+                val radios = radioProvider.getRadios()
+                call.respond(radios)
+            }
             get("/player") {
                 val status = musicService.getPlayerStatus()
-                call.respond(
-                    TextContent(
-                        json.stringify(PlayerStatus.serializer(), status),
-                        ContentType.Application.Json
-                    )
-                )
+                call.respond(status)
             }
             get("/player/play") {
                 musicService.play()
