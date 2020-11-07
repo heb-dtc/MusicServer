@@ -20,10 +20,9 @@ import java.net.URI
 
 private val logger = KotlinLogging.logger {}
 
-class HttpServer(
-    private val musicService: MusicService, private val radioProvider: RadioProvider) {
+class HttpServer(private val port: Int, private val musicService: MusicService, private val radioProvider: RadioProvider) {
 
-    private val server = embeddedServer(Netty, port = 8080) {
+    private val server = embeddedServer(Netty, port = port) {
         install(ContentNegotiation) {
             json(
                 contentType = ContentType.Application.Json,
