@@ -47,6 +47,7 @@ class HttpServer(private val port: Int, private val musicService: MusicService, 
                 }
             }
             get("/api/radios") {
+                logger.debug { "/api/radios" }
                 val radios = radioProvider.getRadios()
                 call.respond(radios)
             }

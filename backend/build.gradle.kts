@@ -37,7 +37,7 @@ dependencies {
 
 group = "net.hebus"
 version = "0.0.1-SNAPSHOT"
-description = "net.hebus musicserver"
+description = "musicserver"
 
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"

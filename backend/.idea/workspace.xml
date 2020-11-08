@@ -5,31 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cc3c100-b801-4968-9dc8-f5a5a520be6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/NetworkClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../local.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../musicserver.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/Application.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/FakePlayer.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/GStreamerPlayer.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/Player.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/player/PlayerStatus.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/provider/PodcastProvider.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/provider/RadioProvider.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/server/http/AudioStream.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/server/http/HttpServer.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/server/http/Media.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/service/MusicService.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/kotlin/net/hebus/service/TrayIconService.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/resources/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/resources/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/server/http/HttpServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/server/http/HttpServer.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,6 +180,9 @@
     </task>
     <servers />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="Dockerfile" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -232,26 +213,26 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="736" y="239" width="428" height="478" key="FileChooserDialogImpl/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604755028065" />
-    <state width="1874" height="453" key="GridCell.Tab.0.bottom" timestamp="1604770915797">
+    <state width="1874" height="453" key="GridCell.Tab.0.bottom" timestamp="1604786064050">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1874" height="453" key="GridCell.Tab.0.bottom/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915797" />
-    <state width="1874" height="214" key="GridCell.Tab.0.bottom/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001933" />
-    <state width="1874" height="453" key="GridCell.Tab.0.center" timestamp="1604770915796">
+    <state width="1874" height="453" key="GridCell.Tab.0.bottom/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604786064050" />
+    <state width="1874" height="453" key="GridCell.Tab.0.center" timestamp="1604786064050">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1874" height="453" key="GridCell.Tab.0.center/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
-    <state width="1874" height="214" key="GridCell.Tab.0.center/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001931" />
-    <state width="1874" height="453" key="GridCell.Tab.0.left" timestamp="1604770915796">
+    <state width="1874" height="453" key="GridCell.Tab.0.center/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604786064050" />
+    <state width="1874" height="453" key="GridCell.Tab.0.left" timestamp="1604786064049">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1874" height="453" key="GridCell.Tab.0.left/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
-    <state width="1874" height="214" key="GridCell.Tab.0.left/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001929" />
-    <state width="1874" height="453" key="GridCell.Tab.0.right" timestamp="1604770915796">
+    <state width="1874" height="453" key="GridCell.Tab.0.left/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604786064049" />
+    <state width="1874" height="453" key="GridCell.Tab.0.right" timestamp="1604786064050">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1874" height="453" key="GridCell.Tab.0.right/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
-    <state width="1874" height="214" key="GridCell.Tab.0.right/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604767001932" />
+    <state width="1874" height="453" key="GridCell.Tab.0.right/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604786064050" />
     <state x="462" y="142" key="SettingsEditor" timestamp="1604766980159">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
