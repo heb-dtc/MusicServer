@@ -9,7 +9,11 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.heb.soli.api.Media
 
-class RadioStreamsAdapter(private val clickListener: View.OnClickListener) : RecyclerView.Adapter<RadioStreamViewHolder>() {
+class RadioStreamsAdapter(private val callback: ItemCallback) : RecyclerView.Adapter<RadioStreamViewHolder>() {
+
+    interface ItemCallback {
+        fun onClicked(media: Media)
+    }
 
     private val colors = listOf("#e63946", "#f1faee", "#a8dadc", "#457b9d", "#1d3557")
     private var items = mutableListOf<Media>()
@@ -24,7 +28,10 @@ class RadioStreamsAdapter(private val clickListener: View.OnClickListener) : Rec
 
         val colorIndex = if (position >= colors.size) (colors.indices).random() else position
         holder.card.setBackgroundColor(Color.parseColor(colors[colorIndex]))
-        holder.card.setOnClickListener(clickListener)
+
+        holder.card.setOnClickListener {
+            callback.onClicked(items[position])
+        }
     }
 
     override fun getItemCount() = items.size

@@ -1,12 +1,12 @@
 package com.heb.soli
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.heb.soli.RadioStreamsAdapter.ItemCallback
+import com.heb.soli.api.Media
 import com.heb.soli.api.NetworkClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.simpleName
 
     private val networkClient = NetworkClient()
-    private val radioStreamAdapter = RadioStreamsAdapter(View.OnClickListener {
-        val intent = Intent(baseContext, PlayerActivity::class.java)
-        startActivity(intent)
-    })
+    private lateinit var radioStreamAdapter : RadioStreamsAdapter
 
     private lateinit var radioListView: RecyclerView
 
@@ -30,6 +27,13 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         radioListView = findViewById(R.id.radio_stream_list)
+        radioStreamAdapter = RadioStreamsAdapter(object : ItemCallback {
+            override fun onClicked(media: Media) {
+                val intent = PlayerService.buildIntent(baseContext, media)
+                //val intent = Intent(baseContext, PlayerActivity::class.java)
+                startForegroundService(intent)
+            }
+        })
         radioListView.adapter = radioStreamAdapter
         radioListView.layoutManager = GridLayoutManager(this, 2)
 
