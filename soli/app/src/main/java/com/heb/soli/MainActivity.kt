@@ -1,8 +1,10 @@
 package com.heb.soli
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.heb.soli.api.NetworkClient
@@ -16,7 +18,10 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.simpleName
 
     private val networkClient = NetworkClient()
-    private val radioStreamAdapter = RadioStreamsAdapter()
+    private val radioStreamAdapter = RadioStreamsAdapter(View.OnClickListener {
+        val intent = Intent(baseContext, PlayerActivity::class.java)
+        startActivity(intent)
+    })
 
     private lateinit var radioListView: RecyclerView
 

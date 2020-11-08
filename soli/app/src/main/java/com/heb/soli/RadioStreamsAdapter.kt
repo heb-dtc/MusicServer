@@ -1,14 +1,17 @@
 package com.heb.soli
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.heb.soli.api.Media
 
-class RadioStreamsAdapter : RecyclerView.Adapter<RadioStreamViewHolder>() {
+class RadioStreamsAdapter(private val clickListener: View.OnClickListener) : RecyclerView.Adapter<RadioStreamViewHolder>() {
 
+    private val colors = listOf("#e63946", "#f1faee", "#a8dadc", "#457b9d", "#1d3557")
     private var items = mutableListOf<Media>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RadioStreamViewHolder {
@@ -18,7 +21,10 @@ class RadioStreamsAdapter : RecyclerView.Adapter<RadioStreamViewHolder>() {
 
     override fun onBindViewHolder(holder: RadioStreamViewHolder, position: Int) {
         holder.title.text = items[position].name
-        holder.back
+
+        val colorIndex = if (position >= colors.size) (colors.indices).random() else position
+        holder.card.setBackgroundColor(Color.parseColor(colors[colorIndex]))
+        holder.card.setOnClickListener(clickListener)
     }
 
     override fun getItemCount() = items.size
@@ -27,9 +33,9 @@ class RadioStreamsAdapter : RecyclerView.Adapter<RadioStreamViewHolder>() {
         this.items = radios.toMutableList()
         notifyDataSetChanged()
     }
-
 }
 
 class RadioStreamViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val title = view.findViewById<TextView>(R.id.name)
+    val title: TextView = view.findViewById<TextView>(R.id.name)
+    val card: CardView = view.findViewById<CardView>(R.id.card_view)
 }
