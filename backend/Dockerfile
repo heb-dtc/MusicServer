@@ -1,5 +1,14 @@
-FROM openjdk:13
+FROM openjdk:8-jre-alpine
 
-ADD build/libs/musicserver-*.jar /opt/backend/musicserver.jar
+ENV APPLICATION_USER ktor
+RUN adduser -D -g '' $APPLICATION_USER
 
-CMD ["java","-jar","/opt/backend/musicserver.jar"]
+RUN mkdir /app
+RUN chown -R $APPLICATION_USER /app
+
+USER $APPLICATION_USER
+
+COPY ./build/libs/musicserver-all.jar /app/musicserver.jar
+WORKDIR /app
+
+CMD ["java", "-server", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-XX:InitialRAMFraction=2", "-XX:MinRAMFraction=2", "-XX:MaxRAMFraction=2", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=100", "-XX:+UseStringDeduplication", "-jar", "musicserver.jar"]

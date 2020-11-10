@@ -1,8 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     kotlin("jvm") version "1.4.10"
     kotlin("plugin.serialization") version "1.4.10"
+    application
+    id("com.github.johnrengelman.shadow") version "5.0.0"
 }
 
 repositories {
@@ -36,8 +39,18 @@ dependencies {
 }
 
 group = "net.hebus"
-version = "0.0.1-SNAPSHOT"
 description = "musicserver"
+
+application {
+    mainClassName = "net.hebus.ApplicationKt"
+}
+
+tasks {
+    named<ShadowJar>("shadowJar") {
+        archiveBaseName.set("musicserver")
+        mergeServiceFiles()
+    }
+}
 
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
