@@ -1,28 +1,35 @@
-# MusicServer
+# MusicServer Project
 
 This project is an attempt at developing a music server providing:
-- a full [MPD](https://www.musicpd.org) server implementation, therefore compatible with existing MPD clients
-- an HTTP API allowing music playback controls
+- a backend for media library management 
+- front applications for accessing the media library and media playback
+- a player with:
+ - a full [MPD](https://www.musicpd.org) server implementation, therefore compatible with existing MPD clients
+ - an HTTP API allowing music playback controls
 
 The server is using the [gstreamer](https://gstreamer.freedesktop.org) framework as the underlying media pipeline.
 
-## Getting Started
+## [AndroidApp] Getting Started
+ TODO
 
+## [Backend] Getting Started
 ### Prerequisite
 
-The gstreamer library needs to be installed locally.
+The gstreamer library needs to be installed locally if you want to run the local player.
 A working java env. is needed as well.
+
+### Building
+
+Build the application with gradle
+```bash
+./gradlew clean build                                          
+```
 
 ### Installing
 
-Package the application with maven
+Package the application with gradle
 ```bash
-mvn package                                              
-```
-
-### Running
-```bash
-./target/appassembler/bin/musicserver                                           
+./gradlew clean installShadowDist                                          
 ```
 
 ## Architecture?
@@ -43,4 +50,4 @@ mvn package
 
 * [kotlin](https://kotlinlang.org) - For the codez
 * [gstreamer](https://gstreamer.freedesktop.org) - Media pipeline
-* [Maven](https://maven.apache.org/) - Dependency Management
+* [Gradle](https://gradle.org/) - Dependency Management
