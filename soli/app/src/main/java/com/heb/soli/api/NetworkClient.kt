@@ -11,7 +11,7 @@ import io.ktor.util.KtorExperimentalAPI
 import kotlinx.serialization.json.nonstrict
 import java.lang.Exception
 
-const val API_ENDPOINT = "http://192.168.1.11:8080/api" //"music.hebus.net/api"
+const val API_ENDPOINT = "https://music.hebus.net/api"
 
 class NetworkClient {
     private val TAG = NetworkClient::class.simpleName
