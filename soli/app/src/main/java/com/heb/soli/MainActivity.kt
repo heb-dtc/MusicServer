@@ -26,12 +26,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        val intent = PlayerService.buildStartIntent(baseContext)
+        startForegroundService(intent)
+
         radioListView = findViewById(R.id.radio_stream_list)
         radioStreamAdapter = RadioStreamsAdapter(object : ItemCallback {
             override fun onClicked(media: Media) {
-                val intent = PlayerService.buildIntent(baseContext, media)
                 //val intent = Intent(baseContext, PlayerActivity::class.java)
-                startForegroundService(intent)
+                startForegroundService(PlayerService.buildPlayIntent(baseContext, media))
             }
         })
         radioListView.adapter = radioStreamAdapter

@@ -14,7 +14,10 @@ import com.heb.soli.player.Player
 
 private const val NOTIFICATION_FOREGROUND_ID = 1
 private const val PLAYER_SERVICE_CHANNEL_ID = "player-service-channel"
+private const val ARG_ACTION_START = "com.heb.start"
+private const val ARG_ACTION_PLAY = "com.heb.play"
 private const val ARG_MEDIA_URI = "media_url"
+const val ARG_ACTION_PLAY_PAUSE = "com.heb.playpause"
 
 class PlayerService : Service() {
 
@@ -22,9 +25,20 @@ class PlayerService : Service() {
 
     companion object {
         @MainThread
-        fun buildIntent(context: Context, media: Media) =
+        fun buildStartIntent(context: Context) =
+            Intent(context, PlayerService::class.java).apply {
+                action = ARG_ACTION_START
+            }
+
+        fun buildPlayIntent(context: Context, media: Media) =
             Intent(context, PlayerService::class.java).apply {
                 putExtra(ARG_MEDIA_URI, media.url)
+                action = ARG_ACTION_PLAY
+            }
+
+        fun buildCommandIntent(context: Context, command: String) =
+            Intent(context, PlayerService::class.java).apply {
+                action = command
             }
     }
 
@@ -33,21 +47,12 @@ class PlayerService : Service() {
         player = Player(applicationContext)
     }
 
-    @MainThread
-    private fun handleIntent(intent: Intent) {
-        val mediaUri = intent.getStringExtra(ARG_MEDIA_URI)
-
-        mediaUri?.let {
-            play(it)
-        }
-    }
-
     private fun play(mediaUri: String) {
         player.play(mediaUri)
     }
 
     private fun buildNotification(): Notification {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(applicationContext, PlayerActivity::class.java)
         val contentIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -88,13 +93,32 @@ class PlayerService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        handleIntent(intent)
-        startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
+        when (intent.action) {
+            ARG_ACTION_START -> {
+                startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
+            }
+            ARG_ACTION_PLAY -> {
+                val mediaUri = intent.getStringExtra(ARG_MEDIA_URI)
+
+                mediaUri?.let {
+                    play(it)
+                }
+            }
+            ARG_ACTION_PLAY_PAUSE -> {
+                if (player.isPlaying()) {
+                    player.pause()
+                } else {
+                    player.resume()
+                }
+            }
+        }
+
         return START_STICKY
     }
 
     override fun onDestroy() {
         player.release()
+        stopForeground(true)
         super.onDestroy()
     }
 }

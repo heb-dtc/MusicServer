@@ -19,6 +19,8 @@ class Player(context: Context) {
         exoPlayer.play()
     }
 
+    fun isPlaying() = exoPlayer.isPlaying
+
     fun resume() {
         exoPlayer.play()
     }
