@@ -6,11 +6,17 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.LifecycleService
+import androidx.lifecycle.MutableLiveData
 import com.heb.soli.api.Media
 import com.heb.soli.player.Player
+import com.heb.soli.player.PlayerContext
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 
 private const val NOTIFICATION_FOREGROUND_ID = 1
 private const val PLAYER_SERVICE_CHANNEL_ID = "player-service-channel"
@@ -18,11 +24,15 @@ private const val ARG_ACTION_PLAY = "com.heb.play"
 private const val ARG_MEDIA_URI = "media_url"
 const val ARG_ACTION_PLAY_PAUSE = "com.heb.playpause"
 
-class PlayerService : Service() {
+class PlayerService : LifecycleService() {
 
     private lateinit var player: Player
 
     companion object {
+        val TAG: String = PlayerService::class.java.simpleName
+
+        val playerContext = MutableLiveData<PlayerContext>()
+
         fun buildPlayIntent(context: Context, media: Media) =
             Intent(context, PlayerService::class.java).apply {
                 putExtra(ARG_MEDIA_URI, media.url)
@@ -82,27 +92,39 @@ class PlayerService : Service() {
     }
 
     override fun onBind(intent: Intent): IBinder? {
+        super.onBind(intent)
         return null
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        when (intent.action) {
-            ARG_ACTION_PLAY -> {
-                startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
-                val mediaUri = intent.getStringExtra(ARG_MEDIA_URI)
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
 
-                mediaUri?.let {
-                    play(it)
-                }
-            }
-            ARG_ACTION_PLAY_PAUSE -> {
-                if (player.isPlaying()) {
-                    stopForeground(false)
-                    player.pause()
-                } else {
+        intent?.let {
+            when (it.action) {
+                ARG_ACTION_PLAY -> {
                     startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
-                    player.resume()
+                    val mediaUri = intent.getStringExtra(ARG_MEDIA_URI)
+
+                    mediaUri?.let { uri ->
+                        play(uri)
+
+                        playerContext.postValue(PlayerContext(uri, true))
+                    }
                 }
+                ARG_ACTION_PLAY_PAUSE -> {
+                    if (player.isPlaying()) {
+                        stopForeground(false)
+                        player.pause()
+
+                        playerContext.postValue(PlayerContext(playerContext.value?.mediaUri, false))
+                    } else {
+                        startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
+                        player.resume()
+
+                        playerContext.postValue(PlayerContext(playerContext.value?.mediaUri, true))
+                    }
+                }
+                else -> Log.e(TAG, "unknown action")
             }
         }
 
