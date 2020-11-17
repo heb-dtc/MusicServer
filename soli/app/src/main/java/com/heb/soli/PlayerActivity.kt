@@ -15,7 +15,7 @@ class PlayerActivity : AppCompatActivity() {
 
         playButton.setOnClickListener {
             val intent = PlayerService.buildCommandIntent(baseContext, ARG_ACTION_PLAY_PAUSE)
-            startForegroundService(intent)
+            startService(intent)
         }
     }
 }
