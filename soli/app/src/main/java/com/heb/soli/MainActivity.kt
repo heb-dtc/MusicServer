@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
         mediaRepository = (application as SoliApp).appContainer.mediaRepository
 
         radioListView = findViewById(R.id.radio_stream_list)
