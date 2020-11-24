@@ -30,10 +30,12 @@
         android:textColor="@color/black"
         android:layout_marginHorizontal="24dp"
         android:textSize="85sp"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
+        android:layout_marginTop="150dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/media_progress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:text="france info"
         />
 
@@ -43,21 +45,20 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         tools:text="30:13"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/media_progress"
         />
 
     <ProgressBar
         android:id="@+id/media_progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_marginHorizontal="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
         app:layout_constraintLeft_toRightOf="@+id/elapsed_time"
         app:layout_constraintRight_toLeftOf="@+id/total_time"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/media_name"
         />
 
     <TextView
@@ -66,19 +67,18 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         tools:text="30:13"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/media_progress"
         />
 
     <Button
         android:id="@+id/play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="play"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/media_progress" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
