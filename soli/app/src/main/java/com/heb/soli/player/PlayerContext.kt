@@ -1,3 +1,3 @@
 package com.heb.soli.player
 
-data class PlayerContext(val mediaUri: String?, val isPlaying: Boolean)
+data class PlayerContext(val mediaId: Int?, val isPlaying: Boolean)

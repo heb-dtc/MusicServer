@@ -13,6 +13,8 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import com.heb.soli.api.Media
+import com.heb.soli.api.MediaId
+import com.heb.soli.media.MediaRepository
 import com.heb.soli.player.Player
 import com.heb.soli.player.PlayerContext
 import kotlinx.coroutines.flow.flow
@@ -21,12 +23,13 @@ import kotlinx.coroutines.flow.flowOf
 private const val NOTIFICATION_FOREGROUND_ID = 1
 private const val PLAYER_SERVICE_CHANNEL_ID = "player-service-channel"
 private const val ARG_ACTION_PLAY = "com.heb.play"
-private const val ARG_MEDIA_URI = "media_url"
+private const val ARG_MEDIA_ID = "media_id"
 const val ARG_ACTION_PLAY_PAUSE = "com.heb.playpause"
 
 class PlayerService : LifecycleService() {
 
     private lateinit var player: Player
+    private lateinit var mediaRepository: MediaRepository
 
     companion object {
         val TAG: String = PlayerService::class.java.simpleName
@@ -35,7 +38,7 @@ class PlayerService : LifecycleService() {
 
         fun buildPlayIntent(context: Context, media: Media) =
             Intent(context, PlayerService::class.java).apply {
-                putExtra(ARG_MEDIA_URI, media.url)
+                putExtra(ARG_MEDIA_ID, media.id.id)
                 action = ARG_ACTION_PLAY
             }
 
@@ -48,6 +51,7 @@ class PlayerService : LifecycleService() {
     override fun onCreate() {
         super.onCreate()
         player = Player(applicationContext)
+        mediaRepository = (application as SoliApp).appContainer.mediaRepository
     }
 
     private fun play(mediaUri: String) {
@@ -103,12 +107,13 @@ class PlayerService : LifecycleService() {
             when (it.action) {
                 ARG_ACTION_PLAY -> {
                     startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
-                    val mediaUri = intent.getStringExtra(ARG_MEDIA_URI)
+                    val id = intent.getIntExtra(ARG_MEDIA_ID, -1)
+                    val media = mediaRepository.getMedia(MediaId(id))
 
-                    mediaUri?.let { uri ->
-                        play(uri)
+                    media?.let { itMedia ->
+                        play(itMedia.url)
 
-                        playerContext.postValue(PlayerContext(uri, true))
+                        playerContext.postValue(PlayerContext(itMedia.id.id, true))
                     }
                 }
                 ARG_ACTION_PLAY_PAUSE -> {
@@ -116,12 +121,12 @@ class PlayerService : LifecycleService() {
                         stopForeground(false)
                         player.pause()
 
-                        playerContext.postValue(PlayerContext(playerContext.value?.mediaUri, false))
+                        playerContext.postValue(PlayerContext(playerContext.value?.mediaId, false))
                     } else {
                         startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
                         player.resume()
 
-                        playerContext.postValue(PlayerContext(playerContext.value?.mediaUri, true))
+                        playerContext.postValue(PlayerContext(playerContext.value?.mediaId, true))
                     }
                 }
                 else -> Log.e(TAG, "unknown action")

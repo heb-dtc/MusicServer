@@ -6,15 +6,21 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import com.heb.soli.api.MediaId
+import com.heb.soli.media.MediaRepository
 
 class PlayerActivity : AppCompatActivity() {
 
     private lateinit var playButton : Button
     private lateinit var mediaNameView : TextView
+    private lateinit var mediaRepository: MediaRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
+
+        mediaRepository = (application as SoliApp).appContainer.mediaRepository
+
         playButton = findViewById(R.id.play_button)
         mediaNameView = findViewById(R.id.media_name)
 
@@ -24,8 +30,9 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         PlayerService.playerContext.observe(this, Observer {playerContext ->
-            playerContext.mediaUri?.let {
-                mediaNameView.text = it
+            playerContext.mediaId?.let {
+                val media = mediaRepository.getMedia(MediaId(it))
+                mediaNameView.text = media?.name
             }
             playButton.text = if (playerContext.isPlaying) "pause" else "play"
         })

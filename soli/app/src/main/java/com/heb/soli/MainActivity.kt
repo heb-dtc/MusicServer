@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.heb.soli.RadioStreamsAdapter.ItemCallback
 import com.heb.soli.api.Media
 import com.heb.soli.api.NetworkClient
+import com.heb.soli.media.MediaRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.simpleName
 
-    private val networkClient = NetworkClient()
+    private lateinit var mediaRepository: MediaRepository
     private lateinit var radioStreamAdapter : RadioStreamsAdapter
 
     private lateinit var radioListView: RecyclerView
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+        mediaRepository = (application as SoliApp).appContainer.mediaRepository
 
         radioListView = findViewById(R.id.radio_stream_list)
         radioStreamAdapter = RadioStreamsAdapter(object : ItemCallback {
@@ -41,8 +43,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchAllRadios() {
         Log.d(TAG, "fetch all radios")
+        
         CoroutineScope(Dispatchers.IO).launch {
-            val radios = networkClient.fetchAllRadios()
+            mediaRepository.fetchRadioList()
+            val radios = mediaRepository.getRadioList()
             Log.d(TAG, "${radios.size} radios found")
             withContext(Dispatchers.Main) {
                 radioStreamAdapter.setItems(radios)
