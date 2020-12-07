@@ -14,13 +14,20 @@ import io.ktor.server.netty.*
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import mu.KotlinLogging
-import net.hebus.provider.RadioProvider
+import net.hebus.repository.HistoryRepository
+import net.hebus.repository.RadioRepository
+import net.hebus.server.http.api.apiRoute
 import net.hebus.service.MusicService
 import java.net.URI
 
 private val logger = KotlinLogging.logger {}
 
-class HttpServer(private val port: Int, private val musicService: MusicService, private val radioProvider: RadioProvider) {
+class HttpServer(
+    port: Int,
+    private val musicService: MusicService,
+    private val radioRepository: RadioRepository,
+    private val historyRepository: HistoryRepository
+) {
 
     private val server = embeddedServer(Netty, port = port) {
         install(ContentNegotiation) {
@@ -46,11 +53,7 @@ class HttpServer(private val port: Int, private val musicService: MusicService, 
                     }
                 }
             }
-            get("/api/radios") {
-                logger.debug { "/api/radios" }
-                val radios = radioProvider.getRadios()
-                call.respond(radios)
-            }
+            apiRoute(radioRepository, historyRepository)
             get("/player") {
                 val status = musicService.getPlayerStatus()
                 call.respond(status)

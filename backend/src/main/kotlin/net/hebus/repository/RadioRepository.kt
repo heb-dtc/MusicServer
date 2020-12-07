@@ -1,10 +1,10 @@
-package net.hebus.provider
+package net.hebus.repository
 
 import net.hebus.server.http.Media
 import net.hebus.server.http.MediaId
 import net.hebus.server.http.MediaType
 
-class RadioProvider {
+class RadioRepository {
 
     fun getRadios() : List<Media> {
         return listOf(

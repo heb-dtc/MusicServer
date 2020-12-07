@@ -16,6 +16,7 @@ import com.heb.soli.api.MediaId
 import com.heb.soli.media.MediaRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -49,9 +50,7 @@ class MainActivity : AppCompatActivity() {
         })
         radioListView.adapter = radioStreamAdapter
         radioListView.layoutManager = GridLayoutManager(this, 2)
-
-        fetchAllRadios()
-
+        
         playButton.setOnClickListener {
             val intent = PlayerService.buildCommandIntent(baseContext, ARG_ACTION_PLAY_PAUSE)
             startService(intent)
@@ -60,6 +59,15 @@ class MainActivity : AppCompatActivity() {
         mediaNameView.setOnClickListener {
             val intent = Intent(applicationContext, PlayerActivity::class.java)
             startActivity(intent)
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            mediaRepository.getRadioList().collect {
+                Log.d(TAG, "${it.size} radios found")
+                withContext(Dispatchers.Main) {
+                    radioStreamAdapter.setItems(it)
+                }
+            }
         }
 
         PlayerService.playerContext.observe(this, Observer {playerContext ->
@@ -74,18 +82,5 @@ class MainActivity : AppCompatActivity() {
                 playButton.setImageResource(R.drawable.exo_icon_play)
             }
         })
-    }
-
-    private fun fetchAllRadios() {
-        Log.d(TAG, "fetch all radios")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            mediaRepository.fetchRadioList()
-            val radios = mediaRepository.getRadioList()
-            Log.d(TAG, "${radios.size} radios found")
-            withContext(Dispatchers.Main) {
-                radioStreamAdapter.setItems(radios)
-            }
-        }
     }
 }

@@ -4,7 +4,8 @@ import dorkbox.systemTray.SystemTray
 import mu.KotlinLogging
 import net.hebus.player.FakePlayer
 import net.hebus.player.GStreamerPlayer
-import net.hebus.provider.RadioProvider
+import net.hebus.repository.HistoryRepository
+import net.hebus.repository.RadioRepository
 import net.hebus.server.http.HttpServer
 import net.hebus.service.MusicService
 import net.hebus.service.TrayIconService
@@ -22,7 +23,7 @@ fun main(args: Array<String>) {
     }
 
     val musicService = MusicService(player)
-    val httpServer = HttpServer(configuration.port, musicService, RadioProvider())
+    val httpServer = HttpServer(configuration.port, musicService, RadioRepository(), HistoryRepository())
 
     if (configuration.enablePlayer) {
         val trayIconService = TrayIconService(SystemTray.get(), musicService)
