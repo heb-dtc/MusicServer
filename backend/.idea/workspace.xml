@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0cc3c100-b801-4968-9dc8-f5a5a520be6f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/Application.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/provider/PodcastProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/repository/PodcastRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/provider/RadioProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/repository/RadioRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/server/http/HttpServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/server/http/HttpServer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/media/MediaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/media/MediaRepository.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,13 +65,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1QT14crGuoXpCRG94UIsThlTT7Y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -90,7 +77,7 @@
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -101,7 +88,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.ApplicationKt (1)">
+  <component name="RunManager" selected="Gradle.musicserver [jar]">
     <configuration name="musicserver [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -167,9 +154,7 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.ApplicationKt" />
         <item itemvalue="Gradle.musicserver [jar]" />
-        <item itemvalue="Kotlin.ApplicationKt" />
       </list>
     </recent_temporary>
   </component>
@@ -208,75 +193,9 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="663" y="331" width="573" height="283" key="#Updates" timestamp="1607334016520">
+    <state x="174" y="61" width="1640" height="922" key="new project wizard" timestamp="1607679720503">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="663" y="331" width="573" height="283" key="#Updates/0.0.1920.1080@0.0.1920.1080" timestamp="1607334016520" />
-    <state x="414" y="143" width="1084" height="708" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604758089373">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="414" y="143" width="1084" height="708" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604758089373" />
-    <state x="749" y="204" width="408" height="556" key="#com.intellij.ide.util.MemberChooser" timestamp="1604766227181">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="749" y="204" width="408" height="556" key="#com.intellij.ide.util.MemberChooser/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604766227181" />
-    <state x="479" y="-52" width="945" height="1079" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607335231633">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="479" y="-52" width="945" height="1079" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1607335231633" />
-    <state x="736" y="239" width="428" height="478" key="FileChooserDialogImpl" timestamp="1604755028065">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="736" y="239" width="428" height="478" key="FileChooserDialogImpl/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604755028065" />
-    <state width="1856" height="301" key="GridCell.Tab.0.bottom" timestamp="1607336324037">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="453" key="GridCell.Tab.0.bottom/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915797" />
-    <state width="1856" height="301" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1607336324037" />
-    <state width="1874" height="334" key="GridCell.Tab.0.bottom/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1605020460644" />
-    <state width="1856" height="301" key="GridCell.Tab.0.center" timestamp="1607336324035">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="453" key="GridCell.Tab.0.center/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
-    <state width="1856" height="301" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1607336324035" />
-    <state width="1874" height="334" key="GridCell.Tab.0.center/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1605020460643" />
-    <state width="1856" height="301" key="GridCell.Tab.0.left" timestamp="1607336324033">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="453" key="GridCell.Tab.0.left/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
-    <state width="1856" height="301" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1607336324033" />
-    <state width="1874" height="334" key="GridCell.Tab.0.left/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1605020460643" />
-    <state width="1856" height="301" key="GridCell.Tab.0.right" timestamp="1607336324036">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="453" key="GridCell.Tab.0.right/0.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604770915796" />
-    <state width="1856" height="301" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1607336324035" />
-    <state width="1874" height="334" key="GridCell.Tab.0.right/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1605020460644" />
-    <state x="456" y="90" key="SettingsEditor" timestamp="1607335083873">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="456" y="90" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1607335083873" />
-    <state x="462" y="142" key="SettingsEditor/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604766980159" />
-    <state x="352" y="111" width="1206" height="777" key="Vcs.Push.Dialog.v2" timestamp="1607335767859">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="352" y="111" width="1206" height="777" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1607335767859" />
-    <state x="670" y="285" width="579" height="488" key="find.popup" timestamp="1604754226042">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="670" y="285" width="579" height="488" key="find.popup/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604754226042" />
-    <state x="550" y="190" width="821" height="583" key="new project wizard" timestamp="1604755139693">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="550" y="190" width="821" height="583" key="new project wizard/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604755139693" />
-    <state x="726" y="206" width="457" height="587" key="refactoring.ChangeSignatureDialog" timestamp="1607335199176">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="726" y="206" width="457" height="587" key="refactoring.ChangeSignatureDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1607335199176" />
-    <state x="623" y="233" width="1009" height="678" key="search.everywhere.popup" timestamp="1607335770628">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="623" y="233" width="1009" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1607335770628" />
-    <state x="623" y="233" width="672" height="678" key="search.everywhere.popup/0.1080.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1604753445285" />
+    <state x="174" y="61" width="1640" height="922" key="new project wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1607679720503" />
   </component>
 </project>
