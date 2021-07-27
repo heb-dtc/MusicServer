@@ -1,86 +1,43 @@
 package com.heb.soli
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.heb.soli.RadioStreamsAdapter.ItemCallback
-import com.heb.soli.api.Media
-import com.heb.soli.api.MediaId
-import com.heb.soli.media.MediaRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.heb.soli.ui.theme.SoliTheme
 
-class MainActivity : AppCompatActivity() {
-
-    private val TAG = MainActivity::class.simpleName
-
-    private lateinit var mediaRepository: MediaRepository
-    private lateinit var radioStreamAdapter: RadioStreamsAdapter
-
-    private lateinit var radioListView: RecyclerView
-    private lateinit var playButton : ImageView
-    private lateinit var mediaNameView : TextView
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
-
-        mediaRepository = (application as SoliApp).appContainer.mediaRepository
-
-        radioListView = findViewById(R.id.radio_stream_list)
-        playButton = findViewById(R.id.play_button)
-        mediaNameView = findViewById(R.id.current_media_title)
-
-        radioStreamAdapter = RadioStreamsAdapter(object : ItemCallback {
-            override fun onClicked(media: Media) {
-                startService(PlayerService.buildPlayIntent(baseContext, media))
-            }
-        })
-        radioListView.adapter = radioStreamAdapter
-        radioListView.layoutManager = GridLayoutManager(this, 2)
-        
-        playButton.setOnClickListener {
-            val intent = PlayerService.buildCommandIntent(baseContext, ARG_ACTION_PLAY_PAUSE)
-            startService(intent)
-        }
-
-        mediaNameView.setOnClickListener {
-            val intent = Intent(applicationContext, PlayerActivity::class.java)
-            startActivity(intent)
-        }
-
-        CoroutineScope(Dispatchers.IO).launch {
-            mediaRepository.getRadioList().collect {
-                Log.d(TAG, "${it.size} radios found")
-                withContext(Dispatchers.Main) {
-                    radioStreamAdapter.setItems(it)
+        setContent {
+            SoliTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    Greeting("Android")
                 }
             }
         }
+    }
+}
 
-        PlayerService.playerContext.observe(this, Observer {playerContext ->
-            playerContext.mediaId?.let {
-                val media = mediaRepository.getMedia(MediaId(it))
-                mediaNameView.text = media?.name
-            }
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
+}
 
-            if (playerContext.isPlaying) {
-                playButton.setImageResource(R.drawable.exo_icon_pause)
-            } else {
-                playButton.setImageResource(R.drawable.exo_icon_play)
-            }
-        })
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    SoliTheme {
+        Greeting("Android")
     }
 }
