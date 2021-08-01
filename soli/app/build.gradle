@@ -42,7 +42,7 @@ android {
 
     composeOptions {
         //kotlinCompilerVersion "1.5.20"
-        kotlinCompilerExtensionVersion '1.0.0-rc02'
+        kotlinCompilerExtensionVersion "$compose_version"
     }
 }
 
@@ -78,24 +78,24 @@ dependencies {
 
     implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
 
-    implementation 'androidx.compose.ui:ui:1.0.0-rc02'
+    implementation "androidx.compose.ui:ui:$compose_version"
     // Tooling support (Previews, etc.)
-    implementation 'androidx.compose.ui:ui-tooling:1.0.0-rc02'
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation 'androidx.compose.foundation:foundation:1.0.0-rc02'
+    implementation "androidx.compose.foundation:foundation:$compose_version"
     // Material Design
-    implementation 'androidx.compose.material:material:1.0.0-rc02'
+    implementation "androidx.compose.material:material:$compose_version"
     // Material design icons
-    implementation 'androidx.compose.material:material-icons-core:1.0.0-rc02'
-    implementation 'androidx.compose.material:material-icons-extended:1.0.0-rc02'
+    implementation "androidx.compose.material:material-icons-core:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
     // Integration with activities
-    implementation 'androidx.activity:activity-compose:1.3.0-rc02'
+    implementation "androidx.activity:activity-compose:$compose_version"
     // Integration with ViewModels
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
     // Integration with observables
-    implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-rc02'
-    implementation 'androidx.compose.runtime:runtime-rxjava2:1.0.0-rc02'
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
 
-    implementation "androidx.compose.ui:ui-tooling:1.0.0-rc02"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 }
