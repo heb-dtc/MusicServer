@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.heb.soli.api.Media
+import com.heb.soli.api.PodcastFeed
 import com.heb.soli.media.MediaRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -17,6 +18,8 @@ private const val TAG = "RadioScreenViewModel"
 class HomeViewModel(private val mediaRepository: MediaRepository) : ViewModel() {
 
     val radios: MutableState<List<Media>> = mutableStateOf(emptyList())
+    val podcasts: MutableState<List<PodcastFeed>> = mutableStateOf(emptyList())
+    val selectedSection: MutableState<HomeSection> = mutableStateOf(HomeSection.Radio)
 
     init {
         viewModelScope.launch {
@@ -27,6 +30,18 @@ class HomeViewModel(private val mediaRepository: MediaRepository) : ViewModel() 
                     radios.value = it
                 }
             }
+
+            mediaRepository.getPodcasts().collect {
+                Log.d(TAG, "${it.size} podcasts found")
+
+                withContext(Dispatchers.Main) {
+                    podcasts.value = it
+                }
+            }
         }
+    }
+
+    fun onSectionSelected(section: HomeSection) {
+        selectedSection.value = section
     }
 }

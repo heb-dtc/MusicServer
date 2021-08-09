@@ -14,3 +14,5 @@ enum class MediaType {
 
 @Serializable
 data class MediaId(val id: Int)
+
+data class PodcastFeed(val name: String, val imageUrl: String, val episodes: List<Media>)

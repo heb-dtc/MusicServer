@@ -2,8 +2,8 @@ package com.heb.soli.media
 
 import com.heb.soli.api.Media
 import com.heb.soli.api.MediaId
-import com.heb.soli.api.MediaType
 import com.heb.soli.api.NetworkClient
+import com.heb.soli.api.PodcastFeed
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -20,5 +20,14 @@ class MediaRepository(private val networkClient: NetworkClient) {
             it
         }.toList()
         emit(medias)
+    }
+
+    fun getPodcasts(): Flow<List<PodcastFeed>> = flow {
+        val podcastFeed = networkClient.fetchPodcastFeed("https://www.afterhate.fr/feed/podcast")
+        emit(listOf(podcastFeed))
+    }
+
+    private fun getPodcast(url: String) {
+
     }
 }
