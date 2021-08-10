@@ -3,6 +3,7 @@ package com.heb.soli
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -41,9 +42,30 @@ fun HomePreview() {
                 name = "afterhate",
                 imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
                 emptyList()
+            ),
+            PodcastFeed(
+                name = "afterhate",
+                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                emptyList()
+            ),
+            PodcastFeed(
+                name = "afterhate",
+                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                emptyList()
+            ),
+            PodcastFeed(
+                name = "afterhate",
+                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                emptyList()
+            ),
+            PodcastFeed(
+                name = "afterhate",
+                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                emptyList()
             )
         ),
         selectedSection = HomeSection.Podcast,
+        {},
         {}
     )
 }
@@ -58,7 +80,8 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
         radios = radios,
         podcasts = podcasts,
         selectedSection = section,
-        homeViewModel::onSectionSelected
+        homeViewModel::onSectionSelected,
+        onOpenPodcastFeed = homeViewModel::onOpenPodcastFeed
     )
 }
 
@@ -68,7 +91,8 @@ fun HomeScreen(
     radios: List<Media>,
     podcasts: List<PodcastFeed>,
     selectedSection: HomeSection,
-    onSectionSelected: (HomeSection) -> Unit
+    onSectionSelected: (HomeSection) -> Unit,
+    onOpenPodcastFeed: (PodcastFeed) -> Unit
 ) {
     val selectedIndex = selectedSection.let {
         if (it == HomeSection.Radio) 0
@@ -99,7 +123,7 @@ fun HomeScreen(
                 RadioList(medias = radios)
             }
             HomeSection.Podcast -> {
-                PodcastList(medias = podcasts)
+                PodcastList(medias = podcasts, onClick = onOpenPodcastFeed)
             }
         }
     }
@@ -122,9 +146,11 @@ fun HomeTabIndicator(modifier: Modifier) {
 //TODO: extract to dedicated file
 @ExperimentalFoundationApi
 @Composable
-fun PodcastList(medias: List<PodcastFeed>) {
+fun PodcastList(
+    medias: List<PodcastFeed>, onClick: (PodcastFeed) -> Unit
+) {
     LazyVerticalGrid(
-        cells = GridCells.Fixed(2)
+        cells = GridCells.Adaptive(minSize = 180.dp)
     ) {
         itemsIndexed(items = medias) { _, feed ->
             Column(
@@ -153,7 +179,9 @@ fun PodcastList(medias: List<PodcastFeed>) {
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(MaterialTheme.shapes.medium),
+                            .clickable(onClick = {
+                                onClick(feed)
+                            }),
                     )
                 }
             }

@@ -44,4 +44,8 @@ class HomeViewModel(private val mediaRepository: MediaRepository) : ViewModel() 
     fun onSectionSelected(section: HomeSection) {
         selectedSection.value = section
     }
+
+    fun onOpenPodcastFeed(feed: PodcastFeed) {
+
+    }
 }
