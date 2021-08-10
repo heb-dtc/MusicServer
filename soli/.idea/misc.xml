@@ -24,6 +24,8 @@
         <entry key="../../../../../../../layout/compose-model-1627833413188.xml" value="0.2819352593108249" />
         <entry key="../../../../../../../layout/compose-model-1628519379771.xml" value="0.17222222222222222" />
         <entry key="../../../../../../../layout/compose-model-1628584574100.xml" value="0.1712962962962963" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37916666666666665" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1859375" />
         <entry key="app/src/main/res/layout/adapter_radio_stream.xml" value="0.28125" />
       </map>
