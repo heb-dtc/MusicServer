@@ -10,6 +10,11 @@ import kotlinx.coroutines.flow.flow
 class MediaRepository(private val networkClient: NetworkClient) {
 
     private val mediaList: MutableList<Media> = mutableListOf()
+    private val podcastFeedList = listOf(
+        "https://www.afterhate.fr/feed/podcast",
+        "https://feeds.soundcloud.com/users/soundcloud:users:274829367/sounds.rss",
+        "https://feeds.audiomeans.fr/feed/8ca7aac1-479f-471c-b3a4-8b487e552bff.xml"
+    )
 
     fun getMedia(id: MediaId) =
         mediaList.firstOrNull { it.id == id }
@@ -23,11 +28,9 @@ class MediaRepository(private val networkClient: NetworkClient) {
     }
 
     fun getPodcasts(): Flow<List<PodcastFeed>> = flow {
-        val podcastFeed = networkClient.fetchPodcastFeed("https://www.afterhate.fr/feed/podcast")
-        emit(listOf(podcastFeed))
-    }
-
-    private fun getPodcast(url: String) {
-
+        val feeds = podcastFeedList.map {
+            networkClient.fetchPodcastFeed(it)
+        }.toList()
+        emit(feeds)
     }
 }
