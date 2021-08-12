@@ -13,6 +13,7 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.heb.soli.api.Media
 import com.heb.soli.media.MediaRepository
 import com.heb.soli.ui.theme.SoliTheme
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
             val homeViewModel =
-                HomeViewModel(mediaRepository, navController)
+                HomeViewModel(mediaRepository, navController, this::playRadio)
             val podcastFeedViewModel =
                 PodcastFeedViewModel(mediaRepository, navController)
 
@@ -44,5 +45,9 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }*/
         }
+    }
+
+    private fun playRadio(radio: Media) {
+        startService(PlayerService.buildPlayIntent(baseContext, radio))
     }
 }

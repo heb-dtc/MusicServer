@@ -69,6 +69,7 @@ fun HomePreview() {
         ),
         selectedSection = HomeSection.Podcast,
         {},
+        {},
         {}
     )
 }
@@ -84,7 +85,8 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
         podcasts = podcasts,
         selectedSection = section,
         homeViewModel::onSectionSelected,
-        onOpenPodcastFeed = homeViewModel::onOpenPodcastFeed
+        onOpenPodcastFeed = homeViewModel::onOpenPodcastFeed,
+        onStartRadio = homeViewModel::onStartRadio
     )
 }
 
@@ -95,7 +97,8 @@ fun HomeScreen(
     podcasts: List<PodcastFeed>,
     selectedSection: HomeSection,
     onSectionSelected: (HomeSection) -> Unit,
-    onOpenPodcastFeed: (PodcastFeed) -> Unit
+    onOpenPodcastFeed: (PodcastFeed) -> Unit,
+    onStartRadio: (Media) -> Unit,
 ) {
     val selectedIndex = selectedSection.let {
         if (it == HomeSection.Radio) 0
@@ -123,7 +126,7 @@ fun HomeScreen(
 
         when (selectedSection) {
             HomeSection.Radio -> {
-                RadioList(medias = radios)
+                RadioList(medias = radios, onClick = onStartRadio)
             }
             HomeSection.Podcast -> {
                 PodcastList(medias = podcasts, onClick = onOpenPodcastFeed)

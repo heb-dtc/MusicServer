@@ -2,6 +2,7 @@ package com.heb.soli
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -29,14 +30,15 @@ fun DefaultPreview() {
                 Media(MediaId(2), "FRANCE INFO", "", MediaType.RADIO_STREAM),
                 Media(MediaId(3), "FRANCE INTER", "", MediaType.RADIO_STREAM),
                 Media(MediaId(4), "FIP", "", MediaType.RADIO_STREAM),
-            )
+            ),
+            {}
         )
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun RadioList(medias: List<Media>) {
+internal fun RadioList(medias: List<Media>, onClick: (Media) -> Unit) {
     val colors = listOf(0xFFe63946, 0xFFf1faee, 0xFFa8dadc, 0xFF457b9d, 0xFF1d3557)
 
     LazyVerticalGrid(
@@ -44,7 +46,7 @@ internal fun RadioList(medias: List<Media>) {
     ) {
         itemsIndexed(items = medias) { index, media ->
             val colorIndex = if (index >= colors.size) (colors.indices).random() else index
-            RadioItem(media, Color(colors[colorIndex]))
+            RadioItem(media, Color(colors[colorIndex]), onClick)
         }
     }
 }
@@ -54,16 +56,20 @@ internal fun RadioList(medias: List<Media>) {
 fun ItemPreview() {
     RadioItem(
         media = Media(MediaId(1), "SOMA", "", MediaType.RADIO_STREAM), color =
-        Color.Red
+        Color.Red,
+        {}
     )
 }
 
 @Composable
-fun RadioItem(media: Media, color: Color) {
+fun RadioItem(media: Media, color: Color, onClick: (Media) -> Unit) {
     Column(
         modifier = Modifier
             .height(150.dp)
             .fillMaxSize()
+            .clickable {
+                onClick(media)
+            }
             .background(color),
         verticalArrangement = Arrangement.Top,
     ) {

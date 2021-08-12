@@ -2,12 +2,17 @@ package com.heb.soli
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -29,7 +34,18 @@ fun Soli(
                 composable("home") {
                     // A surface container using the 'background' color from the theme
                     Column {
-                        TopAppBar(title = { Text(text = "SOLI") })
+                        TopAppBar(title = { Text(text = "SOLI") }, actions = {
+                            IconButton(onClick = { navController.navigate("player") }) {
+                                Icon(
+                                    bitmap = ImageBitmap.imageResource(
+                                        LocalContext.current.resources,
+                                        R.drawable.play
+                                    ),
+                                    contentDescription = "go to player",
+                                    modifier = Modifier.size(22.dp)
+                                )
+                            }
+                        })
                         HomeScreen(homeViewModel = homeViewModel)
                     }
                 }

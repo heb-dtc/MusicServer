@@ -16,8 +16,11 @@ import kotlinx.coroutines.withContext
 
 private const val TAG = "RadioScreenViewModel"
 
-class HomeViewModel(private val mediaRepository: MediaRepository,
-                    private val navController: NavHostController) : ViewModel() {
+class HomeViewModel(
+    private val mediaRepository: MediaRepository,
+    private val navController: NavHostController,
+    private val startRadioAction: (Media) -> Unit
+) : ViewModel() {
 
     val radios: MutableState<List<Media>> = mutableStateOf(emptyList())
     val podcasts: MutableState<List<PodcastFeed>> = mutableStateOf(emptyList())
@@ -49,5 +52,10 @@ class HomeViewModel(private val mediaRepository: MediaRepository,
 
     fun onOpenPodcastFeed(feed: PodcastFeed) {
         navController.navigate("podcastFeed/${feed.name}")
+    }
+
+    fun onStartRadio(radio: Media) {
+        startRadioAction.invoke(radio)
+        navController.navigate("player")
     }
 }
