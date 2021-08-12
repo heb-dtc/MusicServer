@@ -4,12 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.PlayCircleFilled
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.rounded.PlayCircleOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.heb.soli.api.PodcastEpisode
@@ -59,6 +64,15 @@ fun PodcastFeedScreenPreview() {
 }
 
 @Composable
+fun PodcastFeedScreen(
+    feedTitle: String,
+    podcastFeedViewModel: PodcastFeedViewModel,
+) {
+    val episodes = podcastFeedViewModel.getFeedEpisode(feedTitle = feedTitle)
+    PodcastFeedScreen(episodes = episodes)
+}
+
+@Composable
 fun PodcastFeedScreen(episodes: List<PodcastEpisode>) {
     LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)) {
         items(episodes) { episode ->
@@ -78,7 +92,7 @@ fun EpisodeRow(episode: PodcastEpisode) {
             modifier = Modifier.weight(2f)
         )
         Image(
-            imageVector = Icons.Rounded.PlayCircleFilled,
+            imageVector = Icons.Rounded.PlayCircleOutline,
             contentDescription = "",
             modifier = Modifier.size(40.dp)
         )

@@ -26,10 +26,15 @@
         <entry key="../../../../../../../layout/compose-model-1628584574100.xml" value="0.1712962962962963" />
         <entry key="../../../../../../../layout/compose-model-1628600195515.xml" value="0.31672297297297297" />
         <entry key="../../../../../../../layout/compose-model-1628601142132.xml" value="0.31672297297297297" />
+        <entry key="../../../../../../../layout/compose-model-1628688976710.xml" value="0.31756756756756754" />
+        <entry key="../../../../../../../layout/compose-model-1628700899241.xml" value="0.3148148148148148" />
+        <entry key="../../../../../../../layout/compose-model-1628701149118.xml" value="0.3148148148148148" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1859375" />
         <entry key="app/src/main/res/layout/adapter_radio_stream.xml" value="0.28125" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.37333333333333335" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.37333333333333335" />
       </map>
     </option>
   </component>

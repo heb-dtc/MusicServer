@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import com.heb.soli.api.Media
 import com.heb.soli.api.PodcastFeed
 import com.heb.soli.media.MediaRepository
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 private const val TAG = "RadioScreenViewModel"
 
-class HomeViewModel(private val mediaRepository: MediaRepository) : ViewModel() {
+class HomeViewModel(private val mediaRepository: MediaRepository, private val navController: NavHostController) : ViewModel() {
 
     val radios: MutableState<List<Media>> = mutableStateOf(emptyList())
     val podcasts: MutableState<List<PodcastFeed>> = mutableStateOf(emptyList())
@@ -46,6 +47,6 @@ class HomeViewModel(private val mediaRepository: MediaRepository) : ViewModel() 
     }
 
     fun onOpenPodcastFeed(feed: PodcastFeed) {
-
+        navController.navigate("podcastFeed/${feed.name}")
     }
 }

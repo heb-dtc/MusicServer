@@ -9,15 +9,22 @@ import kotlinx.coroutines.flow.flow
 
 class MediaRepository(private val networkClient: NetworkClient) {
 
-    private val mediaList: MutableList<Media> = mutableListOf()
-    private val podcastFeedList = listOf(
+    private val podcastFeedUris = listOf(
         "https://www.afterhate.fr/feed/podcast",
         "https://feeds.soundcloud.com/users/soundcloud:users:274829367/sounds.rss",
         "https://feeds.audiomeans.fr/feed/8ca7aac1-479f-471c-b3a4-8b487e552bff.xml"
     )
 
+    // TODO: improve dat!
+    // poor's man local cache
+    private val mediaList: MutableList<Media> = mutableListOf()
+    private val podcastFeedList: MutableList<PodcastFeed> = mutableListOf()
+
     fun getMedia(id: MediaId) =
         mediaList.firstOrNull { it.id == id }
+
+    fun getPodcastFeed(title: String) =
+        podcastFeedList.firstOrNull { it.name == title}
 
     fun getRadioList(): Flow<List<Media>> = flow {
         val medias = networkClient.fetchAllRadios().map {
@@ -28,8 +35,10 @@ class MediaRepository(private val networkClient: NetworkClient) {
     }
 
     fun getPodcasts(): Flow<List<PodcastFeed>> = flow {
-        val feeds = podcastFeedList.map {
-            networkClient.fetchPodcastFeed(it)
+        val feeds = podcastFeedUris.map {
+            val feed = networkClient.fetchPodcastFeed(it)
+            podcastFeedList.add(feed)
+            feed
         }.toList()
         emit(feeds)
     }
