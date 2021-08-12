@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             val homeViewModel =
                 HomeViewModel(mediaRepository, navController)
             val podcastFeedViewModel =
-                PodcastFeedViewModel(mediaRepository)
+                PodcastFeedViewModel(mediaRepository, navController)
 
             Soli(
                 homeViewModel = homeViewModel,

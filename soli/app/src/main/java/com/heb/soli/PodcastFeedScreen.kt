@@ -63,7 +63,7 @@ fun PodcastFeedScreenPreview() {
             imageUrl = ""
         ),
     )
-    PodcastFeedScreen(episodes = episodes)
+    PodcastFeedScreen(episodes = episodes, {})
 }
 
 @Composable
@@ -72,20 +72,20 @@ fun PodcastFeedScreen(
     podcastFeedViewModel: PodcastFeedViewModel,
 ) {
     val episodes = podcastFeedViewModel.getFeedEpisode(feedTitle = feedTitle)
-    PodcastFeedScreen(episodes = episodes)
+    PodcastFeedScreen(episodes = episodes, podcastFeedViewModel::playEpisode)
 }
 
 @Composable
-fun PodcastFeedScreen(episodes: List<PodcastEpisode>) {
+fun PodcastFeedScreen(episodes: List<PodcastEpisode>, onClick: (PodcastEpisode) -> Unit) {
     LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)) {
         itemsIndexed(episodes) { index, episode ->
-            EpisodeRow(index, episode)
+            EpisodeRow(index, episode, onClick)
         }
     }
 }
 
 @Composable
-fun EpisodeRow(index: Int, episode: PodcastEpisode) {
+fun EpisodeRow(index: Int, episode: PodcastEpisode, onClick: (PodcastEpisode) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.End
     ) {
@@ -113,7 +113,7 @@ fun EpisodeRow(index: Int, episode: PodcastEpisode) {
             style = MaterialTheme.typography.body2,
         )
         OutlinedButton(
-            onClick = { /*TODO*/ },
+            onClick = { onClick(episode) },
             border = BorderStroke(1.dp, MaterialTheme.colors.primary),
             modifier = Modifier.padding(2.dp)
                 .size(40.dp)

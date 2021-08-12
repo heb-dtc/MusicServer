@@ -16,7 +16,8 @@ import kotlinx.coroutines.withContext
 
 private const val TAG = "RadioScreenViewModel"
 
-class HomeViewModel(private val mediaRepository: MediaRepository, private val navController: NavHostController) : ViewModel() {
+class HomeViewModel(private val mediaRepository: MediaRepository,
+                    private val navController: NavHostController) : ViewModel() {
 
     val radios: MutableState<List<Media>> = mutableStateOf(emptyList())
     val podcasts: MutableState<List<PodcastFeed>> = mutableStateOf(emptyList())

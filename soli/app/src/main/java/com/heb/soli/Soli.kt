@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -50,6 +51,20 @@ fun Soli(
                             feedTitle = feedTitle,
                             podcastFeedViewModel = podcastFeedViewModel,
                         )
+                    }
+                }
+
+                composable("player") {
+                    Column {
+                        TopAppBar(title = { Text(text = "Now Playing") }, navigationIcon = {
+                            IconButton(onClick = navController::popBackStack) {
+                                Icon(
+                                    imageVector = Icons.Filled.Close,
+                                    contentDescription = "close"
+                                )
+                            }
+                        })
+                        PlayerScreen(playerScreenViewModel = PlayerScreenViewModel())
                     }
                 }
             }
