@@ -145,7 +145,7 @@ fun HomeTabIndicator(modifier: Modifier) {
         modifier
             .padding(horizontal = 24.dp)
             .height(4.dp)
-            .background(Color.Red, RoundedCornerShape(topStartPercent = 100, topEndPercent = 100))
+            .background(Color.White, RoundedCornerShape(topStartPercent = 100, topEndPercent = 100))
     )
 }
 

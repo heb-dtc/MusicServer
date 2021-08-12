@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -74,14 +75,14 @@ fun RadioItem(media: Media, color: Color, onClick: (Media) -> Unit) {
         verticalArrangement = Arrangement.Top,
     ) {
         Text(
-            media.name,
+            media.name.uppercase(),
             Modifier
                 .weight(1f)
                 .padding(8.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),
             fontWeight = FontWeight.Bold,
-            fontSize = 32.sp
+            fontSize = 32.sp,
         )
     }
 }

@@ -27,11 +27,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".PlayerActivity"
-            android:parentActivityName=".RadioListActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
         <service
             android:name=".PlayerService"
             android:enabled="true"
