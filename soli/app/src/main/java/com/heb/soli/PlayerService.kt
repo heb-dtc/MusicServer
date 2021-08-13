@@ -11,9 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import com.heb.soli.api.Media
-import com.heb.soli.api.MediaId
-import com.heb.soli.api.NO_MEDIA_ID
+import com.heb.soli.api.*
 import com.heb.soli.media.MediaRepository
 import com.heb.soli.player.Player
 import com.heb.soli.player.PlayerContext
@@ -23,7 +21,10 @@ import kotlinx.coroutines.launch
 private const val NOTIFICATION_FOREGROUND_ID = 1
 private const val PLAYER_SERVICE_CHANNEL_ID = "player-service-channel"
 private const val ARG_ACTION_PLAY = "com.heb.play"
-private const val ARG_MEDIA_ID = "media_id"
+private const val ARG_RADIO_ID = "radio_id"
+private const val ARG_PODCAST_TITLE = "podcast_title"
+private const val ARG_PODCAST_EPISODE = "podcast_episode"
+private const val ARG_MEDIA_TYPE = "media_id"
 const val ARG_ACTION_PLAY_PAUSE = "com.heb.playpause"
 
 class PlayerService : LifecycleService() {
@@ -35,11 +36,20 @@ class PlayerService : LifecycleService() {
         val TAG: String = PlayerService::class.java.simpleName
 
         val playerContext =
-            MutableStateFlow(PlayerContext(mediaId = NO_MEDIA_ID, isPlaying = false))
+            MutableStateFlow(PlayerContext(media = NO_MEDIA, isPlaying = false))
 
-        fun buildPlayIntent(context: Context, media: Media) =
+        fun buildPlayRadioIntent(context: Context, radio: Media) =
             Intent(context, PlayerService::class.java).apply {
-                putExtra(ARG_MEDIA_ID, media.id.id)
+                putExtra(ARG_RADIO_ID, radio.id.id)
+                putExtra(ARG_MEDIA_TYPE, MediaType.RADIO_STREAM.toString())
+                action = ARG_ACTION_PLAY
+            }
+
+        fun buildPlayPodcastIntent(context: Context, feedTitle: String, episodeIndex: Int) =
+            Intent(context, PlayerService::class.java).apply {
+                putExtra(ARG_PODCAST_TITLE, feedTitle)
+                putExtra(ARG_PODCAST_EPISODE, episodeIndex)
+                putExtra(ARG_MEDIA_TYPE, MediaType.PODCAST_EPISODE.toString())
                 action = ARG_ACTION_PLAY
             }
 
@@ -108,15 +118,38 @@ class PlayerService : LifecycleService() {
             when (it.action) {
                 ARG_ACTION_PLAY -> {
                     startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
-                    val id = intent.getIntExtra(ARG_MEDIA_ID, -1)
-                    val media = mediaRepository.getMedia(MediaId(id))
 
-                    media?.let { itMedia ->
-                        play(itMedia.url)
+                    val type = MediaType.valueOf(
+                        intent.getStringExtra(ARG_MEDIA_TYPE) ?: MediaType.NO_MEDIA.name
+                    )
 
-                        lifecycleScope.launch {
-                            playerContext.emit(PlayerContext(itMedia.id, true))
+                    val media = when (type) {
+                        MediaType.RADIO_STREAM -> {
+                            val id = intent.getIntExtra(ARG_RADIO_ID, -1)
+                            mediaRepository.getRadio(MediaId(id)) ?: NO_MEDIA
                         }
+                        MediaType.PODCAST_EPISODE -> {
+                            val title = intent.getStringExtra(ARG_PODCAST_TITLE)
+                            val episodeIndex = intent.getIntExtra(ARG_PODCAST_EPISODE, -1)
+
+                            title?.let {
+                                val podcastFeed = mediaRepository.getPodcastFeed(title)
+                                podcastFeed?.let { feed ->
+                                    feed.episodes[episodeIndex].toMedia()
+                                } ?: NO_MEDIA
+                            } ?: NO_MEDIA
+                        }
+                        else -> {
+                            NO_MEDIA
+                        }
+                    }
+
+                    if (media != NO_MEDIA) {
+                        play(media.url)
+                    }
+
+                    lifecycleScope.launch {
+                        playerContext.emit(PlayerContext(media, true))
                     }
                 }
                 ARG_ACTION_PLAY_PAUSE -> {
@@ -125,14 +158,14 @@ class PlayerService : LifecycleService() {
                         player.pause()
 
                         lifecycleScope.launch {
-                            playerContext.emit(PlayerContext(playerContext.value.mediaId, false))
+                            playerContext.emit(PlayerContext(playerContext.value.media, false))
                         }
                     } else {
                         startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
                         player.resume()
 
                         lifecycleScope.launch {
-                            playerContext.emit(PlayerContext(playerContext.value.mediaId, true))
+                            playerContext.emit(PlayerContext(playerContext.value.media, true))
                         }
                     }
                 }

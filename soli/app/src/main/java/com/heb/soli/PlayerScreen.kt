@@ -1,6 +1,7 @@
 package com.heb.soli
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
@@ -11,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -23,7 +25,7 @@ import coil.compose.rememberImagePainter
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PlayerScreenPreview() {
-    PlayerScreen(mediaName = "Super podcast", "01:23:90", "00:23:45", "", true, {}, {})
+    PlayerScreen(mediaName = "Super podcast", "01:23:90", "00:23:45", null, true, {}, {})
 }
 
 @Composable
@@ -34,7 +36,7 @@ fun PlayerScreen(playerScreenViewModel: PlayerScreenViewModel) {
         screenState.mediaName,
         screenState.mediaDuration,
         screenState.positionInMedia,
-        "",
+        screenState.imageUri,
         screenState.isPlaying,
         playerScreenViewModel::pause,
         playerScreenViewModel::play
@@ -46,7 +48,7 @@ fun PlayerScreen(
     mediaName: String,
     duration: String,
     positionInMedia: String,
-    imageUri: String,
+    imageUri: String?,
     isPlaying: Boolean,
     pauseClickAction: () -> Unit,
     playClickAction: () -> Unit
@@ -54,16 +56,25 @@ fun PlayerScreen(
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(horizontal = 20.dp)
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .fillMaxHeight()
     ) {
-        Image(
-            painter = rememberImagePainter(data = imageUri, builder = {
-                placeholder(R.drawable.ic_launcher_background)
-            }),
-            contentDescription = "",
-            contentScale = ContentScale.Crop,
+
+        imageUri?.let {
+            Image(
+                painter = rememberImagePainter(data = imageUri, builder = {
+                    placeholder(R.drawable.ic_launcher_background)
+                }),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(200.dp),
+            )
+        } ?: Box(
             modifier = Modifier
-                .size(200.dp),
+                .background(color = Color(0xFFe63946))
+                .size(200.dp)
         )
 
         Text(text = mediaName, modifier = Modifier.padding(top = 20.dp))

@@ -3,19 +3,10 @@ package com.heb.soli
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.ui.Modifier
-import androidx.core.view.WindowCompat
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.heb.soli.api.Media
+import com.heb.soli.api.PodcastEpisode
 import com.heb.soli.media.MediaRepository
-import com.heb.soli.ui.theme.SoliTheme
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             val homeViewModel =
                 HomeViewModel(mediaRepository, navController, this::playRadio)
             val podcastFeedViewModel =
-                PodcastFeedViewModel(mediaRepository, navController)
+                PodcastFeedViewModel(mediaRepository, navController, this::playPodcast)
             val playerScreenViewModel = PlayerScreenViewModel(this::playerPlayPauseAction)
 
             Soli(
@@ -46,7 +37,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun playRadio(radio: Media) {
-        startService(PlayerService.buildPlayIntent(baseContext, radio))
+        startService(PlayerService.buildPlayRadioIntent(baseContext, radio))
+    }
+
+    private fun playPodcast(feedTitle: String, episodeIndex: Int) {
+        startService(PlayerService.buildPlayPodcastIntent(baseContext, feedTitle, episodeIndex))
     }
 
     private fun playerPlayPauseAction() {

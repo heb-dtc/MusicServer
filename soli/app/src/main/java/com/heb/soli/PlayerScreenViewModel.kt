@@ -2,6 +2,8 @@ package com.heb.soli
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.heb.soli.api.Media
+import com.heb.soli.api.MediaType
 import com.heb.soli.api.NO_MEDIA
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -11,6 +13,7 @@ data class PlayerScreenState(
     val mediaName: String = "",
     val mediaDuration: String = "00:00:00",
     val positionInMedia: String = "00:00:00",
+    val imageUri: String? = null,
     val isPlaying: Boolean = false
 )
 
@@ -24,10 +27,35 @@ class PlayerScreenViewModel(val playPauseAction: () -> Unit) : ViewModel() {
     init {
         viewModelScope.launch {
             PlayerService.playerContext.collect {
-                if (it.mediaId == NO_MEDIA.id) {
-                    _state.value = PlayerScreenState(mediaName = "NO_MEDIA", mediaDuration = "", positionInMedia= "", isPlaying = it.isPlaying)
-                } else {
-                    _state.value = PlayerScreenState(mediaName = "HAS_MEDIA", mediaDuration = "", positionInMedia= "", isPlaying = it.isPlaying)
+                when (it.media.type) {
+                    MediaType.RADIO_STREAM -> _state.value = PlayerScreenState(
+                        mediaName = it.media.name,
+                        mediaDuration = "",
+                        positionInMedia = "",
+                        imageUri = null,
+                        isPlaying = it.isPlaying
+                    )
+                    MediaType.PODCAST_EPISODE -> _state.value = PlayerScreenState(
+                        mediaName = it.media.name,
+                        mediaDuration = "",
+                        positionInMedia = "",
+                        imageUri = null,
+                        isPlaying = it.isPlaying
+                    )
+                    MediaType.TRACK -> _state.value = PlayerScreenState(
+                        mediaName = "HAS_MEDIA",
+                        mediaDuration = "",
+                        positionInMedia = "",
+                        imageUri = null,
+                        isPlaying = it.isPlaying
+                    )
+                    MediaType.NO_MEDIA -> _state.value = PlayerScreenState(
+                        mediaName = "NO_MEDIA",
+                        mediaDuration = "",
+                        positionInMedia = "",
+                        imageUri = null,
+                        isPlaying = it.isPlaying
+                    )
                 }
             }
         }

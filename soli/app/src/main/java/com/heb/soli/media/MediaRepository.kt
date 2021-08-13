@@ -17,18 +17,18 @@ class MediaRepository(private val networkClient: NetworkClient) {
 
     // TODO: improve dat!
     // poor's man local cache
-    private val mediaList: MutableList<Media> = mutableListOf()
+    private val radioList: MutableList<Media> = mutableListOf()
     private val podcastFeedList: MutableList<PodcastFeed> = mutableListOf()
 
-    fun getMedia(id: MediaId) =
-        mediaList.firstOrNull { it.id == id }
+    fun getRadio(id: MediaId) =
+        radioList.firstOrNull { it.id == id }
 
     fun getPodcastFeed(title: String) =
         podcastFeedList.firstOrNull { it.name == title}
 
     fun getRadioList(): Flow<List<Media>> = flow {
         val medias = networkClient.fetchAllRadios().map {
-            mediaList.add(it)
+            radioList.add(it)
             it
         }.toList()
         emit(medias)

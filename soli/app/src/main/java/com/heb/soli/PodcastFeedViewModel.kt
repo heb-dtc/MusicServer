@@ -7,7 +7,8 @@ import com.heb.soli.media.MediaRepository
 
 class PodcastFeedViewModel(
     private val mediaRepository: MediaRepository,
-    private val navController: NavHostController
+    private val navController: NavHostController,
+    private val playAction: (String, Int) -> Unit
 ) : ViewModel() {
 
     fun getFeedEpisode(feedTitle: String): List<PodcastEpisode> {
@@ -15,6 +16,8 @@ class PodcastFeedViewModel(
     }
 
     fun playEpisode(episode: PodcastEpisode) {
+        //FIXME
+        //playAction.invoke()
         navController.navigate("player")
     }
 }
