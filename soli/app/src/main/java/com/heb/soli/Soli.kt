@@ -21,7 +21,9 @@ import com.heb.soli.ui.theme.SoliTheme
 
 @Composable
 fun Soli(
-    homeViewModel: HomeViewModel, podcastFeedViewModel: PodcastFeedViewModel,
+    homeViewModel: HomeViewModel,
+    podcastFeedViewModel: PodcastFeedViewModel,
+    playerScreenViewModel: PlayerScreenViewModel,
     navController: NavHostController
 ) {
     SoliTheme {
@@ -80,7 +82,7 @@ fun Soli(
                                 )
                             }
                         })
-                        PlayerScreen(playerScreenViewModel = PlayerScreenViewModel())
+                        PlayerScreen(playerScreenViewModel = playerScreenViewModel)
                     }
                 }
             }

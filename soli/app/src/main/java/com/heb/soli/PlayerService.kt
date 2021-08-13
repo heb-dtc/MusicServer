@@ -7,18 +7,18 @@ import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import androidx.annotation.MainThread
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import com.heb.soli.api.Media
 import com.heb.soli.api.MediaId
+import com.heb.soli.api.NO_MEDIA_ID
 import com.heb.soli.media.MediaRepository
 import com.heb.soli.player.Player
 import com.heb.soli.player.PlayerContext
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 private const val NOTIFICATION_FOREGROUND_ID = 1
 private const val PLAYER_SERVICE_CHANNEL_ID = "player-service-channel"
@@ -34,7 +34,8 @@ class PlayerService : LifecycleService() {
     companion object {
         val TAG: String = PlayerService::class.java.simpleName
 
-        val playerContext = MutableLiveData<PlayerContext>()
+        val playerContext =
+            MutableStateFlow(PlayerContext(mediaId = NO_MEDIA_ID, isPlaying = false))
 
         fun buildPlayIntent(context: Context, media: Media) =
             Intent(context, PlayerService::class.java).apply {
@@ -59,7 +60,7 @@ class PlayerService : LifecycleService() {
     }
 
     private fun buildNotification(): Notification {
-        val intent = Intent(applicationContext, PlayerActivity::class.java)
+        val intent = Intent(applicationContext, MainActivity::class.java)
         val contentIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -113,7 +114,9 @@ class PlayerService : LifecycleService() {
                     media?.let { itMedia ->
                         play(itMedia.url)
 
-                        playerContext.postValue(PlayerContext(itMedia.id.id, true))
+                        lifecycleScope.launch {
+                            playerContext.emit(PlayerContext(itMedia.id, true))
+                        }
                     }
                 }
                 ARG_ACTION_PLAY_PAUSE -> {
@@ -121,12 +124,16 @@ class PlayerService : LifecycleService() {
                         stopForeground(false)
                         player.pause()
 
-                        playerContext.postValue(PlayerContext(playerContext.value?.mediaId, false))
+                        lifecycleScope.launch {
+                            playerContext.emit(PlayerContext(playerContext.value.mediaId, false))
+                        }
                     } else {
                         startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
                         player.resume()
 
-                        playerContext.postValue(PlayerContext(playerContext.value?.mediaId, true))
+                        lifecycleScope.launch {
+                            playerContext.emit(PlayerContext(playerContext.value.mediaId, true))
+                        }
                     }
                 }
                 else -> Log.e(TAG, "unknown action")

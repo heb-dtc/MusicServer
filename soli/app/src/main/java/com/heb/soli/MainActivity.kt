@@ -34,20 +34,23 @@ class MainActivity : AppCompatActivity() {
                 HomeViewModel(mediaRepository, navController, this::playRadio)
             val podcastFeedViewModel =
                 PodcastFeedViewModel(mediaRepository, navController)
+            val playerScreenViewModel = PlayerScreenViewModel(this::playerPlayPauseAction)
 
             Soli(
                 homeViewModel = homeViewModel,
                 podcastFeedViewModel = podcastFeedViewModel,
+                playerScreenViewModel = playerScreenViewModel,
                 navController = navController
             )
-            /*mediaNameView.setOnClickListener {
-                val intent = Intent(applicationContext, PlayerActivity::class.java)
-                startActivity(intent)
-            }*/
         }
     }
 
     private fun playRadio(radio: Media) {
         startService(PlayerService.buildPlayIntent(baseContext, radio))
+    }
+
+    private fun playerPlayPauseAction() {
+        val intent = PlayerService.buildCommandIntent(baseContext, ARG_ACTION_PLAY_PAUSE)
+        startService(intent)
     }
 }
