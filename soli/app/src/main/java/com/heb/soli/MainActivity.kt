@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.compose.rememberNavController
 import com.heb.soli.api.Media
 import com.heb.soli.api.PodcastEpisode
+import com.heb.soli.api.RadioStream
+import com.heb.soli.api.toMedia
 import com.heb.soli.media.MediaRepository
 
 class MainActivity : AppCompatActivity() {
@@ -36,12 +38,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun playRadio(radio: Media) {
-        startService(PlayerService.buildPlayRadioIntent(baseContext, radio))
+    private fun playRadio(radio: RadioStream) {
+        startService(PlayerService.buildPlayMediaIntent(baseContext, radio.toMedia()))
     }
 
-    private fun playPodcast(feedTitle: String, episodeIndex: Int) {
-        startService(PlayerService.buildPlayPodcastIntent(baseContext, feedTitle, episodeIndex))
+    private fun playPodcast(episode: PodcastEpisode) {
+        startService(PlayerService.buildPlayMediaIntent(baseContext, episode.toMedia()))
     }
 
     private fun playerPlayPauseAction() {

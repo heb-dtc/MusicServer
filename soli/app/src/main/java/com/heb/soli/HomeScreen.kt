@@ -25,43 +25,45 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
-import com.heb.soli.api.Media
-import com.heb.soli.api.MediaId
-import com.heb.soli.api.MediaType
-import com.heb.soli.api.PodcastFeed
+import com.heb.soli.api.*
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomePreview() {
     HomeScreen(
         radios = listOf(
-            Media(MediaId(1), "SOMA", "", MediaType.RADIO_STREAM),
-            Media(MediaId(2), "FRANCE INFO", "", MediaType.RADIO_STREAM),
-            Media(MediaId(3), "FRANCE INTER", "", MediaType.RADIO_STREAM),
-            Media(MediaId(4), "FIP", "", MediaType.RADIO_STREAM),
+            RadioStream(MediaId("1"), "SOMA", ""),
+            RadioStream(MediaId("2"), "FRANCE INFO", ""),
+            RadioStream(MediaId("3"), "FRANCE INTER", ""),
+            RadioStream(MediaId("4"), "FIP", ""),
         ),
         podcasts = listOf(
             PodcastFeed(
+                id = "",
                 name = "afterhate",
                 imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
                 emptyList()
             ),
             PodcastFeed(
+                id = "",
                 name = "afterhate",
                 imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
                 emptyList()
             ),
             PodcastFeed(
+                id = "",
                 name = "afterhate",
                 imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
                 emptyList()
             ),
             PodcastFeed(
+                id = "",
                 name = "afterhate",
                 imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
                 emptyList()
             ),
             PodcastFeed(
+                id = "",
                 name = "afterhate",
                 imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
                 emptyList()
@@ -93,12 +95,12 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
-    radios: List<Media>,
+    radios: List<RadioStream>,
     podcasts: List<PodcastFeed>,
     selectedSection: HomeSection,
     onSectionSelected: (HomeSection) -> Unit,
     onOpenPodcastFeed: (PodcastFeed) -> Unit,
-    onStartRadio: (Media) -> Unit,
+    onStartRadio: (RadioStream) -> Unit,
 ) {
     val selectedIndex = selectedSection.let {
         if (it == HomeSection.Radio) 0

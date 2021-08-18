@@ -79,6 +79,8 @@ fun PlayerScreen(
 
         Text(text = mediaName, modifier = Modifier.padding(top = 20.dp))
 
+        Text(text = mediaName, modifier = Modifier.padding(top = 20.dp))
+
         LinearProgressIndicator(
             modifier = Modifier
                 .fillMaxWidth()

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.heb.soli.api.Media
 import com.heb.soli.api.MediaId
 import com.heb.soli.api.MediaType
+import com.heb.soli.api.RadioStream
 import com.heb.soli.ui.theme.SoliTheme
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -27,10 +28,10 @@ fun DefaultPreview() {
     SoliTheme {
         RadioList(
             medias = listOf(
-                Media(MediaId(1), "SOMA", "", MediaType.RADIO_STREAM),
-                Media(MediaId(2), "FRANCE INFO", "", MediaType.RADIO_STREAM),
-                Media(MediaId(3), "FRANCE INTER", "", MediaType.RADIO_STREAM),
-                Media(MediaId(4), "FIP", "", MediaType.RADIO_STREAM),
+                RadioStream(MediaId("1"), "SOMA", ""),
+                RadioStream(MediaId("2"), "FRANCE INFO", ""),
+                RadioStream(MediaId("3"), "FRANCE INTER", ""),
+                RadioStream(MediaId("4"), "FIP", ""),
             ),
             {}
         )
@@ -39,7 +40,7 @@ fun DefaultPreview() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun RadioList(medias: List<Media>, onClick: (Media) -> Unit) {
+internal fun RadioList(medias: List<RadioStream>, onClick: (RadioStream) -> Unit) {
     val colors = listOf(0xFFe63946, 0xFFf1faee, 0xFFa8dadc, 0xFF457b9d, 0xFF1d3557)
 
     LazyVerticalGrid(
@@ -56,26 +57,26 @@ internal fun RadioList(medias: List<Media>, onClick: (Media) -> Unit) {
 @Composable
 fun ItemPreview() {
     RadioItem(
-        media = Media(MediaId(1), "SOMA", "", MediaType.RADIO_STREAM), color =
+        radio = RadioStream(MediaId("1"), "SOMA", ""), color =
         Color.Red,
         {}
     )
 }
 
 @Composable
-fun RadioItem(media: Media, color: Color, onClick: (Media) -> Unit) {
+fun RadioItem(radio: RadioStream, color: Color, onClick: (RadioStream) -> Unit) {
     Column(
         modifier = Modifier
             .height(150.dp)
             .fillMaxSize()
             .clickable {
-                onClick(media)
+                onClick(radio)
             }
             .background(color),
         verticalArrangement = Arrangement.Top,
     ) {
         Text(
-            media.name.uppercase(),
+            radio.name.uppercase(),
             Modifier
                 .weight(1f)
                 .padding(8.dp)

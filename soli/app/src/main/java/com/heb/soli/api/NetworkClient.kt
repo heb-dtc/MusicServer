@@ -51,7 +51,7 @@ class NetworkClient {
     private val syndFeedInput = SyndFeedInput()
     private val podcastFeedParser = PodcastFeedParser()
 
-    suspend fun fetchAllRadios(): List<Media> {
+    suspend fun fetchAllRadios(): List<RadioStream> {
         Log.d(TAG, "fetch all radios")
 
         return try {

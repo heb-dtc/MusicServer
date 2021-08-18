@@ -1,9 +1,6 @@
 package com.heb.soli.media
 
-import com.heb.soli.api.Media
-import com.heb.soli.api.MediaId
-import com.heb.soli.api.NetworkClient
-import com.heb.soli.api.PodcastFeed
+import com.heb.soli.api.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -17,16 +14,16 @@ class MediaRepository(private val networkClient: NetworkClient) {
 
     // TODO: improve dat!
     // poor's man local cache
-    private val radioList: MutableList<Media> = mutableListOf()
+    private val radioList: MutableList<RadioStream> = mutableListOf()
     private val podcastFeedList: MutableList<PodcastFeed> = mutableListOf()
 
     fun getRadio(id: MediaId) =
-        radioList.firstOrNull { it.id == id }
+        radioList.firstOrNull { it.id.equals(id) }
 
     fun getPodcastFeed(title: String) =
         podcastFeedList.firstOrNull { it.name == title}
 
-    fun getRadioList(): Flow<List<Media>> = flow {
+    fun getRadioList(): Flow<List<RadioStream>> = flow {
         val medias = networkClient.fetchAllRadios().map {
             radioList.add(it)
             it

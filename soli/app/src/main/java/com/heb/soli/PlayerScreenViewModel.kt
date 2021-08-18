@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 data class PlayerScreenState(
+    val mediaHeaderName: String = "",
     val mediaName: String = "",
     val mediaDuration: String = "00:00:00",
     val positionInMedia: String = "00:00:00",
@@ -29,6 +30,7 @@ class PlayerScreenViewModel(val playPauseAction: () -> Unit) : ViewModel() {
             PlayerService.playerContext.collect {
                 when (it.media.type) {
                     MediaType.RADIO_STREAM -> _state.value = PlayerScreenState(
+                        mediaHeaderName = "Radio",
                         mediaName = it.media.name,
                         mediaDuration = "",
                         positionInMedia = "",
@@ -36,6 +38,7 @@ class PlayerScreenViewModel(val playPauseAction: () -> Unit) : ViewModel() {
                         isPlaying = it.isPlaying
                     )
                     MediaType.PODCAST_EPISODE -> _state.value = PlayerScreenState(
+                        mediaHeaderName = "Podcast",
                         mediaName = it.media.name,
                         mediaDuration = "",
                         positionInMedia = "",
@@ -43,6 +46,7 @@ class PlayerScreenViewModel(val playPauseAction: () -> Unit) : ViewModel() {
                         isPlaying = it.isPlaying
                     )
                     MediaType.TRACK -> _state.value = PlayerScreenState(
+                        mediaHeaderName = "Music",
                         mediaName = "HAS_MEDIA",
                         mediaDuration = "",
                         positionInMedia = "",
@@ -50,6 +54,7 @@ class PlayerScreenViewModel(val playPauseAction: () -> Unit) : ViewModel() {
                         isPlaying = it.isPlaying
                     )
                     MediaType.NO_MEDIA -> _state.value = PlayerScreenState(
+                        mediaHeaderName = "NO_MEDIA",
                         mediaName = "NO_MEDIA",
                         mediaDuration = "",
                         positionInMedia = "",

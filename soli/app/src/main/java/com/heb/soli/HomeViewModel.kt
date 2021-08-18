@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.heb.soli.api.Media
 import com.heb.soli.api.PodcastFeed
+import com.heb.soli.api.RadioStream
 import com.heb.soli.media.MediaRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -19,10 +20,10 @@ private const val TAG = "RadioScreenViewModel"
 class HomeViewModel(
     private val mediaRepository: MediaRepository,
     private val navController: NavHostController,
-    private val startRadioAction: (Media) -> Unit
+    private val startRadioAction: (RadioStream) -> Unit
 ) : ViewModel() {
 
-    val radios: MutableState<List<Media>> = mutableStateOf(emptyList())
+    val radios: MutableState<List<RadioStream>> = mutableStateOf(emptyList())
     val podcasts: MutableState<List<PodcastFeed>> = mutableStateOf(emptyList())
     val selectedSection: MutableState<HomeSection> = mutableStateOf(HomeSection.Radio)
 
@@ -54,7 +55,7 @@ class HomeViewModel(
         navController.navigate("podcastFeed/${feed.name}")
     }
 
-    fun onStartRadio(radio: Media) {
+    fun onStartRadio(radio: RadioStream) {
         startRadioAction.invoke(radio)
         navController.navigate("player")
     }

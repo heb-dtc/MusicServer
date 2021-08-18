@@ -21,10 +21,12 @@ import kotlinx.coroutines.launch
 private const val NOTIFICATION_FOREGROUND_ID = 1
 private const val PLAYER_SERVICE_CHANNEL_ID = "player-service-channel"
 private const val ARG_ACTION_PLAY = "com.heb.play"
-private const val ARG_RADIO_ID = "radio_id"
-private const val ARG_PODCAST_TITLE = "podcast_title"
-private const val ARG_PODCAST_EPISODE = "podcast_episode"
-private const val ARG_MEDIA_TYPE = "media_id"
+
+private const val ARG_MEDIA_ID = "media_id"
+private const val ARG_MEDIA_TYPE = "media_type"
+private const val ARG_MEDIA_URI = "media_uri"
+private const val ARG_MEDIA_NAME = "media_name"
+
 const val ARG_ACTION_PLAY_PAUSE = "com.heb.playpause"
 
 class PlayerService : LifecycleService() {
@@ -38,25 +40,19 @@ class PlayerService : LifecycleService() {
         val playerContext =
             MutableStateFlow(PlayerContext(media = NO_MEDIA, isPlaying = false))
 
-        fun buildPlayRadioIntent(context: Context, radio: Media) =
-            Intent(context, PlayerService::class.java).apply {
-                putExtra(ARG_RADIO_ID, radio.id.id)
-                putExtra(ARG_MEDIA_TYPE, MediaType.RADIO_STREAM.toString())
-                action = ARG_ACTION_PLAY
-            }
-
-        fun buildPlayPodcastIntent(context: Context, feedTitle: String, episodeIndex: Int) =
-            Intent(context, PlayerService::class.java).apply {
-                putExtra(ARG_PODCAST_TITLE, feedTitle)
-                putExtra(ARG_PODCAST_EPISODE, episodeIndex)
-                putExtra(ARG_MEDIA_TYPE, MediaType.PODCAST_EPISODE.toString())
-                action = ARG_ACTION_PLAY
-            }
-
         fun buildCommandIntent(context: Context, command: String) =
             Intent(context, PlayerService::class.java).apply {
                 action = command
             }
+
+        fun buildPlayMediaIntent(context: Context, media: Media) =
+            Intent(context, PlayerService::class.java).apply {
+                putExtra(ARG_MEDIA_ID, media.id.id)
+                putExtra(ARG_MEDIA_TYPE, media.type.toString())
+                putExtra(ARG_MEDIA_URI, media.url)
+                putExtra(ARG_MEDIA_NAME, media.name)
+                action = ARG_ACTION_PLAY
+        }
     }
 
     override fun onCreate() {
@@ -122,29 +118,13 @@ class PlayerService : LifecycleService() {
                     val type = MediaType.valueOf(
                         intent.getStringExtra(ARG_MEDIA_TYPE) ?: MediaType.NO_MEDIA.name
                     )
-
-                    val media = when (type) {
-                        MediaType.RADIO_STREAM -> {
-                            val id = intent.getIntExtra(ARG_RADIO_ID, -1)
-                            mediaRepository.getRadio(MediaId(id)) ?: NO_MEDIA
-                        }
-                        MediaType.PODCAST_EPISODE -> {
-                            val title = intent.getStringExtra(ARG_PODCAST_TITLE)
-                            val episodeIndex = intent.getIntExtra(ARG_PODCAST_EPISODE, -1)
-
-                            title?.let {
-                                val podcastFeed = mediaRepository.getPodcastFeed(title)
-                                podcastFeed?.let { feed ->
-                                    feed.episodes[episodeIndex].toMedia()
-                                } ?: NO_MEDIA
-                            } ?: NO_MEDIA
-                        }
-                        else -> {
-                            NO_MEDIA
-                        }
-                    }
+                    val id = intent.getStringExtra(ARG_MEDIA_ID) ?: ""
+                    val uri = intent.getStringExtra(ARG_MEDIA_URI) ?: ""
+                    val name = intent.getStringExtra(ARG_MEDIA_NAME) ?: ""
+                    val media = Media(id = MediaId(id), name = name, url = uri, type = type)
 
                     if (media != NO_MEDIA) {
+                        Log.d(TAG, "Attempting to play media with uri ${media.url}")
                         play(media.url)
                     }
 
