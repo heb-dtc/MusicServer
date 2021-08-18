@@ -91,7 +91,7 @@ fun EpisodeRow(index: Int, episode: PodcastEpisode, onClick: () -> Unit) {
     ) {
         Image(
             painter = rememberImagePainter(data = episode.imageUrl, builder = {
-                placeholder(R.drawable.ic_launcher_background)
+                placeholder(R.drawable.img_placeholder)
             }),
             contentDescription = "",
             contentScale = ContentScale.Crop,
@@ -110,7 +110,7 @@ fun EpisodeRow(index: Int, episode: PodcastEpisode, onClick: () -> Unit) {
             onClick = { onClick() },
             border = BorderStroke(1.dp, MaterialTheme.colors.primary),
             modifier = Modifier
-                .padding(2.dp)
+                .padding(8.dp)
                 .size(40.dp)
         ) {
             Image(

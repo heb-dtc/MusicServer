@@ -115,12 +115,12 @@ fun HomeScreen(
 
     Column {
         TabRow(selectedTabIndex = selectedIndex, indicator = indicator) {
-            Tab(selected = true, onClick = { onSectionSelected(HomeSection.Radio) },
+            Tab(selected = selectedIndex == 0, onClick = { onSectionSelected(HomeSection.Radio) },
                 text = {
                     Text(text = "Radios")
                 })
 
-            Tab(selected = false, onClick = { onSectionSelected(HomeSection.Podcast) },
+            Tab(selected = selectedIndex == 1, onClick = { onSectionSelected(HomeSection.Podcast) },
                 text = {
                     Text(text = "Podcasts")
                 })
@@ -181,7 +181,7 @@ fun PodcastList(
                 } else {
                     Image(
                         painter = rememberImagePainter(data = feed.imageUrl, builder = {
-                            placeholder(R.drawable.ic_launcher_background)
+                            placeholder(R.drawable.img_placeholder)
                         }),
                         contentDescription = "",
                         contentScale = ContentScale.Crop,
