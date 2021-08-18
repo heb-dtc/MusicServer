@@ -7,21 +7,22 @@ import com.rometools.rome.feed.synd.SyndFeed
 class PodcastFeedParser {
     fun parse(feed: SyndFeed): PodcastFeed {
 
-        val episodes = feed.entries.map {
-            val entryInformation = it.getModule(ITunes.URI) as? EntryInformation
+        val episodes = feed.entries.mapIndexed { index, entry ->
+            val entryInformation = entry.getModule(ITunes.URI) as? EntryInformation
             PodcastEpisode(
-                id = MediaId(""),
+                id = MediaId("${feed.link}_$index"),
                 //TODO: check if this correct?
-                playUri = it.enclosures[0].url,
-                it.title,
+                playUri = entry.enclosures[0].url,
+                entry.title,
                 subtitle = entryInformation?.subtitle,
                 summary = entryInformation?.summary,
-                it.uri,
+                entry.uri,
                 imageUrl = entryInformation?.imageUri?.toString() ?: feed.image.url,
                 duration = null
             )
         }.toList()
 
-        return PodcastFeed(id = feed.uri ?: "", name = feed.title, imageUrl = feed.image.url, episodes = episodes)
+        //TODO find a better id...
+        return PodcastFeed(id = feed.link, name = feed.title, imageUrl = feed.image.url, episodes = episodes)
     }
 }

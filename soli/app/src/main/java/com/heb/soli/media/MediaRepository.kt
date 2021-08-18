@@ -18,7 +18,7 @@ class MediaRepository(private val networkClient: NetworkClient) {
     private val podcastFeedList: MutableList<PodcastFeed> = mutableListOf()
 
     fun getRadio(id: MediaId) =
-        radioList.firstOrNull { it.id.equals(id) }
+        radioList.firstOrNull { it.id == id }
 
     fun getPodcastFeed(title: String) =
         podcastFeedList.firstOrNull { it.name == title}
@@ -38,5 +38,15 @@ class MediaRepository(private val networkClient: NetworkClient) {
             feed
         }.toList()
         emit(feeds)
+    }
+
+    fun getPodcastEpisode(mediaId: MediaId): PodcastEpisode? {
+        val feedId = mediaId.id.substringBefore("_")
+
+        return podcastFeedList.firstOrNull {
+            it.id == feedId
+        }?.episodes?.firstOrNull {
+            it.id == mediaId
+        }
     }
 }

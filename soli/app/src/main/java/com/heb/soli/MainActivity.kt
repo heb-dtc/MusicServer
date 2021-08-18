@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity() {
                 HomeViewModel(mediaRepository, navController, this::playRadio)
             val podcastFeedViewModel =
                 PodcastFeedViewModel(mediaRepository, navController, this::playPodcast)
-            val playerScreenViewModel = PlayerScreenViewModel(this::playerPlayPauseAction)
+            val playerScreenViewModel =
+                PlayerScreenViewModel(mediaRepository, this::playerPlayPauseAction)
 
             Soli(
                 homeViewModel = homeViewModel,

@@ -6,21 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0cc3c100-b801-4968-9dc8-f5a5a520be6f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/repository/RadioRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/repository/RadioRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/HomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/HomeViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreenViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreenViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/RadioListScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/RadioListScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/Media.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/Media.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/NetworkClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/NetworkClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/PodcastFeedParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/PodcastFeedParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/media/MediaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/media/MediaRepository.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

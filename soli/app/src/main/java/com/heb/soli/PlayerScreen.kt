@@ -25,7 +25,7 @@ import coil.compose.rememberImagePainter
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PlayerScreenPreview() {
-    PlayerScreen(mediaName = "Super podcast", "01:23:90", "00:23:45", null, true, {}, {})
+    PlayerScreen(mediaHeaderName = "Podcast", mediaName = "Super podcast", "01:23:90", "00:23:45", null, true, {}, {})
 }
 
 @Composable
@@ -33,6 +33,7 @@ fun PlayerScreen(playerScreenViewModel: PlayerScreenViewModel) {
     val screenState by playerScreenViewModel.state.collectAsState()
 
     PlayerScreen(
+        screenState.mediaHeaderName,
         screenState.mediaName,
         screenState.mediaDuration,
         screenState.positionInMedia,
@@ -45,6 +46,7 @@ fun PlayerScreen(playerScreenViewModel: PlayerScreenViewModel) {
 
 @Composable
 fun PlayerScreen(
+    mediaHeaderName: String,
     mediaName: String,
     duration: String,
     positionInMedia: String,
@@ -77,9 +79,9 @@ fun PlayerScreen(
                 .size(200.dp)
         )
 
-        Text(text = mediaName, modifier = Modifier.padding(top = 20.dp))
+        Text(text = mediaHeaderName, modifier = Modifier.padding(top = 20.dp))
 
-        Text(text = mediaName, modifier = Modifier.padding(top = 20.dp))
+        Text(text = mediaName, modifier = Modifier.padding(top = 8.dp))
 
         LinearProgressIndicator(
             modifier = Modifier
