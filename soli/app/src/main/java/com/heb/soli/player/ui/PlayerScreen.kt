@@ -1,4 +1,4 @@
-package com.heb.soli
+package com.heb.soli.player.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,11 +21,20 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import com.heb.soli.R
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PlayerScreenPreview() {
-    PlayerScreen(mediaHeaderName = "Podcast", mediaName = "Super podcast", "01:23:90", "00:23:45", null, true, {}, {})
+    PlayerScreen(
+        mediaHeaderName = "Podcast",
+        mediaName = "Super podcast",
+        "01:23:90",
+        "00:23:45",
+        null,
+        true,
+        {},
+        {})
 }
 
 @Composable

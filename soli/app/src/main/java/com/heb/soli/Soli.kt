@@ -13,10 +13,13 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.heb.soli.media.ui.PodcastFeedScreen
+import com.heb.soli.media.ui.PodcastFeedViewModel
+import com.heb.soli.player.ui.PlayerScreen
+import com.heb.soli.player.ui.PlayerScreenViewModel
 import com.heb.soli.ui.theme.SoliTheme
 
 @Composable

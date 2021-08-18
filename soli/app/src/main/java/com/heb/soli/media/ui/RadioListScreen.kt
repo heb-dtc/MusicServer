@@ -1,4 +1,4 @@
-package com.heb.soli
+package com.heb.soli.media.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -12,13 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.heb.soli.api.Media
 import com.heb.soli.api.MediaId
-import com.heb.soli.api.MediaType
 import com.heb.soli.api.RadioStream
 import com.heb.soli.ui.theme.SoliTheme
 

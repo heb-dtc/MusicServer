@@ -1,6 +1,9 @@
-package com.heb.soli
+package com.heb.soli.player
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -11,10 +14,14 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import com.heb.soli.api.*
+import com.heb.soli.MainActivity
+import com.heb.soli.R
+import com.heb.soli.SoliApp
+import com.heb.soli.api.Media
+import com.heb.soli.api.MediaId
+import com.heb.soli.api.MediaType
+import com.heb.soli.api.NO_MEDIA
 import com.heb.soli.media.MediaRepository
-import com.heb.soli.player.Player
-import com.heb.soli.player.PlayerContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -52,7 +59,7 @@ class PlayerService : LifecycleService() {
                 putExtra(ARG_MEDIA_URI, media.url)
                 putExtra(ARG_MEDIA_NAME, media.name)
                 action = ARG_ACTION_PLAY
-        }
+            }
     }
 
     override fun onCreate() {

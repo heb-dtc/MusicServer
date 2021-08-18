@@ -1,4 +1,4 @@
-package com.heb.soli
+package com.heb.soli.media.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -16,10 +16,10 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import com.heb.soli.R
 import com.heb.soli.api.MediaId
 import com.heb.soli.api.PodcastEpisode
 

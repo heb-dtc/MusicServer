@@ -1,4 +1,4 @@
-package com.heb.soli
+package com.heb.soli.media.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
