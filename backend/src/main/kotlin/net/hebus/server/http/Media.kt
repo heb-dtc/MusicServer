@@ -13,4 +13,7 @@ enum class MediaType {
 }
 
 @Serializable
-data class MediaId(val id: Int)
+data class MediaId(val id: String)
+
+@Serializable
+data class RadioStream(val id: MediaId, val name: String, val uri: String)

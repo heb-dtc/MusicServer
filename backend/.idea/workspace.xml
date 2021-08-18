@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cc3c100-b801-4968-9dc8-f5a5a520be6f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/repository/RadioRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/repository/RadioRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/hebus/server/http/Media.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/hebus/server/http/Media.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/HomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreenViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerScreenViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PlayerService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/PodcastFeedViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/Media.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/Media.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/PodcastFeedParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../soli/app/src/main/java/com/heb/soli/api/PodcastFeedParser.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,17 +48,6 @@
                 <item name="musicserver" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="musicserver" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="musicserver" type="f1a62948:ProjectNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -74,8 +76,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -88,7 +95,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.musicserver [jar]">
+  <component name="RunManager" selected="Kotlin.ApplicationKt (1)">
     <configuration name="musicserver [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -105,31 +112,21 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ApplicationKt (1)" type="JetRunConfigurationType" nameIsGenerated="true">
-      <module name="musicserver.main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
+    <configuration name="ApplicationKt (1)" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.hebus.ApplicationKt" />
-      <option name="WORKING_DIRECTORY" />
+      <module name="musicserver.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <module name="musicserver" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
       <option name="MAIN_CLASS_NAME" value="net.hebus.ApplicationKt" />
-      <option name="WORKING_DIRECTORY" />
+      <module name="musicserver" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -154,6 +151,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.ApplicationKt (1)" />
         <item itemvalue="Gradle.musicserver [jar]" />
       </list>
     </recent_temporary>
@@ -191,11 +189,5 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="174" y="61" width="1640" height="922" key="new project wizard" timestamp="1607679720503">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="174" y="61" width="1640" height="922" key="new project wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1607679720503" />
   </component>
 </project>
