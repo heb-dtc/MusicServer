@@ -6,9 +6,15 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.media.MediaMetadata
 import android.os.Build
 import android.os.IBinder
+import android.support.v4.media.MediaMetadataCompat
+import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -72,9 +78,11 @@ class PlayerService : LifecycleService() {
         player.play(mediaUri)
     }
 
-    private fun buildNotification(): Notification {
+    private fun buildNotification(media: Media, isPlaying: Boolean): Notification {
         val intent = Intent(applicationContext, MainActivity::class.java)
         val contentIntent = PendingIntent.getActivity(this, 0, intent, 0)
+        val playPauseIntent = buildCommandIntent(baseContext, ARG_ACTION_PLAY_PAUSE)
+        val pendingPlayPauseIntent = PendingIntent.getService(this, 0, playPauseIntent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
@@ -84,13 +92,38 @@ class PlayerService : LifecycleService() {
             )
         }
 
+        val mediaSession = MediaSessionCompat(this, "PlayerService")
+        mediaSession.setMetadata(
+            MediaMetadataCompat.Builder()
+                .putString(MediaMetadata.METADATA_KEY_TITLE, media.name)
+                //.putString(MediaMetadata.METADATA_KEY_ARTIST, )
+                .putBitmap(
+                    MediaMetadata.METADATA_KEY_ALBUM_ART, BitmapFactory.decodeResource(
+                        Resources.getSystem(), R.drawable.img_placeholder
+                    )
+                )
+                //.putLong(MediaMetadata.METADATA_KEY_DURATION, )
+                .build()
+        )
+
+        val mediaStyle = androidx.media.app.NotificationCompat.MediaStyle()
+            .setMediaSession(mediaSession.sessionToken)
+
+        val action = if (isPlaying) {
+            NotificationCompat.Action.Builder(
+                android.R.drawable.ic_media_pause, "Pause", pendingPlayPauseIntent
+            ).build()
+        } else {
+            NotificationCompat.Action.Builder(
+                android.R.drawable.ic_media_play, "Play", pendingPlayPauseIntent
+            ).build()
+        }
+
         return NotificationCompat.Builder(this, PLAYER_SERVICE_CHANNEL_ID)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setStyle(mediaStyle)
             .setContentIntent(contentIntent)
-            .setCategory(Notification.CATEGORY_SERVICE)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Soli Player")
-            .setContentText("playing something")
+            .setSmallIcon(R.drawable.img_placeholder)
+            .addAction(action)
             .build()
     }
 
@@ -120,8 +153,6 @@ class PlayerService : LifecycleService() {
         intent?.let {
             when (it.action) {
                 ARG_ACTION_PLAY -> {
-                    startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
-
                     val type = MediaType.valueOf(
                         intent.getStringExtra(ARG_MEDIA_TYPE) ?: MediaType.NO_MEDIA.name
                     )
@@ -129,6 +160,11 @@ class PlayerService : LifecycleService() {
                     val uri = intent.getStringExtra(ARG_MEDIA_URI) ?: ""
                     val name = intent.getStringExtra(ARG_MEDIA_NAME) ?: ""
                     val media = Media(id = MediaId(id), name = name, url = uri, type = type)
+
+                    startForeground(
+                        NOTIFICATION_FOREGROUND_ID,
+                        buildNotification(media = media, isPlaying = true)
+                    )
 
                     if (media != NO_MEDIA) {
                         Log.d(TAG, "Attempting to play media with uri ${media.url}")
@@ -139,16 +175,18 @@ class PlayerService : LifecycleService() {
                         playerContext.emit(PlayerContext(media, true))
                     }
                 }
+
                 ARG_ACTION_PLAY_PAUSE -> {
                     if (player.isPlaying()) {
-                        stopForeground(false)
+                        //stopForeground(false)
+                        startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification(playerContext.value.media, false))
                         player.pause()
 
                         lifecycleScope.launch {
                             playerContext.emit(PlayerContext(playerContext.value.media, false))
                         }
                     } else {
-                        startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification())
+                        startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification(playerContext.value.media, true))
                         player.resume()
 
                         lifecycleScope.launch {
