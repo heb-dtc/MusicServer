@@ -12,7 +12,7 @@ class RadioRepository {
             RadioStream(MediaId("3"), "france inter", "https://stream.radiofrance.fr/franceinter/franceinter.m3u8"),
             RadioStream(MediaId("4"), "france musique", "https://stream.radiofrance.fr/francemusique/francemusique.m3u8"),
             RadioStream(MediaId("5"), "fip", "https://stream.radiofrance.fr/fip/fip.m3u8"),
-            RadioStream(MediaId("6"), "nova", "http://broadcast.infomaniak.net/radionova-high.mp3")
+            RadioStream(MediaId("6"), "nova", "http://novazz.ice.infomaniak.ch/novazz-128.mp3")
         )
     }
 }
