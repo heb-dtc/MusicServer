@@ -2,6 +2,8 @@ package com.heb.soli.media.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -48,7 +51,13 @@ fun PodcastFeedScreenPreview() {
             uri = "",
             imageUrl = ""
         ),
-        PodcastEpisode(id = MediaId(""), playUri = "", title = "Episode 133:", uri = "", imageUrl = ""),
+        PodcastEpisode(
+            id = MediaId(""),
+            playUri = "",
+            title = "Episode 133:",
+            uri = "",
+            imageUrl = ""
+        ),
         PodcastEpisode(
             id = MediaId(""),
             playUri = "",
@@ -75,9 +84,9 @@ fun PodcastFeedScreen(
     episodes: List<PodcastEpisode>,
     onClick: (PodcastEpisode) -> Unit
 ) {
-    LazyColumn(contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp)) {
+    LazyColumn(contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)) {
         itemsIndexed(episodes) { index, episode ->
-            EpisodeRow(index, episode) {
+            EpisodeRowAlt(index, feedTitle, episode) {
                 onClick(episode)
             }
         }
@@ -121,6 +130,105 @@ fun EpisodeRow(index: Int, episode: PodcastEpisode, onClick: () -> Unit) {
                 contentDescription = "",
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
             )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun EpisodeRowAltPreview() {
+    EpisodeRowAlt(
+        index = 0, feedTitle = "AfterHate", PodcastEpisode(
+            id = MediaId(""),
+            playUri = "",
+            title = "Episode 133: cest qui le plus fort, shun ou musclor?",
+            uri = "",
+            imageUrl = ""
+        )
+    ) {}
+}
+
+@Composable
+fun EpisodeRowAlt(index: Int, feedTitle: String, episode: PodcastEpisode, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .padding(vertical = 4.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(MaterialTheme.colors.primary)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .padding(top = 8.dp)
+        ) {
+            Image(
+                painter = rememberImagePainter(data = episode.imageUrl, builder = {
+                    placeholder(R.drawable.img_placeholder)
+                }),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .size(64.dp)
+            )
+
+            Column {
+                Text(
+                    text = episode.title,
+                    maxLines = 2,
+                    modifier = Modifier.padding(start = 8.dp),
+                    style = MaterialTheme.typography.body1,
+                    color = Color.White
+                )
+
+                Text(
+                    text = feedTitle,
+                    maxLines = 2,
+                    modifier = Modifier.padding(start = 8.dp),
+                    style = MaterialTheme.typography.body2,
+                    color = Color.White
+                )
+            }
+        }
+
+        Divider(
+            modifier = Modifier.padding(vertical = 12.dp, horizontal = 24.dp),
+            color = MaterialTheme.colors.onBackground,
+            thickness = 0.5.dp
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
+                .padding(bottom = 8.dp)
+        ) {
+            Text(
+                text = "39:34:01mn",
+                maxLines = 2,
+                style = MaterialTheme.typography.body1,
+                color = Color.White
+            )
+
+            OutlinedButton(
+                onClick = { onClick() },
+                border = BorderStroke(0.5.dp, MaterialTheme.colors.primary),
+                modifier = Modifier
+                    .size(40.dp)
+            ) {
+                Image(
+                    bitmap = ImageBitmap.imageResource(
+                        LocalContext.current.resources,
+                        R.drawable.play
+                    ),
+                    contentDescription = "",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
+                )
+            }
+
         }
     }
 }
