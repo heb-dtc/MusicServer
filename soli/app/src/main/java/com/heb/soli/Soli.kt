@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.heb.soli.media.ui.HistoryScreen
 import com.heb.soli.media.ui.PodcastFeedScreen
 import com.heb.soli.media.ui.PodcastFeedViewModel
 import com.heb.soli.player.ui.PlayerScreen
@@ -40,6 +41,17 @@ fun Soli(
                     // A surface container using the 'background' color from the theme
                     Column {
                         TopAppBar(title = { Text(text = "SOLI") }, actions = {
+                            IconButton(onClick = { navController.navigate("history") }) {
+                                Icon(
+                                    bitmap = ImageBitmap.imageResource(
+                                        LocalContext.current.resources,
+                                        R.drawable.history
+                                    ),
+                                    contentDescription = "go to history",
+                                    modifier = Modifier.size(22.dp)
+                                )
+                            }
+
                             IconButton(onClick = { navController.navigate("player") }) {
                                 Icon(
                                     bitmap = ImageBitmap.imageResource(
@@ -86,6 +98,20 @@ fun Soli(
                             }
                         })
                         PlayerScreen(playerScreenViewModel = playerScreenViewModel)
+                    }
+                }
+
+                composable("history") {
+                    Column {
+                        TopAppBar(title = { Text(text = "History") }, navigationIcon = {
+                            IconButton(onClick = navController::popBackStack) {
+                                Icon(
+                                    imageVector = Icons.Filled.Close,
+                                    contentDescription = "close"
+                                )
+                            }
+                        })
+                        HistoryScreen()
                     }
                 }
             }

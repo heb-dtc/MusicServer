@@ -14,7 +14,9 @@ import android.media.MediaMetadata
 import android.os.Build
 import android.os.IBinder
 import android.support.v4.media.MediaMetadataCompat
+import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -46,6 +48,8 @@ class PlayerService : LifecycleService() {
 
     private lateinit var player: Player
     private lateinit var mediaRepository: MediaRepository
+
+    private lateinit var mediaSession: MediaSessionCompat
 
     companion object {
         val TAG: String = PlayerService::class.java.simpleName
@@ -92,7 +96,7 @@ class PlayerService : LifecycleService() {
             )
         }
 
-        val mediaSession = MediaSessionCompat(this, "PlayerService")
+        mediaSession = MediaSessionCompat(this, "PlayerService")
         mediaSession.setMetadata(
             MediaMetadataCompat.Builder()
                 .putString(MediaMetadata.METADATA_KEY_TITLE, media.name)
@@ -179,14 +183,20 @@ class PlayerService : LifecycleService() {
                 ARG_ACTION_PLAY_PAUSE -> {
                     if (player.isPlaying()) {
                         //stopForeground(false)
-                        startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification(playerContext.value.media, false))
+                        startForeground(
+                            NOTIFICATION_FOREGROUND_ID,
+                            buildNotification(playerContext.value.media, false)
+                        )
                         player.pause()
 
                         lifecycleScope.launch {
                             playerContext.emit(PlayerContext(playerContext.value.media, false))
                         }
                     } else {
-                        startForeground(NOTIFICATION_FOREGROUND_ID, buildNotification(playerContext.value.media, true))
+                        startForeground(
+                            NOTIFICATION_FOREGROUND_ID,
+                            buildNotification(playerContext.value.media, true)
+                        )
                         player.resume()
 
                         lifecycleScope.launch {
