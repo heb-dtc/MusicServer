@@ -1,0 +1,16 @@
+PODS:
+  - libsoli (1.0)
+
+DEPENDENCIES:
+  - libsoli (from `../libsoli`)
+
+EXTERNAL SOURCES:
+  libsoli:
+    :path: "../libsoli"
+
+SPEC CHECKSUMS:
+  libsoli: ec155ab3a345746b5d7dd78ed43da23e6abbc3ab
+
+PODFILE CHECKSUM: c74254fb1a861c6e788611a764b1fae7c4994e90
+
+COCOAPODS: 1.9.0
