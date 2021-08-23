@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,11 +44,25 @@ internal fun RadioList(medias: List<RadioStream>, onClick: (RadioStream) -> Unit
     val colors = listOf(0xFFe63946, 0xFFf1faee, 0xFFa8dadc, 0xFF457b9d, 0xFF1d3557)
 
     LazyVerticalGrid(
-        cells = GridCells.Fixed(2)
+        cells = GridCells.Fixed(2),
+        modifier = Modifier.padding(horizontal = 8.dp)
     ) {
         itemsIndexed(items = medias) { index, media ->
             val colorIndex = if (index >= colors.size) (colors.indices).random() else index
-            RadioItem(media, Color(colors[colorIndex]), onClick)
+
+            val modifier = if (index % 2 == 0) {
+                Modifier.padding(start = 0.dp, end = 4.dp, top = 8.dp, bottom = 0.dp)
+            } else {
+                Modifier.padding(start = 4.dp, end = 0.dp, top = 8.dp, bottom = 0.dp)
+            }
+
+            RadioItem(
+                media, Color(colors[colorIndex]),
+                modifier
+                    .clip(
+                        RoundedCornerShape(16.dp)
+                    ), onClick
+            )
         }
     }
 }
@@ -56,31 +73,34 @@ fun ItemPreview() {
     RadioItem(
         radio = RadioStream(MediaId("1"), "SOMA", ""), color =
         Color.Red,
+        Modifier.padding(4.dp),
         {}
     )
 }
 
 @Composable
-fun RadioItem(radio: RadioStream, color: Color, onClick: (RadioStream) -> Unit) {
-    Column(
-        modifier = Modifier
-            .height(150.dp)
-            .fillMaxSize()
+fun RadioItem(
+    radio: RadioStream,
+    color: Color,
+    modifier: Modifier,
+    onClick: (RadioStream) -> Unit
+) {
+    Box(
+        modifier = modifier
+            .height(140.dp)
+            .width(140.dp)
             .clickable {
                 onClick(radio)
             }
             .background(color),
-        verticalArrangement = Arrangement.Top,
     ) {
         Text(
             radio.name.uppercase(),
             Modifier
-                .weight(1f)
                 .padding(8.dp)
-                .fillMaxWidth()
-                .wrapContentHeight(),
+                .align(Alignment.BottomStart),
             fontWeight = FontWeight.Bold,
-            fontSize = 32.sp,
+            fontSize = 34.sp,
         )
     }
 }

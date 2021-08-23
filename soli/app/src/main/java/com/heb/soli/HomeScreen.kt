@@ -1,5 +1,6 @@
 package com.heb.soli
 
+import android.content.res.Resources
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,7 +14,9 @@ import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -143,7 +146,7 @@ fun HomeTabIndicator(modifier: Modifier) {
         modifier
             .padding(horizontal = 24.dp)
             .height(4.dp)
-            .background(Color.White, RoundedCornerShape(topStartPercent = 100, topEndPercent = 100))
+            .background(MaterialTheme.colors.background, RoundedCornerShape(topStartPercent = 100, topEndPercent = 100))
     )
 }
 
@@ -154,20 +157,27 @@ fun PodcastList(
     medias: List<PodcastFeed>, onClick: (PodcastFeed) -> Unit
 ) {
     LazyVerticalGrid(
-        cells = GridCells.Adaptive(minSize = 180.dp)
+        cells = GridCells.Fixed(2),
+        modifier = Modifier.padding(horizontal = 8.dp)
     ) {
-        itemsIndexed(items = medias) { _, feed ->
-            Column(
-                modifier = Modifier
-                    .height(150.dp)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Top,
+        itemsIndexed(items = medias) { index, feed ->
+
+            val modifier = if (index % 2 == 0) {
+                Modifier.padding(start = 0.dp, end = 4.dp, top = 8.dp, bottom = 0.dp)
+            } else {
+                Modifier.padding(start = 4.dp, end = 0.dp, top = 8.dp, bottom = 0.dp)
+            }
+
+            Box(
+                modifier = modifier
+                    .height(140.dp)
+                    .width(140.dp)
+                    .clip(RoundedCornerShape(16.dp)),
             ) {
                 if (feed.imageUrl.isEmpty()) {
                     Text(
                         feed.name,
                         Modifier
-                            .weight(1f)
                             .padding(8.dp)
                             .fillMaxWidth()
                             .wrapContentHeight(),
