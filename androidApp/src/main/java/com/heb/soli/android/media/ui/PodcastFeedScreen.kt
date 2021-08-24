@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.heb.soli.android.R
-import com.heb.soli.android.api.MediaId
-import com.heb.soli.android.api.PodcastEpisode
+import com.heb.soli.api.MediaId
+import com.heb.soli.api.PodcastEpisode
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

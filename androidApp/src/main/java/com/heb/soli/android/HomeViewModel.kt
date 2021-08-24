@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
-import com.heb.soli.android.api.PodcastFeed
-import com.heb.soli.android.api.RadioStream
+import com.heb.soli.api.PodcastFeed
+import com.heb.soli.api.RadioStream
 import com.heb.soli.android.media.MediaRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect

@@ -1,15 +1,14 @@
-package com.heb.soli.android.api
+package com.heb.soli.api
 
-import kotlinx.serialization.Serializable
 import java.time.Duration
 
 val NO_MEDIA_ID = MediaId("NO_MEDIA_ID")
 val NO_MEDIA = Media(id = NO_MEDIA_ID, name = "no_media", url = "", MediaType.NO_MEDIA)
 
-@Serializable
+@kotlinx.serialization.Serializable
 data class Media(val id: MediaId, val name: String, val url: String, val type: MediaType)
 
-@Serializable
+@kotlinx.serialization.Serializable
 enum class MediaType {
     RADIO_STREAM,
     PODCAST_EPISODE,
@@ -17,10 +16,10 @@ enum class MediaType {
     NO_MEDIA
 }
 
-@Serializable
+@kotlinx.serialization.Serializable
 data class MediaId(val id: String)
 
-@Serializable
+@kotlinx.serialization.Serializable
 data class RadioStream(val id: MediaId, val name: String, val uri: String)
 
 data class PodcastEpisode(

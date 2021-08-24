@@ -1,6 +1,6 @@
 package com.heb.soli.android.media
 
-import com.heb.soli.android.api.*
+import com.heb.soli.api.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

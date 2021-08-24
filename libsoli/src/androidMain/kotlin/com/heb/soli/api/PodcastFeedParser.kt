@@ -1,11 +1,14 @@
-package com.heb.soli.android.api
+package com.heb.soli.api
 
 import com.rometools.modules.itunes.EntryInformation
 import com.rometools.modules.itunes.ITunes
-import com.rometools.rome.feed.synd.SyndFeed
+import com.rometools.rome.io.SyndFeedInput
+import org.xml.sax.InputSource
+import java.io.StringReader
 
-class PodcastFeedParser {
-    fun parse(feed: SyndFeed): PodcastFeed {
+actual class PodcastFeedParser {
+    actual fun parse(podcastXmlFeed: String): PodcastFeed {
+        val feed = SyndFeedInput().build(InputSource(StringReader(podcastXmlFeed)))
 
         val episodes = feed.entries.mapIndexed { index, entry ->
             val entryInformation = entry.getModule(ITunes.URI) as? EntryInformation

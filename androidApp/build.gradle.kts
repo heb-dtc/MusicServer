@@ -25,9 +25,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
 
-    implementation("com.rometools:rome:1.14.1")
-    implementation("com.rometools:rome-modules:1.14.1")
-
     implementation("com.google.android.exoplayer:exoplayer:2.14.2")
 
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha06")

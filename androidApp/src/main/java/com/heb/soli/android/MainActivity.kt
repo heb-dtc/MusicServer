@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.compose.rememberNavController
-import com.heb.soli.android.api.PodcastEpisode
-import com.heb.soli.android.api.RadioStream
-import com.heb.soli.android.api.toMedia
+import com.heb.soli.api.PodcastEpisode
+import com.heb.soli.api.RadioStream
+import com.heb.soli.api.toMedia
 import com.heb.soli.android.media.MediaRepository
 import com.heb.soli.android.media.ui.PodcastFeedViewModel
 import com.heb.soli.android.player.ARG_ACTION_PLAY_PAUSE

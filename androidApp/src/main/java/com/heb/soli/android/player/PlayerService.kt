@@ -22,10 +22,10 @@ import androidx.lifecycle.lifecycleScope
 import com.heb.soli.android.MainActivity
 import com.heb.soli.android.R
 import com.heb.soli.android.SoliApp
-import com.heb.soli.android.api.Media
-import com.heb.soli.android.api.MediaId
-import com.heb.soli.android.api.MediaType
-import com.heb.soli.android.api.NO_MEDIA
+import com.heb.soli.api.Media
+import com.heb.soli.api.MediaId
+import com.heb.soli.api.MediaType
+import com.heb.soli.api.NO_MEDIA
 import com.heb.soli.android.media.MediaRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.heb.soli.android.api.MediaId
-import com.heb.soli.android.api.RadioStream
+import com.heb.soli.api.MediaId
+import com.heb.soli.api.RadioStream
 import com.heb.soli.android.ui.theme.SoliTheme
 
 @Preview(showBackground = true, showSystemUi = true)

@@ -2,7 +2,7 @@ package com.heb.soli.android.player.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heb.soli.android.api.MediaType
+import com.heb.soli.api.MediaType
 import com.heb.soli.android.media.MediaRepository
 import com.heb.soli.android.player.PlayerService
 import kotlinx.coroutines.flow.MutableStateFlow
