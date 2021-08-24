@@ -1,7 +1,7 @@
 package net.hebus.repository
 
-import net.hebus.server.http.MediaId
-import net.hebus.server.http.RadioStream
+import com.heb.soli.api.RadioStream
+import com.heb.soli.api.MediaId
 
 class RadioRepository {
 

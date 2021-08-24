@@ -1,20 +1,18 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
-    kotlin("jvm") version "1.4.10"
-    kotlin("plugin.serialization") version "1.4.10"
+    id("kotlin-platform-jvm")
+    kotlin("plugin.serialization")
     application
-    id("com.github.johnrengelman.shadow") version "5.0.0"
+    id("com.github.johnrengelman.shadow")
 }
 
 repositories {
     mavenLocal()
-    jcenter()
     mavenCentral()
 }
 
 dependencies {
+    implementation(project(":libsoli"))
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc")
@@ -22,7 +20,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core:1.4.0")
     implementation("io.ktor:ktor-server-netty:1.4.0")
     implementation("io.ktor:ktor-serialization:1.4.0")
-    implementation("io.ktor:ktor-html-builder:1.4.0")
+    implementation("io.ktor:ktor-html-builder:1.6.2")
 
     implementation("io.github.microutils:kotlin-logging:1.7.9")
 
@@ -42,16 +40,9 @@ group = "net.hebus"
 description = "musicserver"
 
 application {
-    mainClassName = "net.hebus.ApplicationKt"
+    mainClass.set("net.hebus.ApplicationKt")
 }
 
-tasks {
-    named<ShadowJar>("shadowJar") {
-        archiveBaseName.set("musicserver")
-        mergeServiceFiles()
-    }
-}
-
-tasks.withType<KotlinCompile>() {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }

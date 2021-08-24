@@ -10,6 +10,8 @@ plugins {
 version = "1.0"
 
 kotlin {
+    jvm()
+
     android()
 
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget = when {
@@ -64,6 +66,12 @@ kotlin {
             }
         }
         val iosTest by getting
+
+        val jvmMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-apache:1.6.2")
+            }
+        }
     }
 }
 

@@ -8,7 +8,7 @@ import io.ktor.routing.*
 import mu.KotlinLogging
 import net.hebus.repository.HistoryRepository
 import net.hebus.repository.RadioRepository
-import net.hebus.server.http.Media
+import com.heb.soli.api.Media
 
 private val logger = KotlinLogging.logger {}
 

@@ -1,6 +1,6 @@
 package net.hebus.repository
 
-import net.hebus.server.http.Media
+import com.heb.soli.api.Media
 
 class HistoryRepository {
     private val historyList: MutableList<Media> = mutableListOf()

@@ -1,6 +1,5 @@
 package com.heb.soli.api
 
-import android.util.Log
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
@@ -35,7 +34,7 @@ class NetworkClient(private val httpClient: HttpClient) {
             install(Logging) {
                 logger = object : Logger {
                     override fun log(message: String) {
-                        Log.v("Logger Ktor =>", message)
+                        //Log.v("Logger Ktor =>", message)
                     }
 
                 }
@@ -44,14 +43,14 @@ class NetworkClient(private val httpClient: HttpClient) {
 
             install(ResponseObserver) {
                 onResponse { response ->
-                    Log.d("HTTP status:", "${response.status.value}")
+                    //Log.d("HTTP status:", "${response.status.value}")
                 }
             }
         }
     }
 
     suspend fun fetchAllRadios(): List<RadioStream> {
-        Log.d(TAG, "fetch all radios")
+        //Log.d(TAG, "fetch all radios")
 
         return try {
             //TODO this should work, the serializer is somehow not plugged well...
@@ -59,7 +58,7 @@ class NetworkClient(private val httpClient: HttpClient) {
             val json = httpClient.get<String>("$API_ENDPOINT/radios")
             return Json.decodeFromString(json)
         } catch (e: Exception) {
-            Log.d(TAG, "error while fetching radios $e")
+            //Log.d(TAG, "error while fetching radios $e")
             emptyList()
         }
     }
