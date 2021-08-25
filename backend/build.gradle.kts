@@ -14,12 +14,12 @@ dependencies {
     implementation(project(":libsoli"))
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc")
 
-    implementation("io.ktor:ktor-server-core:1.4.0")
-    implementation("io.ktor:ktor-server-netty:1.4.0")
-    implementation("io.ktor:ktor-serialization:1.4.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
+
+    implementation("io.ktor:ktor-server-core:1.6.2")
+    implementation("io.ktor:ktor-server-netty:1.6.2")
+    implementation("io.ktor:ktor-serialization:1.6.2")
     implementation("io.ktor:ktor-html-builder:1.6.2")
 
     implementation("io.github.microutils:kotlin-logging:1.7.9")

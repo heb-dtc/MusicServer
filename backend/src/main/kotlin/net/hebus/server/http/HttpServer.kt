@@ -2,6 +2,7 @@ package net.hebus.server.http
 
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.html.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
@@ -9,7 +10,7 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import kotlinx.serialization.json.Json
+import kotlinx.html.*
 import mu.KotlinLogging
 import net.hebus.repository.HistoryRepository
 import net.hebus.repository.RadioRepository
@@ -28,13 +29,10 @@ class HttpServer(
 
     private val server = embeddedServer(Netty, port = port) {
         install(ContentNegotiation) {
-            json(
-                contentType = ContentType.Application.Json,
-                json = Json {}
-            )
+            json()
         }
         routing {
-            /*get("/") {
+            get("/") {
                 call.respondHtml {
                     head {
                         title { +"MSRV" }
@@ -49,8 +47,10 @@ class HttpServer(
                         }
                     }
                 }
-            }*/
+            }
+
             apiRoute(radioRepository, historyRepository)
+
             get("/player") {
                 val status = musicService.getPlayerStatus()
                 call.respond(status)

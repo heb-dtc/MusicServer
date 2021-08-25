@@ -14,7 +14,6 @@ import kotlinx.serialization.json.Json
 import java.lang.Exception
 
 const val API_ENDPOINT = "https://music.hebus.net/api"
-//const val API_ENDPOINT = "127.0.0.1:8080/api"
 
 class NetworkClient(private val httpClient: HttpClient) {
     private val TAG = NetworkClient::class.simpleName
