@@ -70,6 +70,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-apache:1.6.2")
+                implementation("com.rometools:rome:1.14.1")
+                implementation("com.rometools:rome-modules:1.14.1")
             }
         }
     }
