@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,8 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.singleWindowApplication
 import com.heb.soli.api.buildNetworkClient
 import com.heb.soli.api.RadioStream
+import com.heb.soli.api.PodcastFeed
 import com.heb.soli.MediaRepository
-import kotlinx.coroutines.flow.collect
 
 fun main() = singleWindowApplication {
 
@@ -56,7 +57,8 @@ fun main() = singleWindowApplication {
 
                 // Podcast list
                 Column(
-                    modifier = Modifier.border(
+                    modifier = Modifier.padding(top = 24.dp)
+                        .border(
                         border = BorderStroke(1.dp, Color(0xff000000)),
                         shape = RoundedCornerShape(5.dp)
                     )
@@ -69,7 +71,7 @@ fun main() = singleWindowApplication {
                         fontSize = 36.sp
                     )
 
-                    RadioRow(appState.value.radios)
+                    PodcastRow(appState.value.podcastList)
                 }
             }
 
@@ -88,21 +90,59 @@ fun main() = singleWindowApplication {
 
 @Composable
 fun RadioRow(radios: List<RadioStream>) {
+    val colors = listOf(0xFFe63946, 0xFFf1faee, 0xFFa8dadc, 0xFF457b9d, 0xFF1d3557)
+
     LazyRow(modifier = Modifier.padding(8.dp)) {
-        itemsIndexed(items = radios) { _, radio ->
-            RadioItem(radio)
+        itemsIndexed(items = radios) { index, radio ->
+            val colorIndex = if (index >= colors.size) (colors.indices).random() else index
+
+            RadioItem(radio, Color(colors[colorIndex]))
         }
     }
 }
 
 @Composable
-fun RadioItem(radio: RadioStream) {
+fun PodcastRow(podcastFeeds: List<PodcastFeed>) {
+    LazyRow(modifier = Modifier.padding(8.dp)) {
+        itemsIndexed(items = podcastFeeds) { _, podcast ->
+            PodcastItem(podcast)
+        }
+    }
+}
+
+@Composable
+fun PodcastItem(feed: PodcastFeed) {
     Box(
         modifier = Modifier
             .height(140.dp)
             .width(140.dp)
             .padding(8.dp)
-            .background(Color.Red)
+            .background(Color(0xFFe63946))
+            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(5.dp))
+            .clickable {
+                //onClick(radio)
+            },
+    ) {
+        Text(
+            feed.name,
+            Modifier
+                .padding(8.dp)
+                .align(Alignment.BottomStart),
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp,
+        )
+    }
+}
+
+@Composable
+fun RadioItem(radio: RadioStream, color: Color) {
+    Box(
+        modifier = Modifier
+            .height(140.dp)
+            .width(140.dp)
+            .padding(8.dp)
+            .clip(shape = RoundedCornerShape(5.dp))
+            .background(color)
             .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(5.dp))
             .clickable {
                 //onClick(radio)
