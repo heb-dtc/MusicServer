@@ -1,4 +1,4 @@
-package com.heb.soli.android.media
+package com.heb.soli
 
 import com.heb.soli.api.*
 import kotlinx.coroutines.flow.Flow

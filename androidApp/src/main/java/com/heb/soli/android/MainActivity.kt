@@ -7,7 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.heb.soli.api.PodcastEpisode
 import com.heb.soli.api.RadioStream
 import com.heb.soli.api.toMedia
-import com.heb.soli.android.media.MediaRepository
+import com.heb.soli.MediaRepository
 import com.heb.soli.android.media.ui.PodcastFeedViewModel
 import com.heb.soli.android.player.ARG_ACTION_PLAY_PAUSE
 import com.heb.soli.android.player.PlayerService

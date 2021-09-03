@@ -26,7 +26,7 @@ import com.heb.soli.api.Media
 import com.heb.soli.api.MediaId
 import com.heb.soli.api.MediaType
 import com.heb.soli.api.NO_MEDIA
-import com.heb.soli.android.media.MediaRepository
+import com.heb.soli.MediaRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 

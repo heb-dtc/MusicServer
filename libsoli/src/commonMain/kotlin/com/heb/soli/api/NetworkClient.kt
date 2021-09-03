@@ -16,6 +16,7 @@ import java.lang.Exception
 const val API_ENDPOINT = "https://music.hebus.net/api"
 
 class NetworkClient(private val httpClient: HttpClient) {
+
     private val TAG = NetworkClient::class.simpleName
 
     private val podcastFeedParser = PodcastFeedParser()
