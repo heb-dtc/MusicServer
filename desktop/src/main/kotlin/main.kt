@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -114,11 +115,10 @@ fun PodcastRow(podcastFeeds: List<PodcastFeed>) {
 fun PodcastItem(feed: PodcastFeed) {
     Box(
         modifier = Modifier
-            .height(140.dp)
-            .width(140.dp)
+            .size(140.dp)
             .padding(8.dp)
+            .clip(shape = RoundedCornerShape(corner = CornerSize(10.dp)))
             .background(Color(0xFFe63946))
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(5.dp))
             .clickable {
                 //onClick(radio)
             },
@@ -138,12 +138,10 @@ fun PodcastItem(feed: PodcastFeed) {
 fun RadioItem(radio: RadioStream, color: Color) {
     Box(
         modifier = Modifier
-            .height(140.dp)
-            .width(140.dp)
+            .size(140.dp)
             .padding(8.dp)
-            .clip(shape = RoundedCornerShape(5.dp))
+            .clip(shape = RoundedCornerShape(corner = CornerSize(10.dp)))
             .background(color)
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(5.dp))
             .clickable {
                 //onClick(radio)
             },
