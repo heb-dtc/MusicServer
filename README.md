@@ -18,15 +18,16 @@ actors of the ecosystem and provide them with the code that they all have to sha
 
 #### TODOS
 [] add a multiplatform logger
+[] add a Player interface that clients should implement
+[] get podcast duration
+[] combine the fetch of radios and podcasts in MediaRepository
 
 ## [Apps]
 ### TODOS Android
 [] call to /api/history
 [] react to system event for pausing / restarting playback
 [] implement History screen
-[] combine the fetch of radios and podcasts on the home screen
 [] add some loading state when fetching
-[] get podcast duration
 
 ### iOS
 #### TODOS iOS
@@ -34,10 +35,7 @@ actors of the ecosystem and provide them with the code that they all have to sha
 
 ## [Backend]
 ### Prerequisite
-
-// TODO revisit that
-The gstreamer library needs to be installed locally if you want to run the local player.
-A working java env. is needed as well.
+A working java env. is needed.
 
 ### Building and Running
 
@@ -55,8 +53,15 @@ Build the application using installShadowDist task to package an executable
 
 #### TODOS
 [] endpoint serving history media playback
+[] player api - register current player and current playback info
+[] player api - control current playback from any client
+[] cloud player?
 
 ## [Desktop]
+### Prerequisite
+
+The gstreamer library needs to be installed locally if you want to run the local player.
+A working java env. is needed as well.
 
 ### Building and Running
 
@@ -66,7 +71,11 @@ Build the application using the installDist task
 ./desktop/build/install/desktop/bin/desktop
 ```
 
-### useful links
+#### TODOS
+[] load podcast episodes
+[] properly expose playback event on the system
+
+## Useful links
 
 [what is gstreamer](https://gstreamer.freedesktop.org/documentation/application-development/introduction/gstreamer.html?gi-language=c)  
 [gstreamer command line interface](https://gstreamer.freedesktop.org/documentation/frequently-asked-questions/using.html?gi-language=c)  
