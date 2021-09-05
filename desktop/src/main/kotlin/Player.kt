@@ -1,148 +1,54 @@
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import com.heb.soli.api.Media
+import com.heb.soli.api.NO_MEDIA
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import org.freedesktop.gstreamer.ElementFactory
+import org.freedesktop.gstreamer.Gst
+import org.freedesktop.gstreamer.State
+import org.freedesktop.gstreamer.elements.PlayBin
+import java.net.URI
 
-@Composable
-fun Player() {
-    Box(
-        modifier = Modifier
-            .padding(8.dp)
-            .clip(shape = RoundedCornerShape(corner = CornerSize(10.dp)))
-            .border(width = 2.dp, color = Color(0xFFF0F3F9), shape = RoundedCornerShape(10.dp))
-    ) {
-        PlayerScreen()
+data class PlayerContext(val media: Media, val isPlaying: Boolean)
+
+class Player {
+
+    private var audioPlayBin: PlayBin
+    private var playerJob: Job? = null
+
+    val playerContext = MutableStateFlow(PlayerContext(media = NO_MEDIA, isPlaying = false))
+
+    init {
+        Gst.init("SOLI")
+        audioPlayBin = PlayBin("AudioPlayer")
+        audioPlayBin.setVideoSink(ElementFactory.make("fakesink", "videosink"))
     }
-}
 
-@Composable
-fun PlayerScreen() {
-    //val screenState by playerScreenViewModel.state.collectAsState()
+    fun play(media: Media) {
+        // stop current playback if any
+        playerJob?.cancel()
 
-    PlayerScreen(
-        "mediaHeaderName",
-        "mediaName",
-        "mediaDuration",
-        "positionInMedia",
-        "imageUri",
-        false,
-        { },
-        { }
-    )
-}
+        audioPlayBin.setURI(URI.create(media.url))
+        audioPlayBin.state = State.PLAYING
 
-@Composable
-fun PlayerScreen(
-    mediaHeaderName: String,
-    mediaName: String,
-    duration: String,
-    positionInMedia: String,
-    imageUri: String?,
-    isPlaying: Boolean,
-    pauseClickAction: () -> Unit,
-    playClickAction: () -> Unit
-) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .padding(20.dp)
-    ) {
-
-        Box(
-            modifier = Modifier
-                .size(200.dp)
-                .clip(shape = RoundedCornerShape(10.dp))
-                .background(color = Color(0xFFe63946))
-        )
-
-        Text(text = mediaHeaderName, modifier = Modifier.padding(top = 20.dp))
-
-        Text(text = mediaName, modifier = Modifier.padding(top = 8.dp))
-
-        LinearProgressIndicator(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 40.dp, bottom = 8.dp)
-        )
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp)
-        ) {
-            Text(text = positionInMedia)
-
-            Text(text = duration)
+        playerJob = GlobalScope.launch {
+            playerContext.emit(PlayerContext(media, true))
+            Gst.main()
         }
+    }
 
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 40.dp)
-        ) {
-            Button(onClick = {}) {
-                Image(
-                    painterResource("backward.png"),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(40.dp),
-                )
-            }
+    fun isPlaying() = audioPlayBin.state == State.PLAYING
 
-            if (isPlaying) {
-                Button(onClick = {}) {
-                    Image(
-                        painterResource("pause.png"),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(60.dp)
-                            .clickable {
-                                pauseClickAction.invoke()
-                            },
-                    )
-                }
-            } else {
-                Button(onClick = {}) {
-                    Image(
-                        painterResource("play.png"),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(60.dp)
-                            .clickable {
-                                playClickAction.invoke()
-                            },
-                    )
-                }
-            }
+    fun resume() {
+        audioPlayBin.state = State.PLAYING
+    }
 
-            Button(onClick = {}) {
-                Image(
-                    painterResource("fastforward.png"),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(40.dp)
-                )
-            }
-        }
+    fun pause() {
+        audioPlayBin.state = State.PAUSED
+    }
+
+    fun release() {
+        audioPlayBin.state = State.NULL
     }
 }

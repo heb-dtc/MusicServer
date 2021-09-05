@@ -17,7 +17,12 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+
+    implementation("net.java.dev.jna:jna:5.4.0")
+    implementation("org.freedesktop.gstreamer:gst1-java-core:1.1.0")
+
     implementation(project(":libsoli"))
 }
 

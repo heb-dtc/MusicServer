@@ -13,6 +13,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,67 +27,99 @@ import com.heb.soli.api.PodcastFeed
 import com.heb.soli.api.RadioStream
 import com.heb.soli.api.buildNetworkClient
 
-fun main() = singleWindowApplication {
+@Composable
+fun SplashUI() {
+    Box(Modifier.fillMaxSize().background(Color.DarkGray)) {
+        Text(
+            "SOLI",
+            Modifier.align(Alignment.Center),
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 100.sp
+        )
+    }
+}
 
-    val viewModel = AppViewModel(MediaRepository(buildNetworkClient()))
+fun main() = singleWindowApplication(title = "Soli") {
+
+    val player = Player()
+    val mediaRepository = MediaRepository(buildNetworkClient())
+
+    // need to remember the VMs since the main() will be called again when the state changes
+    val viewModel = remember {
+        AppViewModel(mediaRepository, player)
+    }
+    val playerViewModel = remember {
+        PlayerViewModel(player, mediaRepository)
+    }
+
+    // subscribe to app state
     val appState = viewModel.state.collectAsState()
 
-    MaterialTheme {
-        Surface(modifier = Modifier.background(Color.White)) {
+    if (appState.value.loading) {
+        SplashUI()
+    } else {
+        // TODO break this into tiner pieces
+        MaterialTheme {
+            Surface(modifier = Modifier.background(Color.White)) {
 
-            // main window
-            Row(modifier = Modifier.fillMaxSize()) {
+                // main window
+                Row(modifier = Modifier.fillMaxSize()) {
 
-                // Left panel
-                Column(modifier = Modifier.padding(16.dp).weight(weight = 0.75f)) {
+                    // Left panel
+                    Column(modifier = Modifier.padding(16.dp).weight(weight = 0.75f)) {
 
-                    // Radio list
-                    Column(
-                        modifier = Modifier.padding(12.dp)
-                            .border(
-                                border = BorderStroke(2.dp, Color(0xFFedeff3)),
-                                shape = RoundedCornerShape(5.dp)
+                        // Radio list
+                        Column(
+                            modifier = Modifier.padding(12.dp)
+                                .border(
+                                    border = BorderStroke(2.dp, Color.LightGray),
+                                    shape = RoundedCornerShape(5.dp)
+                                )
+                        ) {
+
+                            Text(
+                                text = "Radio",
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(16.dp),
+                                fontSize = 24.sp
                             )
-                    ) {
 
-                        Text(
-                            text = "Radio",
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(16.dp),
-                            fontSize = 24.sp
-                        )
+                            RadioRow(appState.value.radios, viewModel::playRadio)
+                        }
 
-                        RadioRow(appState.value.radios)
+                        // Podcast list
+                        Column(
+                            modifier = Modifier.padding(12.dp)
+                                .border(
+                                    border = BorderStroke(2.dp, Color.LightGray),
+                                    shape = RoundedCornerShape(5.dp)
+                                )
+                        ) {
+
+                            Text(
+                                text = "Podcast",
+                                modifier = Modifier.padding(16.dp),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp
+                            )
+
+                            PodcastRow(appState.value.podcastList)
+                        }
                     }
 
-                    // Podcast list
+                    Divider(
+                        modifier = Modifier.fillMaxHeight().width(2.dp),
+                        color = Color.LightGray
+                    )
+
                     Column(
-                        modifier = Modifier.padding(12.dp)
-                            .border(
-                                border = BorderStroke(2.dp, Color(0xFFedeff3)),
-                                shape = RoundedCornerShape(5.dp)
-                            )
+                        modifier = Modifier.padding(16.dp).fillMaxHeight().weight(0.25f),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-
-                        Text(
-                            text = "Podcast",
-                            modifier = Modifier.padding(16.dp),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 24.sp
-                        )
-
-                        PodcastRow(appState.value.podcastList)
+                        PlayerView(playerViewModel)
                     }
-                }
-
-                Divider(modifier = Modifier.fillMaxHeight().width(2.dp), color = Color(0xFFedeff3))
-
-                Column(
-                    modifier = Modifier.padding(16.dp).fillMaxHeight().weight(0.25f),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Player()
                 }
             }
         }
@@ -94,14 +127,14 @@ fun main() = singleWindowApplication {
 }
 
 @Composable
-fun RadioRow(radios: List<RadioStream>) {
+fun RadioRow(radios: List<RadioStream>, playRadioAction: (RadioStream) -> Unit) {
     val colors = listOf(0xFFe63946, 0xFFf1faee, 0xFFa8dadc, 0xFF457b9d, 0xFF1d3557)
 
     LazyRow(modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 16.dp).fillMaxWidth()) {
         itemsIndexed(items = radios) { index, radio ->
             val colorIndex = if (index >= colors.size) (colors.indices).random() else index
 
-            RadioItem(radio, Color(colors[colorIndex]))
+            RadioItem(radio, Color(colors[colorIndex]), playRadioAction)
         }
     }
 }
@@ -119,7 +152,7 @@ fun PodcastRow(podcastFeeds: List<PodcastFeed>) {
 fun PodcastItem(feed: PodcastFeed) {
     Column(
         modifier = Modifier.padding(8.dp)
-            .border(width = 2.dp, color = Color(0xFFedeff3), shape = RoundedCornerShape(5.dp))
+            .border(width = 2.dp, color = Color.LightGray, shape = RoundedCornerShape(5.dp))
     ) {
         Box(
             modifier = Modifier
@@ -142,10 +175,10 @@ fun PodcastItem(feed: PodcastFeed) {
 }
 
 @Composable
-fun RadioItem(radio: RadioStream, color: Color) {
+fun RadioItem(radio: RadioStream, color: Color, onClick: (RadioStream) -> Unit) {
     Column(
         modifier = Modifier.padding(8.dp)
-            .border(width = 2.dp, color = Color(0xFFedeff3), shape = RoundedCornerShape(5.dp))
+            .border(width = 2.dp, color = Color.LightGray, shape = RoundedCornerShape(5.dp))
     ) {
         Box(
             modifier = Modifier
@@ -154,7 +187,7 @@ fun RadioItem(radio: RadioStream, color: Color) {
                 .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(color)
                 .clickable {
-                    //onClick(radio)
+                    onClick(radio)
                 },
         )
 
