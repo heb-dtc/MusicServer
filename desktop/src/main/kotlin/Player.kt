@@ -15,7 +15,6 @@ data class PlayerContext(val media: Media, val isPlaying: Boolean)
 class Player {
 
     private var audioPlayBin: PlayBin
-    private var playerJob: Job? = null
 
     val playerContext = MutableStateFlow(PlayerContext(media = NO_MEDIA, isPlaying = false))
 
@@ -26,32 +25,26 @@ class Player {
     }
 
     fun play(media: Media) {
-        // stop current playback if any
-        //playerJob?.cancel()
-
         // clear current playback
         stop()
 
         audioPlayBin.setURI(URI.create(media.url))
-        audioPlayBin.state = State.PLAYING
+        audioPlayBin.play()
 
-        playerJob = GlobalScope.launch {
+        GlobalScope.launch {
             playerContext.emit(PlayerContext(media, true))
-            Gst.main()
         }
     }
 
-    fun isPlaying() = audioPlayBin.state == State.PLAYING
-
     fun resume() {
-        audioPlayBin.state = State.PLAYING
+        audioPlayBin.play()
     }
 
     fun pause() {
-        audioPlayBin.state = State.PAUSED
+        audioPlayBin.pause()
     }
 
     fun stop() {
-        audioPlayBin.state = State.NULL
+        audioPlayBin.stop()
     }
 }
