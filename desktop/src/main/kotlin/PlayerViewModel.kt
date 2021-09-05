@@ -1,6 +1,7 @@
 import com.heb.soli.MediaRepository
 import com.heb.soli.api.MediaType
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -53,6 +54,20 @@ class PlayerViewModel(private val player: Player, private val mediaRepository: M
                     }
                 }
             }
+        }
+    }
+
+    fun pausePlayback() {
+        player.pause()
+        GlobalScope.launch {
+            _state.emit(_state.value.copy(isPlaying = false))
+        }
+    }
+
+    fun resumePlayback() {
+        player.resume()
+        GlobalScope.launch {
+            _state.emit(_state.value.copy(isPlaying = true))
         }
     }
 }

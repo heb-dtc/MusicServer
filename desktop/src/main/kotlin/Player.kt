@@ -27,7 +27,10 @@ class Player {
 
     fun play(media: Media) {
         // stop current playback if any
-        playerJob?.cancel()
+        //playerJob?.cancel()
+
+        // clear current playback
+        stop()
 
         audioPlayBin.setURI(URI.create(media.url))
         audioPlayBin.state = State.PLAYING
@@ -48,7 +51,7 @@ class Player {
         audioPlayBin.state = State.PAUSED
     }
 
-    fun release() {
+    fun stop() {
         audioPlayBin.state = State.NULL
     }
 }

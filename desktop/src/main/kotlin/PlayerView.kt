@@ -28,12 +28,16 @@ fun PlayerView(playerViewModel: PlayerViewModel) {
             .clip(shape = RoundedCornerShape(corner = CornerSize(10.dp)))
             .border(width = 2.dp, color = Color(0xFFF0F3F9), shape = RoundedCornerShape(10.dp))
     ) {
-        PlayerControlView(playerState.value)
+        PlayerControlView(
+            playerState.value,
+            playerViewModel::pausePlayback,
+            playerViewModel::resumePlayback
+        )
     }
 }
 
 @Composable
-fun PlayerControlView(playerState: PlayerViewState) {
+fun PlayerControlView(playerState: PlayerViewState, onPause: () -> Unit, onResume: () -> Unit) {
     PlayerControlView(
         playerState.mediaHeaderName,
         playerState.mediaName,
@@ -41,8 +45,8 @@ fun PlayerControlView(playerState: PlayerViewState) {
         playerState.positionInMedia,
         playerState.imageUri,
         playerState.isPlaying,
-        { },
-        { }
+        onPause,
+        onResume
     )
 }
 
@@ -110,7 +114,7 @@ fun PlayerControlView(
             }
 
             if (isPlaying) {
-                Button(onClick = {}) {
+                Button(onClick = { pauseClickAction.invoke() }) {
                     Image(
                         painterResource("pause.png"),
                         contentDescription = "",
@@ -122,7 +126,7 @@ fun PlayerControlView(
                     )
                 }
             } else {
-                Button(onClick = {}) {
+                Button(onClick = { playClickAction.invoke() }) {
                     Image(
                         painterResource("play.png"),
                         contentDescription = "",
