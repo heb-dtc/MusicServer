@@ -1,5 +1,7 @@
 import com.heb.soli.MediaRepository
-import com.heb.soli.api.*
+import com.heb.soli.api.PodcastFeed
+import com.heb.soli.api.RadioStream
+import com.heb.soli.api.toMedia
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,10 +29,10 @@ class AppViewModel(private val mediaRepository: MediaRepository, private val pla
                 .combine(mediaRepository.getPodcasts()) { radios, podcast ->
                     AppState(loading = false, radios, podcast)
                 }.collect {
-                withContext(Dispatchers.Main) {
-                    _state.value = it
+                    withContext(Dispatchers.Main) {
+                        _state.value = it
+                    }
                 }
-            }
         }
     }
 
