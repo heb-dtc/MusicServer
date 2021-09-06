@@ -16,13 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun PlayerView(playerViewModel: PlayerViewModel) {
     val playerState = playerViewModel.state.collectAsState()
 
-    Box(
+    BoxWithConstraints(
         modifier = Modifier
             .padding(8.dp)
             .clip(shape = RoundedCornerShape(corner = CornerSize(10.dp)))
@@ -31,13 +32,14 @@ fun PlayerView(playerViewModel: PlayerViewModel) {
         PlayerControlView(
             playerState.value,
             playerViewModel::pausePlayback,
-            playerViewModel::resumePlayback
+            playerViewModel::resumePlayback,
+            this@BoxWithConstraints.maxWidth / 2
         )
     }
 }
 
 @Composable
-fun PlayerControlView(playerState: PlayerViewState, onPause: () -> Unit, onResume: () -> Unit) {
+fun PlayerControlView(playerState: PlayerViewState, onPause: () -> Unit, onResume: () -> Unit, maxWidth: Dp) {
     PlayerControlView(
         playerState.mediaHeaderName,
         playerState.mediaName,
@@ -46,7 +48,8 @@ fun PlayerControlView(playerState: PlayerViewState, onPause: () -> Unit, onResum
         playerState.imageUri,
         playerState.isPlaying,
         onPause,
-        onResume
+        onResume,
+        maxWidth
     )
 }
 
@@ -59,7 +62,8 @@ fun PlayerControlView(
     imageUri: String?,
     isPlaying: Boolean,
     pauseClickAction: () -> Unit,
-    playClickAction: () -> Unit
+    playClickAction: () -> Unit,
+    maxWidth: Dp
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -70,7 +74,7 @@ fun PlayerControlView(
 
         Box(
             modifier = Modifier
-                .size(200.dp)
+                .size(maxWidth)
                 .clip(shape = RoundedCornerShape(10.dp))
                 .background(color = Color(0xFFe63946))
         )
