@@ -1,7 +1,4 @@
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -18,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +25,11 @@ import com.heb.soli.MediaRepository
 import com.heb.soli.api.PodcastFeed
 import com.heb.soli.api.RadioStream
 import com.heb.soli.api.buildNetworkClient
+import java.io.ByteArrayOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import javax.imageio.ImageIO
+import org.jetbrains.skija.Image
 
 @Composable
 fun SplashUI() {
@@ -37,6 +41,26 @@ fun SplashUI() {
             fontWeight = FontWeight.Bold,
             fontSize = 100.sp
         )
+    }
+}
+
+fun loadNetworkImage(link: String): ImageBitmap? {
+    println("loading image $link")
+    val url = URL(link)
+    val connection = url.openConnection() as HttpURLConnection
+    connection.connect()
+
+    val inputStream = connection.inputStream
+    val bufferedImage = ImageIO.read(inputStream)
+
+    return if (bufferedImage != null) {
+        val stream = ByteArrayOutputStream()
+        ImageIO.write(bufferedImage, "png", stream)
+        val byteArray = stream.toByteArray()
+
+        Image.makeFromEncoded(byteArray).asImageBitmap()
+    } else {
+        null
     }
 }
 
@@ -106,6 +130,26 @@ fun main() = singleWindowApplication(title = "Soli") {
 
                             PodcastRow(appState.value.podcastList)
                         }
+
+                        // Podcast episodes
+                        Column(
+                            modifier = Modifier.padding(12.dp)
+                                .fillMaxSize()
+                                .border(
+                                    border = BorderStroke(2.dp, Color.LightGray),
+                                    shape = RoundedCornerShape(5.dp)
+                                )
+                        ) {
+
+                            Text(
+                                text = "Podcast Episode",
+                                modifier = Modifier.padding(16.dp),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp
+                            )
+
+                            PodcastEpisodeList()
+                        }
                     }
 
                     Divider(
@@ -124,6 +168,11 @@ fun main() = singleWindowApplication(title = "Soli") {
             }
         }
     }
+}
+
+@Composable
+fun PodcastEpisodeList() {
+
 }
 
 @Composable
@@ -150,20 +199,36 @@ fun PodcastRow(podcastFeeds: List<PodcastFeed>) {
 
 @Composable
 fun PodcastItem(feed: PodcastFeed) {
+    val image = loadNetworkImage(feed.imageUrl)
     Column(
         modifier = Modifier.padding(8.dp)
             .border(width = 2.dp, color = Color.LightGray, shape = RoundedCornerShape(5.dp))
     ) {
-        Box(
-            modifier = Modifier
-                .size(140.dp)
-                .padding(12.dp)
-                .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color(0xFFe63946))
-                .clickable {
-                    //onClick(radio)
-                },
-        )
+        if (image != null) {
+            Image(
+                bitmap = image,
+                modifier = Modifier
+                    .size(140.dp)
+                    .padding(12.dp)
+                    .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
+                    .background(Color(0xFFe63946))
+                    .clickable {
+                        //onClick(radio)
+                    },
+                contentDescription = ""
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .size(140.dp)
+                    .padding(12.dp)
+                    .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
+                    .background(Color(0xFFe63946))
+                    .clickable {
+                        //onClick(radio)
+                    }
+            )
+        }
         Text(
             feed.name,
             Modifier
