@@ -192,45 +192,25 @@ fun RadioRow(radios: List<RadioStream>, playRadioAction: (RadioStream) -> Unit) 
 fun PodcastRow(podcastFeeds: List<PodcastFeed>) {
     LazyRow(modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 16.dp).fillMaxWidth()) {
         itemsIndexed(items = podcastFeeds) { _, podcast ->
-            val imageLoader = remember { RemoteImageLoader(podcast.imageUrl) }
-            PodcastItem(podcast, imageLoader)
+            PodcastItem(podcast)
         }
     }
 }
 
 @Composable
-fun PodcastItem(feed: PodcastFeed, imageLoader: RemoteImageLoader) {
-    val imageState = imageLoader.state.collectAsState()
-
+fun PodcastItem(feed: PodcastFeed) {
     Column(
         modifier = Modifier.padding(8.dp)
             .border(width = 2.dp, color = Color.LightGray, shape = RoundedCornerShape(5.dp))
     ) {
-        if (imageState.value.loading || imageState.value.imageBitmap == null) {
-            Box(
-                modifier = Modifier
-                    .size(140.dp)
-                    .padding(12.dp)
-                    .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
-                    .background(Color(0xFFe63946))
-                    .clickable {
-                        //onClick(radio)
-                    }
-            )
-        } else {
-            Image(
-                bitmap = imageState.value.imageBitmap!!,
-                modifier = Modifier
-                    .size(140.dp)
-                    .padding(12.dp)
-                    .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
-                    .background(Color(0xFFe63946))
-                    .clickable {
-                        //onClick(radio)
-                    },
-                contentDescription = ""
-            )
-        }
+        NetworkImage(feed.imageUrl, modifier = Modifier
+            .size(140.dp)
+            .padding(12.dp)
+            .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
+            .background(Color(0xFFe63946))
+            .clickable {
+                //onClick(radio)
+            })
         Text(
             feed.name,
             Modifier

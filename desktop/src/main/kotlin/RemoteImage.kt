@@ -1,11 +1,13 @@
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.skija.Image
 import java.io.ByteArrayOutputStream
@@ -13,25 +15,14 @@ import java.net.HttpURLConnection
 import java.net.URL
 import javax.imageio.ImageIO
 
-data class RemoteImageState(val loading: Boolean = true, val imageBitmap: ImageBitmap? = null)
+@Composable
+fun NetworkImage(imageUri: String, modifier: Modifier) {
+    var imageBitmap = remember { mutableStateOf<ImageBitmap?>(null) }
 
-class RemoteImageLoader(private val imageUri: String) {
-    private var _state = MutableStateFlow(RemoteImageState())
-    val state get() = _state.asStateFlow()
-
-    init {
-        GlobalScope.launch {
-            val imageBitmap = loadNetworkImage(imageUri)
-            _state.emit(RemoteImageState(loading = false, imageBitmap))
-        }
-    }
-
-    private suspend fun loadNetworkImage(link: String): ImageBitmap? {
-        println("loading image $link")
-        var imageBitmap: ImageBitmap? = null
-
+    LaunchedEffect(imageUri) {
+        println("launched for $imageUri")
         withContext(Dispatchers.IO) {
-            val url = URL(link)
+            val url = URL(imageUri)
             val connection = url.openConnection() as HttpURLConnection
             connection.connect()
 
@@ -43,10 +34,20 @@ class RemoteImageLoader(private val imageUri: String) {
                 ImageIO.write(bufferedImage, "png", stream)
                 val byteArray = stream.toByteArray()
 
-                imageBitmap = Image.makeFromEncoded(byteArray).asImageBitmap()
+                imageBitmap.value = Image.makeFromEncoded(byteArray).asImageBitmap()
             }
         }
+    }
 
-        return imageBitmap
+    if (imageBitmap.value != null) {
+        Image(
+            bitmap = imageBitmap.value!!,
+            modifier = modifier,
+            contentDescription = ""
+        )
+    } else {
+        Box(
+            modifier = modifier
+        )
     }
 }
