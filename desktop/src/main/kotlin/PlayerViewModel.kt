@@ -40,7 +40,19 @@ class PlayerViewModel(private val player: Player, private val mediaRepository: M
                             ))
                         }
                     }
-                    MediaType.PODCAST_EPISODE -> TODO()
+                    MediaType.PODCAST_EPISODE -> {
+                        val podcastEpisode = mediaRepository.getPodcastEpisode(it.media.id)
+                        podcastEpisode?.let { episode ->
+                            _state.value = PlayerViewState(
+                                mediaHeaderName = "Podcast",
+                                mediaName = episode.title,
+                                mediaDuration = "",
+                                positionInMedia = "",
+                                imageUri = episode.imageUrl,
+                                isPlaying = it.isPlaying
+                            )
+                        }
+                    }
                     MediaType.TRACK -> TODO()
                     MediaType.NO_MEDIA -> {
                         _state.emit(PlayerViewState(

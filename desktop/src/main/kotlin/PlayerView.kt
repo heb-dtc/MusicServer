@@ -39,7 +39,12 @@ fun PlayerView(playerViewModel: PlayerViewModel) {
 }
 
 @Composable
-fun PlayerControlView(playerState: PlayerViewState, onPause: () -> Unit, onResume: () -> Unit, maxWidth: Dp) {
+fun PlayerControlView(
+    playerState: PlayerViewState,
+    onPause: () -> Unit,
+    onResume: () -> Unit,
+    maxWidth: Dp
+) {
     PlayerControlView(
         playerState.mediaHeaderName,
         playerState.mediaName,
@@ -72,12 +77,21 @@ fun PlayerControlView(
             .padding(20.dp)
     ) {
 
-        Box(
-            modifier = Modifier
-                .size(maxWidth)
-                .clip(shape = RoundedCornerShape(10.dp))
-                .background(color = Color(0xFFe63946))
-        )
+        if (imageUri != null) {
+            NetworkImage(
+                imageUri, modifier = Modifier
+                    .size(maxWidth)
+                    .clip(shape = RoundedCornerShape(corner = CornerSize(10.dp)))
+                    .background(Color(0xFFe63946))
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .size(maxWidth)
+                    .clip(shape = RoundedCornerShape(10.dp))
+                    .background(color = Color(0xFFe63946))
+            )
+        }
 
         Text(text = mediaHeaderName, modifier = Modifier.padding(top = 20.dp))
 

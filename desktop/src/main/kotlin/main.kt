@@ -1,13 +1,11 @@
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
@@ -15,14 +13,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.singleWindowApplication
 import com.heb.soli.MediaRepository
 import com.heb.soli.api.PodcastFeed
+import com.heb.soli.api.PodcastEpisode
 import com.heb.soli.api.RadioStream
 import com.heb.soli.api.buildNetworkClient
 import java.io.ByteArrayOutputStream
@@ -128,7 +131,7 @@ fun main() = singleWindowApplication(title = "Soli") {
                                 fontSize = 24.sp
                             )
 
-                            PodcastRow(appState.value.podcastList)
+                            PodcastRow(appState.value.podcastList, viewModel::loadPodcastFeed)
                         }
 
                         // Podcast episodes
@@ -148,7 +151,12 @@ fun main() = singleWindowApplication(title = "Soli") {
                                 fontSize = 24.sp
                             )
 
-                            PodcastEpisodeList()
+                            if (appState.value.episodes.isNotEmpty()) {
+                                PodcastEpisodeList(
+                                    appState.value.episodes,
+                                    viewModel::playPodcastEpisode
+                                )
+                            }
                         }
                     }
 
@@ -171,8 +179,53 @@ fun main() = singleWindowApplication(title = "Soli") {
 }
 
 @Composable
-fun PodcastEpisodeList() {
+fun PodcastEpisodeList(
+    episodes: List<PodcastEpisode>,
+    playEpisodeAction: (PodcastEpisode) -> Unit
+) {
+    LazyColumn(modifier = Modifier.padding(8.dp)) {
+        itemsIndexed(episodes.subList(0, 5)) { _, episode ->
+            PodcastEpisodeRow(episode, playEpisodeAction)
+        }
+    }
+}
 
+@Composable
+fun PodcastEpisodeRow(episode: PodcastEpisode, playEpisodeAction: (PodcastEpisode) -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
+    ) {
+        NetworkImage(
+            episode.imageUrl, modifier = Modifier
+                .size(80.dp)
+                .padding(12.dp)
+                .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
+                .background(Color(0xFFe63946))
+        )
+        Text(
+            text = episode.title,
+            maxLines = 2,
+            modifier = Modifier.weight(3f),
+            style = MaterialTheme.typography.body2,
+        )
+        OutlinedButton(
+            onClick = { },
+            border = BorderStroke(1.dp, MaterialTheme.colors.primary),
+            modifier = Modifier
+                .padding(8.dp)
+                .size(40.dp)
+        ) {
+            Image(
+                painterResource("play.png"),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(60.dp)
+                    .clickable {
+                        playEpisodeAction.invoke(episode)
+                    },
+            )
+        }
+    }
 }
 
 @Composable
@@ -189,16 +242,16 @@ fun RadioRow(radios: List<RadioStream>, playRadioAction: (RadioStream) -> Unit) 
 }
 
 @Composable
-fun PodcastRow(podcastFeeds: List<PodcastFeed>) {
+fun PodcastRow(podcastFeeds: List<PodcastFeed>, loadPodcastFeed: (List<PodcastEpisode>) -> Unit) {
     LazyRow(modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 16.dp).fillMaxWidth()) {
         itemsIndexed(items = podcastFeeds) { _, podcast ->
-            PodcastItem(podcast)
+            PodcastItem(podcast, loadPodcastFeed)
         }
     }
 }
 
 @Composable
-fun PodcastItem(feed: PodcastFeed) {
+fun PodcastItem(feed: PodcastFeed, loadPodcastFeed: (List<PodcastEpisode>) -> Unit) {
     Column(
         modifier = Modifier.padding(8.dp)
             .border(width = 2.dp, color = Color.LightGray, shape = RoundedCornerShape(5.dp))
@@ -209,7 +262,7 @@ fun PodcastItem(feed: PodcastFeed) {
             .clip(shape = RoundedCornerShape(corner = CornerSize(15.dp)))
             .background(Color(0xFFe63946))
             .clickable {
-                //onClick(radio)
+                loadPodcastFeed.invoke(feed.episodes)
             })
         Text(
             feed.name,
