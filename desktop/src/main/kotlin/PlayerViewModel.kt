@@ -5,6 +5,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 data class PlayerViewState(
     val mediaHeaderName: String = "",
@@ -33,8 +36,6 @@ class PlayerViewModel(private val player: Player, private val mediaRepository: M
                             _state.emit(PlayerViewState(
                                 mediaHeaderName = "Radio",
                                 mediaName = radioStream.name,
-                                mediaDuration = "",
-                                positionInMedia = "",
                                 imageUri = null,
                                 isPlaying = it.isPlaying
                             ))
@@ -46,8 +47,7 @@ class PlayerViewModel(private val player: Player, private val mediaRepository: M
                             _state.value = PlayerViewState(
                                 mediaHeaderName = "Podcast",
                                 mediaName = episode.title,
-                                mediaDuration = "",
-                                positionInMedia = "",
+                                mediaDuration = formatDuration(episode.duration),
                                 imageUri = episode.imageUrl,
                                 isPlaying = it.isPlaying
                             )
@@ -67,6 +67,13 @@ class PlayerViewModel(private val player: Player, private val mediaRepository: M
                 }
             }
         }
+    }
+
+    private fun formatDuration(duration: Duration?): String {
+        duration?.let {
+            val time = LocalTime.of(duration.toHours().toInt(), duration.toMinutes().toInt() % 60, duration.seconds.toInt() % 60)
+            return time.format(DateTimeFormatter.ofPattern("hh:mm:ss"))
+        } ?: return ""
     }
 
     fun pausePlayback() {

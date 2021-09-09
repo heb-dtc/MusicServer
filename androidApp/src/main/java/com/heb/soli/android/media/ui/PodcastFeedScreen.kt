@@ -209,7 +209,7 @@ fun EpisodeRowAlt(index: Int, feedTitle: String, episode: PodcastEpisode, onClic
                 .padding(bottom = 8.dp)
         ) {
             Text(
-                text = "39:34:01mn",
+                text = "1:34:01mn",
                 maxLines = 2,
                 style = MaterialTheme.typography.body1,
                 color = Color.White

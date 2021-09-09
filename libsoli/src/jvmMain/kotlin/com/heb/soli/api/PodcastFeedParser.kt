@@ -5,6 +5,7 @@ import com.rometools.modules.itunes.ITunes
 import com.rometools.rome.io.SyndFeedInput
 import org.xml.sax.InputSource
 import java.io.StringReader
+import java.time.Duration
 
 actual class PodcastFeedParser actual constructor() {
     actual fun parse(podcastXmlFeed: String): PodcastFeed {
@@ -21,7 +22,7 @@ actual class PodcastFeedParser actual constructor() {
                 summary = entryInformation?.summary,
                 entry.uri,
                 imageUrl = entryInformation?.imageUri?.toString() ?: feed.image.url,
-                duration = null
+                duration = entryInformation?.duration?.milliseconds?.let { Duration.ofMillis(it) }
             )
         }.toList()
 

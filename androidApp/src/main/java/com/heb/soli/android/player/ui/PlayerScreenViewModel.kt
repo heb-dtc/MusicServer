@@ -2,12 +2,15 @@ package com.heb.soli.android.player.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.heb.soli.api.MediaType
 import com.heb.soli.MediaRepository
 import com.heb.soli.android.player.PlayerService
+import com.heb.soli.api.MediaType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 data class PlayerScreenState(
     val mediaHeaderName: String = "",
@@ -51,7 +54,7 @@ class PlayerScreenViewModel(
                             _state.value = PlayerScreenState(
                                 mediaHeaderName = "Podcast",
                                 mediaName = episode.title,
-                                mediaDuration = "",
+                                mediaDuration = formatDuration(episode.duration),
                                 positionInMedia = "",
                                 imageUri = episode.imageUrl,
                                 isPlaying = it.isPlaying
@@ -77,6 +80,17 @@ class PlayerScreenViewModel(
                 }
             }
         }
+    }
+
+    private fun formatDuration(duration: Duration?): String {
+        duration?.let {
+            val time = LocalTime.of(
+                duration.toHours().toInt(),
+                duration.toMinutes().toInt() % 60,
+                duration.seconds.toInt() % 60
+            )
+            return time.format(DateTimeFormatter.ofPattern("hh:mm:ss"))
+        } ?: return ""
     }
 
     fun play() {
