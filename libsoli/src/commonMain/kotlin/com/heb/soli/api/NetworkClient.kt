@@ -9,6 +9,8 @@ import io.ktor.client.features.observer.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.lang.Exception
@@ -70,6 +72,8 @@ class NetworkClient(private val httpClient: HttpClient) {
 
         val responseBody: String = response.readText()
 
-        return podcastFeedParser.parse(responseBody)
+        return withContext(Dispatchers.Main) {
+            podcastFeedParser.parse(responseBody)
+        }
     }
 }
