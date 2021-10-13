@@ -4,13 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -152,85 +151,83 @@ fun EpisodeRowAltPreview() {
 
 @Composable
 fun EpisodeRowAlt(index: Int, feedTitle: String, episode: PodcastEpisode, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .padding(vertical = 4.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .background(MaterialTheme.colors.primary)
+    Card(modifier = Modifier
+        .padding(12.dp),
+        elevation = 2.dp,
+        shape = RoundedCornerShape(corner = CornerSize(12.dp))
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .padding(top = 8.dp)
-        ) {
-            Image(
-                painter = rememberImagePainter(data = episode.imageUrl, builder = {
-                    placeholder(R.drawable.img_placeholder)
-                }),
-                contentDescription = "",
-                contentScale = ContentScale.Crop,
+        Column() {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .size(64.dp)
-            )
-
-            Column {
-                Text(
-                    text = episode.title,
-                    maxLines = 2,
-                    modifier = Modifier.padding(start = 8.dp),
-                    style = MaterialTheme.typography.body1,
-                    color = Color.White
-                )
-
-                Text(
-                    text = feedTitle,
-                    maxLines = 2,
-                    modifier = Modifier.padding(start = 8.dp),
-                    style = MaterialTheme.typography.body2,
-                    color = Color.White
-                )
-            }
-        }
-
-        Divider(
-            modifier = Modifier.padding(vertical = 12.dp, horizontal = 24.dp),
-            color = MaterialTheme.colors.onBackground,
-            thickness = 0.5.dp
-        )
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp)
-                .padding(bottom = 8.dp)
-        ) {
-            Text(
-                text = "1:34:01mn",
-                maxLines = 2,
-                style = MaterialTheme.typography.body1,
-                color = Color.White
-            )
-
-            OutlinedButton(
-                onClick = { onClick() },
-                border = BorderStroke(0.5.dp, MaterialTheme.colors.primary),
-                modifier = Modifier
-                    .size(40.dp)
+                    .padding(horizontal = 8.dp)
+                    .padding(top = 8.dp)
             ) {
                 Image(
-                    bitmap = ImageBitmap.imageResource(
-                        LocalContext.current.resources,
-                        R.drawable.play
-                    ),
+                    painter = rememberImagePainter(data = episode.imageUrl, builder = {
+                        placeholder(R.drawable.img_placeholder)
+                    }),
                     contentDescription = "",
-                    colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .size(64.dp)
                 )
+
+                Column {
+                    Text(
+                        text = episode.title,
+                        maxLines = 2,
+                        modifier = Modifier.padding(start = 8.dp),
+                        style = MaterialTheme.typography.body1,
+                    )
+
+                    Text(
+                        text = feedTitle,
+                        maxLines = 2,
+                        modifier = Modifier.padding(start = 8.dp),
+                        style = MaterialTheme.typography.body2,
+                    )
+                }
             }
 
+            Divider(
+                modifier = Modifier.padding(vertical = 12.dp, horizontal = 24.dp),
+                color = MaterialTheme.colors.onBackground,
+                thickness = 0.5.dp
+            )
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp)
+                    .padding(bottom = 8.dp)
+            ) {
+                Text(
+                    text = "1:34:01mn",
+                    maxLines = 2,
+                    style = MaterialTheme.typography.body1,
+                )
+
+                OutlinedButton(
+                    onClick = { onClick() },
+                    border = BorderStroke(0.5.dp, MaterialTheme.colors.primary),
+                    modifier = Modifier
+                        .size(40.dp)
+                ) {
+                    Image(
+                        bitmap = ImageBitmap.imageResource(
+                            LocalContext.current.resources,
+                            R.drawable.play
+                        ),
+                        contentDescription = "",
+                        colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
+                    )
+                }
+
+            }
         }
     }
 }

@@ -48,6 +48,7 @@ class PlayerViewModel(private val player: Player, private val mediaRepository: M
                                 mediaHeaderName = "Podcast",
                                 mediaName = episode.title,
                                 mediaDuration = formatDuration(episode.duration),
+                                positionInMedia = formatDuration(it.currentPosition),
                                 imageUri = episode.imageUrl,
                                 isPlaying = it.isPlaying
                             )

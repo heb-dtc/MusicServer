@@ -8,18 +8,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = PurplePrimary,
+    primaryVariant = PurplePrimaryVariant,
+    secondary = TealSecondary,
+    onPrimary = Color.White,
+    surface = graySurface,
 )
 
 private val LightColorPalette = lightColors(
-    primary = Color(0xFF8367C7),
-    primaryVariant = Color(0xFF5603AD),
-    secondary = Color(0xFF299288),
-    background =  Color(0xFFF0FFF1)
-
-    // light green 0xFFC2F8CB
+    primary = PurplePrimary,
+    primaryVariant = PurplePrimaryVariant,
+    secondary = TealSecondary,
+    onPrimary = Color.White,
 
     /* Other default colors to override
     background = Color.White,
@@ -33,10 +33,8 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun SoliTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        //TODO fix the dark color palette
-        //DarkColorPalette
-        LightColorPalette
+    val colors = if (false) {
+        DarkColorPalette
     } else {
         LightColorPalette
     }

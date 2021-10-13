@@ -40,29 +40,32 @@ fun Soli(
                 composable("home") {
                     // A surface container using the 'background' color from the theme
                     Column {
-                        TopAppBar(title = { Text(text = "SOLI") }, actions = {
-                            IconButton(onClick = { navController.navigate("history") }) {
-                                Icon(
-                                    bitmap = ImageBitmap.imageResource(
-                                        LocalContext.current.resources,
-                                        R.drawable.history
-                                    ),
-                                    contentDescription = "go to history",
-                                    modifier = Modifier.size(22.dp)
-                                )
-                            }
+                        TopAppBar(
+                            title = { Text(text = "SOLI") },
+                            backgroundColor = MaterialTheme.colors.primary,
+                            actions = {
+                                IconButton(onClick = { navController.navigate("history") }) {
+                                    Icon(
+                                        bitmap = ImageBitmap.imageResource(
+                                            LocalContext.current.resources,
+                                            R.drawable.history
+                                        ),
+                                        contentDescription = "go to history",
+                                        modifier = Modifier.size(22.dp)
+                                    )
+                                }
 
-                            IconButton(onClick = { navController.navigate("player") }) {
-                                Icon(
-                                    bitmap = ImageBitmap.imageResource(
-                                        LocalContext.current.resources,
-                                        R.drawable.play
-                                    ),
-                                    contentDescription = "go to player",
-                                    modifier = Modifier.size(22.dp)
-                                )
-                            }
-                        })
+                                IconButton(onClick = { navController.navigate("player") }) {
+                                    Icon(
+                                        bitmap = ImageBitmap.imageResource(
+                                            LocalContext.current.resources,
+                                            R.drawable.play
+                                        ),
+                                        contentDescription = "go to player",
+                                        modifier = Modifier.size(22.dp)
+                                    )
+                                }
+                            })
                         HomeScreen(homeViewModel = homeViewModel)
                     }
                 }
@@ -72,14 +75,17 @@ fun Soli(
                     val feedTitle = backStackEntry.arguments?.getString("feed_title") ?: ""
 
                     Column {
-                        TopAppBar(title = { Text(text = feedTitle) }, navigationIcon = {
-                            IconButton(onClick = navController::popBackStack) {
-                                Icon(
-                                    imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = "back"
-                                )
-                            }
-                        })
+                        TopAppBar(
+                            title = { Text(text = feedTitle) },
+                            backgroundColor = MaterialTheme.colors.primary,
+                            navigationIcon = {
+                                IconButton(onClick = navController::popBackStack) {
+                                    Icon(
+                                        imageVector = Icons.Filled.ArrowBack,
+                                        contentDescription = "back"
+                                    )
+                                }
+                            })
                         PodcastFeedScreen(
                             feedTitle = feedTitle,
                             podcastFeedViewModel = podcastFeedViewModel,
@@ -89,28 +95,34 @@ fun Soli(
 
                 composable("player") {
                     Column {
-                        TopAppBar(title = { Text(text = "Now Playing") }, navigationIcon = {
-                            IconButton(onClick = navController::popBackStack) {
-                                Icon(
-                                    imageVector = Icons.Filled.Close,
-                                    contentDescription = "close"
-                                )
-                            }
-                        })
+                        TopAppBar(
+                            title = { Text(text = "Now Playing") },
+                            backgroundColor = MaterialTheme.colors.primary,
+                            navigationIcon = {
+                                IconButton(onClick = navController::popBackStack) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Close,
+                                        contentDescription = "close"
+                                    )
+                                }
+                            })
                         PlayerScreen(playerScreenViewModel = playerScreenViewModel)
                     }
                 }
 
                 composable("history") {
                     Column {
-                        TopAppBar(title = { Text(text = "History") }, navigationIcon = {
-                            IconButton(onClick = navController::popBackStack) {
-                                Icon(
-                                    imageVector = Icons.Filled.Close,
-                                    contentDescription = "close"
-                                )
-                            }
-                        })
+                        TopAppBar(
+                            title = { Text(text = "History") },
+                            backgroundColor = MaterialTheme.colors.primary,
+                            navigationIcon = {
+                                IconButton(onClick = navController::popBackStack) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Close,
+                                        contentDescription = "close"
+                                    )
+                                }
+                            })
                         HistoryScreen()
                     }
                 }

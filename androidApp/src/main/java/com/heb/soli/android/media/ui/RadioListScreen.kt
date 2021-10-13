@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -62,10 +64,7 @@ internal fun RadioList(medias: List<RadioStream>, onClick: (RadioStream) -> Unit
 
             RadioItem(
                 media, Color(colors[colorIndex]),
-                modifier
-                    .clip(
-                        RoundedCornerShape(16.dp)
-                    ), onClick
+                modifier, onClick
             )
         }
     }
@@ -89,22 +88,23 @@ fun RadioItem(
     modifier: Modifier,
     onClick: (RadioStream) -> Unit
 ) {
-    Box(
+    Card(elevation = 2.dp,
+        shape = RoundedCornerShape(corner = CornerSize(12.dp)),
+        backgroundColor = color,
         modifier = modifier
             .height(140.dp)
             .width(140.dp)
             .clickable {
                 onClick(radio)
             }
-            .background(color),
     ) {
         Text(
             radio.name.uppercase(),
             Modifier
-                .padding(8.dp)
-                .align(Alignment.BottomStart),
+                .padding(8.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 34.sp,
+            color = Color.Black
         )
     }
 }

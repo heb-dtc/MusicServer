@@ -14,6 +14,7 @@ import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,54 +25,57 @@ import com.heb.soli.api.MediaId
 import com.heb.soli.api.PodcastFeed
 import com.heb.soli.api.RadioStream
 import com.heb.soli.android.media.ui.RadioList
+import com.heb.soli.android.ui.theme.SoliTheme
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomePreview() {
-    HomeScreen(
-        radios = listOf(
-            RadioStream(MediaId("1"), "SOMA", ""),
-            RadioStream(MediaId("2"), "FRANCE INFO", ""),
-            RadioStream(MediaId("3"), "FRANCE INTER", ""),
-            RadioStream(MediaId("4"), "FIP", ""),
-        ),
-        podcasts = listOf(
-            PodcastFeed(
-                id = "",
-                name = "afterhate",
-                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
-                emptyList()
+    SoliTheme(darkTheme = true) {
+        HomeScreen(
+            radios = listOf(
+                RadioStream(MediaId("1"), "SOMA", ""),
+                RadioStream(MediaId("2"), "FRANCE INFO", ""),
+                RadioStream(MediaId("3"), "FRANCE INTER", ""),
+                RadioStream(MediaId("4"), "FIP", ""),
             ),
-            PodcastFeed(
-                id = "",
-                name = "afterhate",
-                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
-                emptyList()
+            podcasts = listOf(
+                PodcastFeed(
+                    id = "",
+                    name = "afterhate",
+                    imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                    emptyList()
+                ),
+                PodcastFeed(
+                    id = "",
+                    name = "afterhate",
+                    imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                    emptyList()
+                ),
+                PodcastFeed(
+                    id = "",
+                    name = "afterhate",
+                    imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                    emptyList()
+                ),
+                PodcastFeed(
+                    id = "",
+                    name = "afterhate",
+                    imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                    emptyList()
+                ),
+                PodcastFeed(
+                    id = "",
+                    name = "afterhate",
+                    imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
+                    emptyList()
+                )
             ),
-            PodcastFeed(
-                id = "",
-                name = "afterhate",
-                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
-                emptyList()
-            ),
-            PodcastFeed(
-                id = "",
-                name = "afterhate",
-                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
-                emptyList()
-            ),
-            PodcastFeed(
-                id = "",
-                name = "afterhate",
-                imageUrl = "https://www.afterhate.fr/wp-content/uploads/2018/03/Episode57-vignette.jpg",
-                emptyList()
-            )
-        ),
-        selectedSection = HomeSection.Podcast,
-        {},
-        {},
-        {}
-    )
+            selectedSection = HomeSection.Podcast,
+            {},
+            {},
+            {}
+        )
+    }
 }
 
 @Composable
@@ -112,7 +116,11 @@ fun HomeScreen(
     }
 
     Column {
-        TabRow(selectedTabIndex = selectedIndex, indicator = indicator) {
+        TabRow(
+            selectedTabIndex = selectedIndex,
+            indicator = indicator,
+            backgroundColor = MaterialTheme.colors.primary
+        ) {
             Tab(selected = selectedIndex == 0, onClick = { onSectionSelected(HomeSection.Radio) },
                 text = {
                     Text(text = "Radios")
@@ -146,7 +154,7 @@ fun HomeTabIndicator(modifier: Modifier) {
             .padding(horizontal = 24.dp)
             .height(4.dp)
             .background(
-                MaterialTheme.colors.background,
+                Color.White,
                 RoundedCornerShape(topStartPercent = 100, topEndPercent = 100)
             )
     )

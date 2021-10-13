@@ -3,7 +3,6 @@
     <color name="PurplePrimary">#FF8367C7</color>
     <color name="PurplePrimaryVariant">#FF5603AD</color>
     <color name="TealSecondary">#FF299288</color>
-    <color name="TealSecondaryVariant">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

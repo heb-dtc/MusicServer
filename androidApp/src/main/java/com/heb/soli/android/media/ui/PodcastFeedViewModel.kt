@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import com.heb.soli.api.PodcastEpisode
 import com.heb.soli.MediaRepository
 
-class PodcastFeedViewModel(
+class  PodcastFeedViewModel(
     private val mediaRepository: MediaRepository,
     private val navController: NavHostController,
     private val playAction: (PodcastEpisode) -> Unit
