@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.heb.soli.android.media.ui.HistoryScreen
+import com.heb.soli.android.media.ui.HistoryScreenViewModel
 import com.heb.soli.android.media.ui.PodcastFeedScreen
 import com.heb.soli.android.media.ui.PodcastFeedViewModel
 import com.heb.soli.android.player.ui.PlayerScreen
@@ -28,6 +29,7 @@ fun Soli(
     homeViewModel: HomeViewModel,
     podcastFeedViewModel: PodcastFeedViewModel,
     playerScreenViewModel: PlayerScreenViewModel,
+    historyScreenViewModel: HistoryScreenViewModel,
     navController: NavHostController
 ) {
     SoliTheme {
@@ -123,7 +125,7 @@ fun Soli(
                                     )
                                 }
                             })
-                        HistoryScreen()
+                        HistoryScreen(historyScreenViewModel = historyScreenViewModel)
                     }
                 }
             }

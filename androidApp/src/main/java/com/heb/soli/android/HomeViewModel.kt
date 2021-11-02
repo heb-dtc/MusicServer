@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import com.heb.soli.api.PodcastFeed
 import com.heb.soli.api.RadioStream
 import com.heb.soli.MediaRepository
+import com.heb.soli.api.toMedia
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -56,6 +57,11 @@ class HomeViewModel(
 
     fun onStartRadio(radio: RadioStream) {
         startRadioAction.invoke(radio)
+
+        viewModelScope.launch {
+            mediaRepository.addMediaToHistoryList(radio.toMedia())
+        }
+
         navController.navigate("player")
     }
 }

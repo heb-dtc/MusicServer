@@ -3,6 +3,7 @@ package com.heb.soli
 import com.heb.soli.api.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
 class MediaRepository(private val networkClient: NetworkClient) {
 
@@ -16,12 +17,13 @@ class MediaRepository(private val networkClient: NetworkClient) {
     // poor's man local cache
     private val radioList: MutableList<RadioStream> = mutableListOf()
     private val podcastFeedList: MutableList<PodcastFeed> = mutableListOf()
+    private val historyList: MutableList<Media> = mutableListOf()
 
     fun getRadio(id: MediaId) =
         radioList.firstOrNull { it.id == id }
 
     fun getPodcastFeed(title: String) =
-        podcastFeedList.firstOrNull { it.name == title}
+        podcastFeedList.firstOrNull { it.name == title }
 
     fun getRadioList(): Flow<List<RadioStream>> = flow {
         val medias = networkClient.fetchAllRadios().map {
@@ -48,5 +50,18 @@ class MediaRepository(private val networkClient: NetworkClient) {
         }?.episodes?.firstOrNull {
             it.id == mediaId
         }
+    }
+
+    fun getMediaHistoryList(): Flow<List<Media>> = flow {
+        networkClient.fetchMediaHistory().map {
+            historyList.add(it)
+        }
+        emit(historyList)
+    }
+
+
+
+    suspend fun addMediaToHistoryList(media: Media) {
+        networkClient.postMediaToHistory(media)
     }
 }

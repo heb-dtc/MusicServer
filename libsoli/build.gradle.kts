@@ -34,9 +34,9 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
 
-                implementation("io.ktor:ktor-client-core:1.6.2")
-                implementation("io.ktor:ktor-client-serialization:1.6.2")
-                implementation("io.ktor:ktor-client-logging:1.6.2")
+                implementation("io.ktor:ktor-client-core:1.6.3")
+                implementation("io.ktor:ktor-client-serialization:1.6.3")
+                implementation("io.ktor:ktor-client-logging:1.6.3")
             }
         }
         val commonTest by getting {
@@ -48,7 +48,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:1.6.2")
+                implementation("io.ktor:ktor-client-okhttp:1.6.3")
                 implementation("com.rometools:rome:1.14.1")
                 implementation("com.rometools:rome-modules:1.14.1")
             }
@@ -62,14 +62,14 @@ kotlin {
 
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:1.6.2")
+                implementation("io.ktor:ktor-client-ios:1.6.3")
             }
         }
         val iosTest by getting
 
         val jvmMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-apache:1.6.2")
+                implementation("io.ktor:ktor-client-apache:1.6.3")
                 implementation("com.rometools:rome:1.14.1")
                 implementation("com.rometools:rome-modules:1.14.1")
             }

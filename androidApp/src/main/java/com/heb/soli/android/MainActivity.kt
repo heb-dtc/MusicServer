@@ -8,6 +8,7 @@ import com.heb.soli.api.PodcastEpisode
 import com.heb.soli.api.RadioStream
 import com.heb.soli.api.toMedia
 import com.heb.soli.MediaRepository
+import com.heb.soli.android.media.ui.HistoryScreenViewModel
 import com.heb.soli.android.media.ui.PodcastFeedViewModel
 import com.heb.soli.android.player.ARG_ACTION_PLAY_PAUSE
 import com.heb.soli.android.player.PlayerService
@@ -32,11 +33,13 @@ class MainActivity : AppCompatActivity() {
                 PodcastFeedViewModel(mediaRepository, navController, this::playPodcast)
             val playerScreenViewModel =
                 PlayerScreenViewModel(mediaRepository, this::playerPlayPauseAction)
+            val historyScreenViewModel = HistoryScreenViewModel(mediaRepository = mediaRepository)
 
             Soli(
                 homeViewModel = homeViewModel,
                 podcastFeedViewModel = podcastFeedViewModel,
                 playerScreenViewModel = playerScreenViewModel,
+                historyScreenViewModel = historyScreenViewModel,
                 navController = navController
             )
         }
