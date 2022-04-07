@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    val composeVersion = "1.0.3"
+    val composeVersion = "1.1.0"
     implementation(project(":libsoli"))
 
     implementation("androidx.appcompat:appcompat:1.3.1")
@@ -19,8 +19,8 @@ dependencies {
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-core:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-alpha02")
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
@@ -43,12 +43,12 @@ dependencies {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "com.heb.soli.android"
         minSdk = 26
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
     }
@@ -72,6 +72,6 @@ android {
 
     composeOptions {
         //kotlinCompilerVersion "1.5.20"
-        kotlinCompilerExtensionVersion = "1.0.3"
+        kotlinCompilerExtensionVersion = "1.1.0"
     }
 }

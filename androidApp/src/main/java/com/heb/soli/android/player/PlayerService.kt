@@ -81,17 +81,21 @@ class PlayerService : LifecycleService() {
 
     private fun buildNotification(media: Media, isPlaying: Boolean): Notification {
         val intent = Intent(applicationContext, MainActivity::class.java)
-        val contentIntent = PendingIntent.getActivity(this, 0, intent, 0)
+        val contentIntent = PendingIntent.getActivity(
+            this, 0, intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
         val playPauseIntent = buildCommandIntent(baseContext, ARG_ACTION_PLAY_PAUSE)
-        val pendingPlayPauseIntent = PendingIntent.getService(this, 0, playPauseIntent, 0)
+        val pendingPlayPauseIntent = PendingIntent.getService(
+            this, 0, playPauseIntent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(
-                applicationContext,
-                PLAYER_SERVICE_CHANNEL_ID,
-                "SoLi music playback service"
-            )
-        }
+        createNotificationChannel(
+            applicationContext,
+            PLAYER_SERVICE_CHANNEL_ID,
+            "SoLi music playback service"
+        )
 
         mediaSession = MediaSessionCompat(this, "PlayerService")
         mediaSession.setMetadata(

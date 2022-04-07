@@ -13,26 +13,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.singleWindowApplication
 import com.heb.soli.MediaRepository
-import com.heb.soli.api.PodcastFeed
 import com.heb.soli.api.PodcastEpisode
+import com.heb.soli.api.PodcastFeed
 import com.heb.soli.api.RadioStream
 import com.heb.soli.api.buildNetworkClient
+import org.jetbrains.skia.Image
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.imageio.ImageIO
-import org.jetbrains.skija.Image
 
 @Composable
 fun SplashUI() {

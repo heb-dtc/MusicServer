@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jetbrains.skija.Image
+import org.jetbrains.skia.Image
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
